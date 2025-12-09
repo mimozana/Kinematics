@@ -1,9 +1,39 @@
-.hero-background-image {
-    width: 100%;
-    height: 100%;
-    /* 💡 REPLACED THE LOCAL PATH WITH A LIVE URL 💡 */
-    background-image: url('https://images.unsplash.com/photo-1622730303914-1e791b8f4118?fit=crop&w=1920&h=1080&q=80'); 
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.1s ease-out; 
+/* RESET */
+
+{ margin: 0; padding: 0; box-sizing: border-box; }
+
+body { background-color: #000; font-family: 'Anton', sans-serif; overflow-x: hidden; color: white; }
+
+/* HERO CONTAINER */ .hero-container { height: 100vh; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column; }
+
+.content-wrapper { text-align: center; line-height: 0.8; }
+
+/* TOP TEXT: WE CREATE */ .top-text { color: #EDEDED; font-size: 4rem; letter-spacing: 2px; text-transform: uppercase; font-family: 'Anton', sans-serif; margin-bottom: -10px; transform: scaleX(1.1); }
+
+/* MAIN TEXT: UNSKIPPABLE */ .main-text { color: #D12222; font-size: 12rem; text-transform: uppercase; font-family: 'Anton', sans-serif; margin: 0;
+
 }
+
+/* RESPONSIVE DESIGN */ @media (max-width: 768px) { .top-text { font-size: 2rem; } .main-text { font-size: 5rem; } }
+
+/* --- NEW HEADER STYLING --- / .main-header { position: fixed; / Keep header on top / top: 0; left: 0; width: 100%; padding: 20px 40px; display: flex; justify-content: space-between; / Logo on left, Menu on right / align-items: center; z-index: 1000; / Ensure it is above other content */ }
+
+.logo-container { display: flex; align-items: center; }
+
+.logo { width: 35px; /* Adjust size as needed for the bird icon / height: auto; background-color: #D12222; / Placeholder color for the image */ margin-right: 10px; }
+
+.agency-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 1px; color: #D12222; /* Red text for 'kinematics' */ text-transform: uppercase; line-height: 1; }
+
+.agency-text { font-size: 0.8rem; color: #EDEDED; /* White text for 'AGENCY' / display: block; / Force AGENCY to a new line visually if needed */ margin-top: -5px; }
+
+/* Menu Icon Styling (Hamburger) / .menu-icon { width: 30px; height: 20px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-around; align-items: flex-end; / Align lines to the right */ }
+
+.line { width: 100%; height: 3px; background-color: #D12222; /* Red color for the lines / transition: all 0.3s ease; } .line:nth-child(2) { width: 80%; / Shorter middle line */ }
+
+/* --- NEW FOOTER / CTA STYLING --- */
+
+.cta-footer { position: fixed; /* Keep footer at the bottom */ bottom: 0; left: 0; width: 100%; text-align: center; padding: 20px; z-index: 999; }
+
+.cta-text { font-family: 'Anton', sans-serif; font-size: 1.2rem; letter-spacing: 2px; color: #D12222; /* Red text for the CTA */ text-transform: uppercase; }
+
+/* Adjust HERO container for the fixed header/footer */ .hero-container { height: calc(100vh - 80px); margin-top: 80px; margin-bottom: 80px; }
