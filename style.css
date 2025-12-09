@@ -1,0 +1,9 @@
+.hero-background-image {
+    width: 100%;
+    height: 100%;
+    /* 💡 REPLACED THE LOCAL PATH WITH A LIVE URL 💡 */
+    background-image: url('https://images.unsplash.com/photo-1622730303914-1e791b8f4118?fit=crop&w=1920&h=1080&q=80'); 
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.1s ease-out; 
+}
