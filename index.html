@@ -3,48 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Coming Soon</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&display=swap" rel="stylesheet">
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS STYLES */
+        body {
+            /* Black Background */
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            overflow: hidden; /* Hide scrollbars */
+            font-family: 'Anton', sans-serif;
+        }
+
+        .soon-text {
+            /* Red Text Color (matching your previous schemes) */
+            color: #D12222;
+            
+            /* Font Size: Medium to Small Text */
+            font-size: 5vw; /* Use viewport units for relative sizing */
+            
+            /* Ensure text is all caps */
+            text-transform: uppercase;
+            
+            /* Optional: Add a subtle glow/shadow to match the image's effect */
+            text-shadow: 0 0 10px rgba(209, 34, 34, 0.5);
+            
+            /* Optional: Simple scaling for a medium-to-small aesthetic */
+            letter-spacing: 5px;
+        }
+
+        /* Responsive Adjustment for very small screens */
+        @media (max-width: 600px) {
+            .soon-text {
+                font-size: 10vw; /* Make text larger on small screens */
+            }
+        }
+    </style>
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="logo-placeholder.png" alt="Kinematics Agency Logo" class="logo">
-            <span class="agency-name">kinematics <span class="agency-text">AGENCY</span></span>
-        </div>
-        <div class="menu-icon">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
-    </header>
+    <h1 class="soon-text">SOON</h1>
 
-    <section class="hero-container">
-        <div class="content-wrapper">
-            <h2 class="top-text" data-aos="fade-down" data-aos-duration="1000">
-                WE CREATE
-            </h2>
-            <h1 class="main-text" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
-                UNSKIPPABLE
-            </h1>
-        </div>
-    </section>
-
-    <footer class="cta-footer">
-        <p class="cta-text" data-aos="fade-up" data-aos-delay="1400">
-            READY TO MOVE?
-        </p>
-    </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
