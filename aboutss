@@ -1,0 +1,209 @@
+/* --- Styles for Multi-Page Application Layouts (about.html, portfolio.html) --- */
+
+/* Pushes content down below the fixed header (Essential for secondary pages) */
+.about-page-hero,
+.portfolio-page-hero {
+    /* Use padding-top equal to the header height + some margin (approx 80px + 70px) */
+    padding-top: 150px !important; 
+    min-height: 50vh; 
+    background-color: #1a1a1a; /* Background slightly darker than pure black */
+    display: flex; 
+    align-items: center;
+}
+
+/* Ensure the main content sections below the hero also start lower */
+#about, 
+#portfolio {
+    padding-top: 50px; 
+}
+
+
+/* --- ABOUT US SECTION STYLING (For about.html) --- */
+
+.about-section {
+    min-height: 50vh;
+    padding-bottom: 150px;
+}
+
+.about-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.about-image-container {
+    max-width: 35%; 
+    position: relative;
+    margin-right: 5%;
+}
+
+.about-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: grayscale(100%); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-text {
+    max-width: 60%;
+}
+
+/* "Kinetic Shock..." */
+.about-body-main {
+    color: #EDEDED;
+    font-size: 2.25rem;
+    line-height: 1.4;
+    font-family: 'Anodina', sans-serif;
+    font-weight: 300; 
+    letter-spacing: 1px;
+    margin-bottom: 30px; 
+}
+
+.about-body-secondary {
+    color: #999;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    font-family: 'Anodina', sans-serif;
+    font-weight: 400; 
+}
+
+.read-more-link {
+    color: #D12222;
+    font-family: 'Anodina', sans-serif;
+    text-decoration: none;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    white-space: nowrap;
+    margin-top: 15px;
+    font-weight: 700;
+}
+
+
+/* --- PORTFOLIO SECTION STYLING (For portfolio.html) --- */
+
+.portfolio-section {
+    padding-bottom: 150px;
+    padding-top: 50px; 
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px; 
+    margin-bottom: 60px;
+}
+
+.portfolio-item {
+    display: block; 
+    text-decoration: none;
+    background-color: #111; 
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(209, 34, 34, 0.3);
+}
+
+.project-image {
+    width: 100%;
+    height: 250px; 
+    object-fit: cover;
+    display: block;
+    transition: filter 0.3s ease, transform 0.6s ease;
+}
+
+.portfolio-item:hover .project-image {
+    filter: brightness(0.7); 
+    transform: scale(1.05); 
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-category {
+    font-family: 'Anodina', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.project-title {
+    font-family: 'Anodina', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #EDEDED;
+    line-height: 1.2;
+    transition: color 0.3s;
+}
+
+.portfolio-item:hover .project-title {
+    color: #D12222; 
+}
+
+.load-more-btn {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+
+/* --- RESPONSIVE ADJUSTMENTS for secondary pages --- */
+
+@media (max-width: 1024px) {
+    /* About Section */
+    .about-content {
+        flex-direction: column;
+    }
+    
+    .about-image-container {
+        max-width: 100%; 
+        margin-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .about-text {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+
+    /* Portfolio Grid */
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* About Text: Reduce oversized text for mobile readability */
+    .about-body-main {
+        font-size: 1.8rem;
+    }
+    .about-body-secondary {
+        font-size: 1.2rem;
+    }
+    .read-more-link {
+        font-size: 1.5rem;
+    }
+    
+    /* Portfolio Grid */
+    .portfolio-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+    }
+    
+    .project-image {
+        height: 200px; /* Reduced height on mobile */
+    }
+    
+    .project-title {
+        font-size: 1.2rem;
+    }
+}
