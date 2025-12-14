@@ -1,115 +1,113 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // 1. Initialize Animate On Scroll
+document.addEventListener('DOMContentLoaded', function () {
+
+    // ==========================================================
+    // 1. AOS
+    // ==========================================================
     AOS.init({
         duration: 800,
-        once: true 
+        once: true
     });
 
-    // 2. Hero Scroll Animation Logic (UNSKIPPABLE stretching)
+    // ==========================================================
+    // 2. HERO SCROLL STRETCH
+    // ==========================================================
     const unskippableText = document.querySelector('.main-text');
-    // UPDATED: Use a base maximum stretch factor
-    const BASE_MAX_STRETCH_FACTOR = 1.8; 
-    const MOBILE_MAX_STRETCH_FACTOR = 3.5; // The dramatic stretch value for phones
-    const MAX_SCROLL_DISTANCE = 600; 
-    let originalTextHeight = 0; 
+    const BASE_MAX_STRETCH_FACTOR = 1.8;
+    const MOBILE_MAX_STRETCH_FACTOR = 3.5;
+    const MAX_SCROLL_DISTANCE = 600;
+    let originalTextHeight = 0;
 
     function calculateOriginalTextHeight() {
-        if (!unskippableText) return 0;
-        const currentTransform = unskippableText.style.transform;
+        if (!unskippableText) return;
+        const prev = unskippableText.style.transform;
         unskippableText.style.transform = 'scaleY(1)';
-        const height = unskippableText.offsetHeight;
-        unskippableText.style.transform = currentTransform; 
-        originalTextHeight = height;
+        originalTextHeight = unskippableText.offsetHeight;
+        unskippableText.style.transform = prev;
     }
-    
-    function handleScrollAnimations() {
-        if (!unskippableText || originalTextHeight === 0) return;
-        
-        // BREAKPOINT CHANGE: Now using 440px as the threshold for the more dramatic stretch (3.5)
-        const currentMaxStretch = window.innerWidth <= 440 ? MOBILE_MAX_STRETCH_FACTOR : BASE_MAX_STRETCH_FACTOR;
-        const STRETCH_RANGE = currentMaxStretch - 1.0; 
 
-        const scrollY = window.scrollY;
-        let scrollProgress = Math.min(scrollY / MAX_SCROLL_DISTANCE, 1);
-        let scaleY = 1.0 + (scrollProgress * STRETCH_RANGE); 
-        unskippableText.style.transform = `scaleY(${scaleY})`;
+    function handleScrollAnimations() {
+        if (!unskippableText || !originalTextHeight) return;
+
+        const maxStretch =
+            window.matchMedia('(max-width: 440px)').matches
+                ? MOBILE_MAX_STRETCH_FACTOR
+                : BASE_MAX_STRETCH_FACTOR;
+
+        const progress = Math.min(window.scrollY / MAX_SCROLL_DISTANCE, 1);
+        unskippableText.style.transform =
+            `scaleY(${1 + progress * (maxStretch - 1)})`;
     }
 
     if (unskippableText) {
-        window.addEventListener('load', () => {
-            calculateOriginalTextHeight();
-            handleScrollAnimations(); 
-        });
-        window.addEventListener('resize', () => {
-            calculateOriginalTextHeight(); 
-            handleScrollAnimations();
-        });
+        window.addEventListener('load', calculateOriginalTextHeight);
+        window.addEventListener('resize', calculateOriginalTextHeight);
         window.addEventListener('scroll', handleScrollAnimations, { passive: true });
-        calculateOriginalTextHeight();
-        handleScrollAnimations();
-    }
-    
-    
-    // ==========================================================
-    // 3. Off-Canvas Menu Logic 
-    // ==========================================================
-    const menuToggle = document.getElementById('menu-toggle');
-    const offCanvasMenu = document.getElementById('off-canvas-menu');
-    const menuLinks = document.querySelectorAll('.menu-links a');
-    const dimmer = document.getElementById('dimmer-overlay');
-    const body = document.body;
-
-    function openMenu() {
-        if (offCanvasMenu && menuToggle && body) {
-            offCanvasMenu.classList.add('open');
-            menuToggle.classList.add('open');
-            body.classList.add('menu-open');
-        }
     }
 
-    function closeMenu() {
-        if (offCanvasMenu && menuToggle && body) {
-            offCanvasMenu.classList.remove('open');
-            menuToggle.classList.remove('open');
-            body.classList.remove('menu-open');
-        }
-    }
+// ===============================
+// OFF-CANVAS MENU (STABLE)
+// ===============================
+const menuToggle = document.getElementById('menu-toggle');
+const offCanvasMenu = document.getElementById('off-canvas-menu');
+const menuLinks = document.querySelectorAll('.menu-links a');
+const dimmer = document.getElementById('dimmer-overlay');
+const body = document.body;
 
-    if (menuToggle) {
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (offCanvasMenu.classList.contains('open')) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        });
-    }
+function openMenu() {
+    offCanvasMenu.classList.add('open');
+    menuToggle.classList.add('open');
+    body.classList.add('menu-open');
+}
 
-    if (window.matchMedia("(min-width: 769px)").matches && menuToggle && offCanvasMenu) {
+function closeMenu() {
+    offCanvasMenu.classList.remove('open');
+    menuToggle.classList.remove('open');
+    body.classList.remove('menu-open');
+}
+
+function toggleMenu(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (offCanvasMenu.classList.contains('open')) {
+        closeMenu();
+    } else {
+        openMenu();
+    }
+}
+
+/* CLICK — ALWAYS */
+menuToggle.addEventListener('click', toggleMenu);
+
+/* HOVER — DESKTOP ONLY */
+function handleHover() {
+    if (window.innerWidth >= 1024) {
         menuToggle.addEventListener('mouseenter', openMenu);
         offCanvasMenu.addEventListener('mouseleave', closeMenu);
+    } else {
+        menuToggle.removeEventListener('mouseenter', openMenu);
+        offCanvasMenu.removeEventListener('mouseleave', closeMenu);
     }
-    
-    menuLinks.forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
-    
-    if (dimmer) {
-        dimmer.addEventListener('click', closeMenu);
-    }
+}
+
+handleHover();
+window.addEventListener('resize', handleHover);
+
+/* CLOSE CONDITIONS */
+menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+dimmer.addEventListener('click', closeMenu);
 
 
     // ==========================================================
-    // 4. Header Scroll Hiding Logic 
+    // 4. HEADER SCROLL HIDE
     // ==========================================================
     let lastScrollTop = 0;
     const header = document.querySelector('.main-header');
 
-    window.addEventListener('scroll', function() {
-        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (currentScroll <= 0) {
+    window.addEventListener('scroll', function () {
+        const current = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (current <= 0) {
             header.classList.remove('scroll-hide');
             lastScrollTop = 0;
             return;
@@ -117,20 +115,72 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (body.classList.contains('menu-open')) return;
 
-        if (currentScroll > lastScrollTop && currentScroll > 50) {
+        if (current > lastScrollTop && current > 50) {
             header.classList.add('scroll-hide');
         } else {
             header.classList.remove('scroll-hide');
         }
-        
-        lastScrollTop = currentScroll; 
+
+        lastScrollTop = current;
     }, { passive: true });
-    
+
     // ==========================================================
-    // 5. Dynamic Contact Headline Animation 
+    // 5. DYNAMIC CONTACT TEXT
     // ==========================================================
-    
     const dynamicTerms = [
+        "MOTION",
+        "HUMAN DRIVEN NARRATIVE",
+        "NOT BORING",
+        "EMOTIONAL DEPTH",
+        "REAL STORYTELLING",
+        "CINEMATIC IDENTITY",
+        "PERFORMANCE",
+        "PURPOSE REFLECTED IN ACTION"
+    ];
+
+    const dynamicTermElement = document.getElementById('dynamic-term');
+    const dynamicWrapper = document.querySelector('.dynamic-text-wrapper');
+    let index = 0;
+
+    function setWrapperWidth() {
+        if (!dynamicWrapper || !dynamicTermElement) return;
+
+        if (supportsTrueHover) {
+            let max = 0;
+            const original = dynamicTermElement.textContent;
+
+            dynamicTerms.forEach(term => {
+                dynamicTermElement.textContent = term;
+                max = Math.max(max, dynamicTermElement.offsetWidth);
+            });
+
+            dynamicTermElement.textContent = original;
+            dynamicWrapper.style.width = max + 'px';
+        } else {
+            dynamicWrapper.style.width = 'auto';
+        }
+    }
+
+    function animateDynamicText() {
+        dynamicTermElement.style.opacity = '0';
+        setTimeout(() => {
+            dynamicTermElement.textContent = dynamicTerms[index];
+            index = (index + 1) % dynamicTerms.length;
+            dynamicTermElement.style.opacity = '1';
+        }, 300);
+    }
+
+    if (dynamicTermElement && dynamicWrapper) {
+        setWrapperWidth();
+        animateDynamicText();
+        setInterval(animateDynamicText, 1500);
+        window.addEventListener('resize', setWrapperWidth);
+    }
+
+});
+
+
+ const dynamicTerms = [
         "MOTION",
         "HUMAN DRIVEN NARRATIVE",
         "NOT BORING",
@@ -207,28 +257,3 @@ document.addEventListener('DOMContentLoaded', function() {
         window.addEventListener('resize', setInitialWrapperWidth);
     }
 
-});
-
-
-menuToggle.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (body.classList.contains('menu-open')) {
-        closeMenu();
-    } else {
-        openMenu();
-    }
-}, { passive: false });
-
-
-menuToggle.addEventListener('click', (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (body.classList.contains('menu-open')) {
-        closeMenu();
-    } else {
-        openMenu();
-    }
-});

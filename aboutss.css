@@ -1,61 +1,34 @@
-
-
-
-@font-face {
-    font-family: 'KreaseDisplay'; 
-    src: url('./fonts/Krease-Display.otf') format('opentype');
-    font-weight: 400; 
-    font-style: normal;
-}
-
-/* SCHABO-XCondensed for "UNSKIPPABLE" */
-@font-face {
-    font-family: 'SchaboXCondensed'; 
-    src: url('./fonts/SCHABO-XCondensed.otf') format('opentype');
-    font-weight: 400;
-    font-style: normal;
-}
-
-/* Anodina Regular (Body, "Who We Are" - 400) */
+/* --- CUSTOM FONT IMPORTS --- */
 @font-face {
     font-family: 'Anodina'; 
     src: url('./fonts/Anodina-Regular.otf') format('opentype');
     font-weight: 400; 
     font-style: normal;
 }
-
-/* Anodina Light ("Kinetic Shock..." - 300) */
 @font-face {
     font-family: 'Anodina'; 
     src: url('./fonts/Anodina-Light.otf') format('opentype');
     font-weight: 300; 
     font-style: normal;
 }
-
-/* Anodina Bold (Section Titles / CTA - 700) */
 @font-face {
     font-family: 'Anodina'; 
     src: url('./fonts/Anodina-Bold.otf') format('opentype');
     font-weight: 700; 
     font-style: normal;
 }
-
-/* Anodina Extra Light (Menu links - 200) */
 @font-face {
     font-family: 'Anodina'; 
     src: url('./fonts/Anodina-ExtraLight.otf') format('opentype');
     font-weight: 200; 
     font-style: normal;
 }
-
-/* Impact for menu links and dynamic contact text */
 @font-face {
     font-family: 'Impact'; 
     src: url('./fonts/impact.ttf') format('truetype');
     font-weight: 400; 
     font-style: normal;
 }
-
 
 /* --- GLOBAL RESET & BASE STYLES --- */
 * {
@@ -70,9 +43,206 @@ body.menu-open {
 
 body {
     background-color: #000;
-    font-family: 'Anodina', sans-serif; 
+    font-family: 'Anodina', sans-serif;
     overflow-x: hidden;
-    color: white;
+    color: #EDEDED;
+}
+
+/* --- HEADER --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+
+}
+
+.logo-container a img {
+    width: 450px;
+    height: auto;
+}
+
+.menu-icon {
+    width: 50px; 
+    height: 40px; 
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    transition: transform 0.3s;
+    z-index: 1100;
+}
+
+.line {
+    width: 100%;
+    height: 6px; 
+    background-color: #ce2a0b; 
+    transition: all 0.3s ease;
+}
+.line:nth-child(2) {
+    width: 80%;
+}
+
+/* --- DIMMER & OFF-CANVAS MENU --- */
+.dimmer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index: 1040;
+}
+
+body.menu-open .dimmer-overlay {
+    visibility: visible;
+    opacity: 1;
+}
+
+.off-canvas-menu {
+    position: fixed;
+    top: 0;
+    right: -35%; 
+    width: 35%; 
+    height: 100vh;
+    background-color: #ce2a0b; 
+    z-index: 1050;
+    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
+    padding-right: 10%;
+}
+
+.off-canvas-menu.open {
+    right: 0; 
+}
+
+.menu-links {
+    list-style: none;
+    text-align: right; 
+}
+
+.menu-links li {
+    margin: 40px 0; 
+    overflow: hidden;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: #000; 
+    font-family: 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: 7.5rem; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.menu-links a:hover {
+    color: #EDEDED; 
+}
+
+/* --- ABOUT US SECTION --- */
+.about-section {
+    min-height: 50vh;
+    padding: 120px 0;
+}
+
+.about-content-full-width {
+    max-width: 900px;
+    margin: 0 auto; 
+}
+
+.about-subheader-bold {
+    color: #E8E8E8; 
+    font-family: 'Anodina', sans-serif;
+    font-size: 2.5rem; 
+    text-transform: uppercase;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 700; 
+    letter-spacing: 1px;
+}
+
+.about-body-main {
+    color: #EDEDED;
+    font-size: 2.25rem;
+    line-height: 1.4;
+    font-family: 'Anodina', sans-serif;
+    font-weight: 300; 
+    letter-spacing: 1px;
+    margin-bottom: 30px; 
+    text-align: justify;
+}
+
+.highlight-text {
+    color: #ce2a0b; 
+    font-weight: 700; 
+}
+
+.red-bracket-text {
+    color: #ce2a0b; 
+}
+
+.back-home-btn {
+    display: block;
+    width: fit-content;
+    margin: 50px auto 0 auto;
+    color: #ce2a0b;
+    font-family: 'Anodina', sans-serif;
+    text-decoration: none;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    padding: 15px 40px;
+    border: 2px solid #ce2a0b;
+    font-weight: 700;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+}
+.back-home-btn:hover {
+    background-color: #ce2a0b;
+    color: #000;
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 1024px) {
+    .main-header { padding: 20px 40px; }
+    .logo-container a img { width: 320px; }
+    .about-body-main { font-size: 1.8rem; }
+    .about-subheader-bold { font-size: 2.2rem; }
+}
+
+@media (max-width: 768px) {
+    .main-header { padding: 15px 25px; }
+    .logo-container a img { width: 260px; }
+    .menu-icon { width: 45px; height: 35px; }
+    .line { height: 5px; }
+    .menu-links a { font-size: 4rem; }
+    .about-body-main { font-size: 1.5rem; text-align: center; }
+    .about-subheader-bold { font-size: 2rem; }
+    .back-home-btn { font-size: 1.2rem; padding: 12px 25px; }
+}
+
+@media (max-width: 480px) {
+    .logo-container a img { width: 200px; }
+    .menu-links a { font-size: 2.8rem; }
+    .about-body-main { font-size: 1.3rem; }
+    .about-subheader-bold { font-size: 1.8rem; }
 }
 
 
@@ -162,170 +332,9 @@ body {
 }
 
 
-/* --- DIMMER OVERLAY STYLING --- */
-.dimmer-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7); 
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity 0.5s, visibility 0.5s;
-    z-index: 1040;
-}
-
-body.menu-open .dimmer-overlay {
-    visibility: visible;
-    opacity: 1;
-}
-
-/* --- OFF-CANVAS MENU STYLING --- */
-.off-canvas-menu {
-    position: fixed;
-    top: 0;
-    right: -35%; 
-    width: 35%; 
-    height: 100vh;
-    background-color: #ce2a0b; 
-    z-index: 1050;
-    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end; 
-    padding-right: 10%;
-}
-
-.off-canvas-menu.open {
-    right: 0; 
-}
-
-.menu-links {
-    list-style: none;
-    text-align: right; 
-}
-
-.menu-links li {
-    margin: 40px 0; 
-    overflow: hidden;
-}
-
-.menu-links a {
-    text-decoration: none;
-    color: #000; 
-    font-family: 'Impact', sans-serif;
-    font-weight: 400;
-    font-size: 2rem; 
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    display: inline-block;
-    transition: color 0.3s;
-    line-height: 1; 
-}
-
-.menu-links a:hover {
-    color: #EDEDED; 
-}
 
 
-/* --- 2. HERO SECTION STYLING --- */
-.hero-container {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    flex-direction: column;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    position: relative; 
-    background-color: #000; 
-    overflow: hidden; 
-}
 
-.back-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-}
-
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 2; 
-}
-
-.content-wrapper {
-    text-align: center;
-    line-height: 0.8;
-    z-index: 50; 
-}
-
-.top-text {
-    color: #EDEDED;
-    font-size: 8vw; 
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-family: 'KreaseDisplay', sans-serif; 
-    font-weight: 400; 
-    margin-bottom: -27px; 
-    line-height: 1.0;
-    white-space: nowrap; 
-    z-index: 51; 
-    position: relative;
-}
-
-.main-text {
-    color: #ce2a0b; 
-    font-size: 16vw; 
-    text-transform: uppercase;
-    font-family: 'SchaboXCondensed', sans-serif; 
-    font-weight: 400; 
-    margin: 0;
-    line-height: 1.0;
-    white-space: nowrap; 
-    transform: scaleY(1); 
-    transform-origin: top; 
-    transition: none; 
-    will-change: transform; 
-    position: relative;
-    z-index: 50;
-}
-
-.hero-cta-btn {
-    display: inline-block;
-    color: #000;
-    background-color: #ce2a0b; 
-    font-family: 'Anodina', sans-serif;
-    font-weight: 700;
-    text-decoration: none;
-    font-size: 1.5rem;
-    letter-spacing: 3px;
-    padding: 15px 30px;
-    border: none;
-    transition: background-color 0.3s, color 0.3s;
-    position: absolute;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 52; 
-}
-.hero-cta-btn:hover {
-    background-color: #EDEDED;
-    color: #ce2a0b; 
-}
-
-/* --- 3. ABOUT US SECTION STYLING --- */
 
 .about-section {
     min-height: 50vh;
@@ -575,6 +584,133 @@ body.menu-open .dimmer-overlay {
 }
 
 
+/* === ADD THIS NEW BLOCK FOR THE BANNER SECTION === */
+.hero {
+    /* 1. Essential: Set the dimensions */
+    width: 100%;
+    height: 1080px; /* <--- CRITICAL: Defines the visible area for the image. Adjust as needed. */
+
+    /* 2. Positioning: Push it below the fixed header (if needed) */
+    /* Based on your .main-header padding (20px top + 20px bottom) and logo size, 
+       this ensures the banner sits below the fixed navigation. */
+    /* margin-top: 100px;  */
+
+    /* 3. Image Path (Using the RELATIVE path based on your file structure) */
+    background-image: url("photos/_MG_3535.png"); 
+    /* NOTE: I strongly recommend using the relative path "photos/_MG_3535.png" 
+       instead of the absolute path "/photos/_MG_3535.png" to avoid local file/server issues. */
+
+    /* 4. Image Display Properties */
+    background-repeat: no-repeat; /* Don't tile the image */
+    background-position: center; /* Center the image within the element */
+    background-size: cover;
+   
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+       only screen and (min-resolution: 192dpi),
+       only screen and (min-resolution: 2dppx) {
+    .hero {
+        /* NOTE: You must have a file named _MG_3535@2x.png or similar that is twice the size */
+        background-image: url("photos/_MG_3535.png"); 
+    }
+}
+/* --- RESPONSIVE ADJUSTMENT for Hero (Optional but Recommended) --- */
+@media (max-width: 1024px) {
+    .hero { 
+        height: 300px; /* Make the banner slightly shorter on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .hero { 
+        height: 250px; /* Make the banner shorter on small screens */
+        margin-top: 65px; /* Adjust margin for smaller fixed header */
+    }
+}
+
+.contact-info {
+    text-align: center;
+    font-family: 'Anodina', sans-serif;
+    color: #999;
+      padding: 30px;
+}
+.contact-info p {
+    font-size: 1rem;
+}
+
+/* Footer/Copyright Style */
+.contact-info .copyright-text {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #555;
+  
+}
+
+
+
+.off-canvas-menu {
+    position: fixed;
+    top: 0;
+    right: -35%; 
+    width: 35%; 
+    height: 100vh;
+    background-color: #ce2a0b; 
+    z-index: 1050;
+    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
+    padding-right: 10%;
+    padding: 20px;
+}
+
+.off-canvas-menu.open {
+    right: 0; 
+}
+
+.menu-links {
+    list-style: none;
+    text-align: right; 
+}
+
+.menu-links li {
+    margin: 40px 0; 
+    overflow: hidden;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: #000; 
+    font-family: 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: 7.5rem; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.menu-links a:hover {
+    color: #EDEDED; 
+}
+
+.contact-info {
+    text-align: center;
+    font-family: 'Anodina', sans-serif;
+    color: #999;
+      padding: 30px;
+}
+.contact-info p {
+    font-size: 1rem;
+}
+
+
+
+
+
+
 /* --- RESPONSIVE DESIGN (TABLETS) --- */
 @media (max-width: 1024px) {
     .main-header {
@@ -776,6 +912,161 @@ body.menu-open .dimmer-overlay {
 
 
 
+.off-canvas-menu {
+    position: fixed;
+    top: 0;
+    right: -35%; 
+    width: 35%; 
+    height: 100vh;
+    background-color: #ce2a0b; 
+    z-index: 1050;
+    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
+    padding-right: 10%;
+    padding: 20px;
+}
+
+.off-canvas-menu.open {
+    right: 0; 
+}
+
+.menu-links {
+    list-style: none;
+    text-align: right; 
+}
+
+.menu-links li {
+    margin: 40px 0; 
+    overflow: hidden;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: #000; 
+    font-family: 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: 7.5rem; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.menu-links a:hover {
+    color: #EDEDED; 
+}
+
+.contact-info {
+    text-align: center;
+    font-family: 'Anodina', sans-serif;
+    color: #999;
+      padding: 30px;
+}
+.contact-info p {
+    font-size: 1rem;
+}
+
+/* --- RESPONSIVE DESIGN (TABLETS: 1024px and below) --- */
+@media (max-width: 1024px) {
+    /* Header/Menu */
+    .main-header { padding: 20px 40px; }
+    .agency-logo { width: 320px; }
+    .off-canvas-menu {
+        width: 75%; 
+        right: -75%;
+        padding-right: 5%;
+    }
+    .menu-links a { font-size: 5.5rem; }
+    
+    /* Hero Section */
+    .top-text { font-size: 10vw; }
+    .main-text { font-size: 18vw; }
+    .hero-cta-btn { font-size: 1.4rem; padding: 14px 28px; }
+
+    /* About Section */
+    .about-body-main { font-size: 1.8rem; }
+    .about-subheader-bold { font-size: 2.2rem; margin-top: 40px; }
+    
+    /* Services Section */
+    .services-grid {
+        grid-template-columns: 1fr 1fr; /* 2 columns for tablets */
+        gap: 30px;
+    }
+    
+    /* Contact Section */
+    .contact-cta-headline { font-size: 2.5rem; }
+    .contact-form { max-width: 700px; }
+}
+
+/* --- RESPONSIVE DESIGN (PHONES: 768px and below) --- */
+@media (max-width: 768px) {
+    /* Global Container/Spacing */
+    .container { padding: 60px 20px; }
+    
+    /* Header/Menu */
+    .main-header { padding: 15px 25px; }
+    .agency-logo { width: 220px; }
+    .menu-icon { width: 40px; height: 30px; }
+    .line { height: 4px; }
+    .off-canvas-menu { width: 90%; right: -90%; }
+    .menu-links li { margin: 20px 0; }
+    .menu-links a { font-size: 3.5rem; }
+    
+    /* Hero Section */
+    .top-text { font-size: 14vw; margin-bottom: -10px; }
+    .main-text { font-size: 24vw; }
+    .hero-cta-btn { bottom: 30px; font-size: 1.1rem; padding: 10px 20px; }
+    
+    /* Section Titles */
+    .section-title-wide { font-size: 2.2rem; margin-bottom: 30px; }
+
+    /* About Section (Text Alignment and Size) */
+    .about-body-main { 
+        font-size: 1.5rem; 
+        text-align: center; /* Center align for mobile readability */
+    }
+    .about-subheader-bold { 
+        font-size: 1.8rem; 
+        margin-top: 30px;
+    }
+    .read-more-link-button {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        margin: 40px auto 0 auto;
+    }
+
+    /* Services Section */
+    .services-grid {
+        grid-template-columns: 1fr; /* Single column for mobile */
+    }
+    .service-headline { font-size: 1.5rem; }
+    .view-work-btn { font-size: 1.2rem; }
+
+    /* Contact Section (Stacking the Headline) */
+    .contact-cta-headline {
+        font-size: 2rem;
+        display: block; /* Stack the elements */
+        white-space: normal; 
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .contact-cta-headline .red-text {
+        display: block;
+        line-height: 1.2;
+    }
+    .contact-form {
+        grid-template-columns: 1fr; /* Single column for form fields */
+        gap: 15px;
+    }
+    .contact-form button {
+        width: 100%;
+        max-width: 200px;
+        font-size: 1.2rem;
+    }
+}
 
 
 
@@ -836,11 +1127,23 @@ body.menu-open .dimmer-overlay {
 }
 
 /* Specific adjustment for smaller mobile screens */
-
-
-
-
-/* my code */
+@media (max-width: 768px) {
+    .off-canvas-menu {
+        /* On mobile, use a larger width for better touch target and visibility */
+        width: 75%; 
+        right: -75%;
+    }
+    
+    .menu-links li {
+        margin: 20px 0; /* Reduced margin */
+    }
+    
+    .menu-links a {
+        /* Smaller, more suitable font size for mobile view */
+        font-size: 2.8rem; 
+        /* Removing clamp for consistency on small screens, using a fixed-size */
+    }
+}
 
 @media (min-width: 2560px) {
 

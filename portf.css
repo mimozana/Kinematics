@@ -1,0 +1,974 @@
+/* --- CUSTOM FONTS (same as main/about pages) --- */
+@font-face {
+    font-family: 'Anodina'; 
+    src: url('./fonts/Anodina-Regular.otf') format('opentype');
+    font-weight: 400; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Anodina'; 
+    src: url('./fonts/Anodina-Bold.otf') format('opentype');
+    font-weight: 700; 
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Impact'; 
+    src: url('./fonts/impact.ttf') format('truetype');
+    font-weight: 400; 
+    font-style: normal;
+}
+/* --- PORTFOLIO PAGE BASE STYLES --- */
+.portfolio-page-content {
+    /* Push content down to avoid collision with the fixed header */
+    padding-top: 120px; 
+}
+
+/* --- PAGE TITLE SECTION (Standard Top Banner) --- */
+.page-title-section {
+    padding: 80px 40px;
+    text-align: center;
+    background-color: #000; /* Dark background */
+}
+
+.page-title-impact {
+    /* Uses Impact font for high impact */
+    font-family: 'Impact', sans-serif;
+    font-size: 5rem; 
+    color: #EDEDED;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+.page-tagline {
+    /* Uses Anodina font for clean readability */
+    font-family: 'Anodina', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #EDEDED; 
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* --- PORTFOLIO GRID --- */
+.portfolio-grid-section {
+    padding: 60px 0 100px 0;
+}
+
+.portfolio-grid {
+    display: grid;
+    /* 3-column layout is common for standard portfolios */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 40px; 
+    max-width: 1400px; 
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.project-item {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover: Slightly lift the item and decrease opacity */
+.project-item:hover {
+    transform: translateY(-5px);
+    opacity: 0.8;
+}
+
+.project-image-wrapper {
+    overflow: hidden;
+    margin-bottom: 15px;
+    background-color: #111; /* Slight background for contrast */
+}
+
+.project-image-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+/* Image zoom on hover (Cinematic touch) */
+.project-item:hover .project-image-wrapper img {
+    transform: scale(1.05);
+}
+
+.project-info {
+    padding: 5px 0;
+}
+
+.project-category {
+    font-family: 'Anodina', sans-serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: #ce2a0b; /* Red accent color */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.project-name {
+    font-family: 'Anodina', sans-serif; /* Using Anodina for project titles here for clean look */
+    font-weight: 700;
+    font-size: 1.5rem; 
+    color: #EDEDED;
+    line-height: 1.2;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 1200px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .page-title-impact { font-size: 3rem; }
+    .page-tagline { font-size: 1.1rem; }
+    
+    .portfolio-grid {
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+        gap: 30px; 
+        padding: 0 20px;
+    }
+    .project-name { font-size: 1.3rem; }
+}
+
+
+
+/* --- GLOBAL RESET & BASE STYLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* Optional: Improves text rendering on some devices */
+    -webkit-font-smoothing: antialiased; 
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background-color: #000; /* Ensure body is solid black */
+    font-family: 'Anodina', sans-serif;
+    overflow-x: hidden;
+    color: #EDEDED;
+}
+
+/* --- HEADER FIXES --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* REDUCE PADDING: Match the tighter look of the images */
+    padding: 15px 40px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* CRITICAL FIX: Ensure the header background is black, not transparent,
+       to cover content underneath when scrolling. */
+    background-color: #000; 
+    /* Add a subtle red bottom border for styling */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+.logo-container a img {
+    /* REDUCE SIZE for fixed header */
+    width: 250px; 
+    height: auto;
+}
+
+/* Ensure the menu icon is solid red lines on the black background */
+.menu-icon {
+    width: 40px; 
+    height: 30px; 
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    transition: transform 0.3s;
+    z-index: 1100;
+}
+
+.line {
+    width: 100%;
+    height: 4px; /* Slightly thinner lines */
+    background-color: #ce2a0b; /* Solid red */
+    transition: all 0.3s ease;
+}
+.line:nth-child(2) {
+    width: 80%;
+}
+
+/* --- PORTFOLIO PAGE BASE STYLES --- */
+.portfolio-page-content {
+    /* Adjust padding-top to exactly account for the fixed header height 
+       (15px top padding + 15px bottom padding + ~50px logo/menu height) */
+    padding-top: 80px; 
+}
+
+.page-title-impact {
+    font-family: 'Impact', sans-serif;
+    font-size: 5rem; 
+    color: #EDEDED; /* White/Off-white text */
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    line-height: 1;
+    margin-bottom: 20px;
+    /* IMPORTANT: If you see a blue box, look for a 'background-color' property and remove it. */
+    background-color: transparent; 
+}
+
+/* --- DIMMER & OFF-CANVAS MENU --- */
+.dimmer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index: 1040;
+}
+
+body.menu-open {
+    overflow: hidden; /* Prevents background scrolling when menu is open */
+}
+
+body.menu-open .dimmer-overlay {
+    visibility: visible;
+    opacity: 1;
+}
+
+.off-canvas-menu {
+    position: fixed;
+    top: 0;
+    right: -35%; /* Start off-screen */
+    width: 35%; 
+    height: 100vh;
+    background-color: #ce2a0b; 
+    z-index: 1050;
+    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
+    padding-right: 10%;
+}
+
+.off-canvas-menu.open {
+    right: 0; /* Slide in when .open class is added by JS */
+}
+
+/* ... (Keep your existing .menu-links styles) ... */
+
+
+/* Menu Icon Transformation (Hamburger to X) */
+.menu-icon.open .line:nth-child(1) {
+    /* Rotate the top line */
+    transform: translateY(10px) rotate(45deg);
+}
+
+.menu-icon.open .line:nth-child(2) {
+    /* Hide the middle line */
+    opacity: 0;
+}
+
+.menu-icon.open .line:nth-child(3) {
+    /* Rotate the bottom line */
+    transform: translateY(-10px) rotate(-45deg);
+}
+
+
+
+.off-canvas-menu {
+    position: fixed;
+    top: 0;
+    right: -35%; 
+    width: 35%; 
+    height: 100vh;
+    background-color: #ce2a0b; 
+    z-index: 1050;
+    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
+    padding-right: 10%;
+    padding: 20px;
+}
+
+.off-canvas-menu.open {
+    right: 0; 
+}
+
+.menu-links {
+    list-style: none;
+    text-align: right; 
+}
+
+.menu-links li {
+    margin: 40px 0; 
+    overflow: hidden;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: #000; 
+    font-family: 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: 7.5rem; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.menu-links a:hover {
+    color: #EDEDED; 
+}
+
+.contact-info {
+    text-align: center;
+    font-family: 'Anodina', sans-serif;
+    color: #999;
+      padding: 30px;
+}
+.contact-info p {
+    font-size: 1rem;
+}
+
+/* Footer/Copyright Style */
+.contact-info .copyright-text {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #555;
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- RESPONSIVE DESIGN (TABLETS) --- */
+@media (max-width: 1024px) {
+    .main-header {
+        padding: 20px 40px; 
+    }
+    .agency-logo {
+        width: 320px; 
+    }
+    .off-canvas-menu {
+        width: 75%; 
+        right: -75%;
+        padding-right: 5%;
+    }
+    
+    .top-text {
+        font-size: 10vw;
+    }
+    .main-text {
+        font-size: 18vw;
+    }
+    
+    .hero-cta-btn {
+        bottom: 50px; 
+    }
+
+    .about-body-main {
+        font-size: 1.8rem;
+    }
+    .about-body-secondary {
+        font-size: 1.2rem;
+    }
+    .about-subheader-bold {
+        font-size: 2.2rem;
+        margin-top: 40px;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr 1fr; 
+        gap: 30px;
+    }
+    
+    .contact-form {
+        max-width: 700px;
+    }
+}
+
+/* --- RESPONSIVE DESIGN (PHONES) --- */
+@media (max-width: 768px) {
+    .main-header {
+        padding: 15px 25px;
+    }
+    .agency-logo {
+        width: 260px;
+    }
+    .menu-icon {
+        width: 45px; 
+        height: 35px;
+    }
+    .line {
+        height: 5px;
+    }
+    
+    .menu-links li {
+        margin: 20px 0;
+    }
+    .menu-links a {
+        font-size: 4rem; 
+    }
+    
+    .top-text {
+        font-size: 14vw; 
+        margin-bottom: -15px; 
+    }
+    .main-text {
+        font-size: 24vw; 
+        transform: scaleY(1); 
+    }
+    
+    .hero-cta-btn {
+        bottom: 40px; 
+        font-size: 1.2rem;
+        padding: 12px 25px;
+    }
+    
+    .section-title-wide {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+
+    /* Mobile Contact Headline Fix: Stack the text */
+    .contact-cta-headline {
+        font-size: 2rem;
+        margin-bottom: 40px;
+        /* Change to block/stacked layout */
+        display: block; 
+        white-space: normal; 
+    }
+    
+    .contact-cta-headline .red-text {
+        /* Force the entire red block onto its own centered line */
+        display: block; 
+        text-align: center;
+        width: 100%;
+        line-height: 1.2;
+        /* Force wrapping for the content inside this block (brackets + dynamic word) */
+        white-space: normal; 
+    }
+    
+    .contact-cta-headline {
+        text-align: center;
+        width: 100%;
+        line-height: 1.2;
+    }
+
+
+    /* FIX: Dynamic wrapper adjusted to flow inline with the brackets, but allow its content to wrap */
+    .dynamic-text-wrapper {
+        display: inline; /* Allows text elements to flow naturally with surrounding brackets */
+        width: auto !important; 
+        max-width: 100%; 
+        padding: 0;
+        line-height: 1.2;
+    }
+
+    /* Ensure the dynamic term itself allows normal text flow */
+    .dynamic-term {
+        display: inline; /* Changed to inline to allow continuous text flow and wrapping */
+        text-align: center;
+        padding: 0;
+        white-space: normal; 
+    }
+    
+    /* NEW: Centering text in the About section for screens <= 700px */
+    @media (max-width: 700px) {
+        .about-content-full-width,
+        .about-body-main {
+            text-align: center;
+        }
+        /* Ensure the read more button stays centered */
+        .read-more-link-button {
+            margin: 50px auto 0 auto;
+        }
+    }
+
+
+    .read-more-link-button {
+        padding: 12px 25px;
+        font-size: 1.2rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr; 
+    }
+
+    .contact-form {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+    }
+}
+
+/* --- RESPONSIVE DESIGN (SMALL PHONES) --- */
+@media (max-width: 480px) {
+    .container {
+        padding: 60px 0;
+    }
+    .main-header {
+        padding: 15px 20px; 
+    }
+    .agency-logo {
+        width: 200px; 
+    }
+    .menu-links a {
+        font-size: 2.8rem; 
+    }
+    
+    .top-text {
+        font-size: 16vw; 
+        margin-bottom: -10px; 
+    }
+    .main-text {
+        font-size: 26vw;
+    }
+    
+    .about-body-main {
+        font-size: 1.3rem;
+    }
+    .about-body-secondary {
+        font-size: 1rem;
+    }
+    
+    .about-subheader-bold {
+        font-size: 1.8rem;
+    }
+    
+    .contact-cta-headline {
+        font-size: 1.8rem;
+    }
+}
+
+
+
+.off-canvas-menu {
+    position: fixed;
+    top: 0;
+    right: -35%; 
+    width: 35%; 
+    height: 100vh;
+    background-color: #ce2a0b; 
+    z-index: 1050;
+    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
+    padding-right: 10%;
+    padding: 20px;
+}
+
+.off-canvas-menu.open {
+    right: 0; 
+}
+
+.menu-links {
+    list-style: none;
+    text-align: right; 
+}
+
+.menu-links li {
+    margin: 40px 0; 
+    overflow: hidden;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: #000; 
+    font-family: 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: 7.5rem; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.menu-links a:hover {
+    color: #EDEDED; 
+}
+
+.contact-info {
+    text-align: center;
+    font-family: 'Anodina', sans-serif;
+    color: #999;
+      padding: 30px;
+}
+.contact-info p {
+    font-size: 1rem;
+}
+
+/* --- RESPONSIVE DESIGN (TABLETS: 1024px and below) --- */
+@media (max-width: 1024px) {
+    /* Header/Menu */
+    .main-header { padding: 20px 40px; }
+    .agency-logo { width: 320px; }
+    .off-canvas-menu {
+        width: 75%; 
+        right: -75%;
+        padding-right: 5%;
+    }
+    .menu-links a { font-size: 5.5rem; }
+    
+    /* Hero Section */
+    .top-text { font-size: 10vw; }
+    .main-text { font-size: 18vw; }
+    .hero-cta-btn { font-size: 1.4rem; padding: 14px 28px; }
+
+    /* About Section */
+    .about-body-main { font-size: 1.8rem; }
+    .about-subheader-bold { font-size: 2.2rem; margin-top: 40px; }
+    
+    /* Services Section */
+    .services-grid {
+        grid-template-columns: 1fr 1fr; /* 2 columns for tablets */
+        gap: 30px;
+    }
+    
+    /* Contact Section */
+    .contact-cta-headline { font-size: 2.5rem; }
+    .contact-form { max-width: 700px; }
+}
+
+/* --- RESPONSIVE DESIGN (PHONES: 768px and below) --- */
+@media (max-width: 768px) {
+    /* Global Container/Spacing */
+    .container { padding: 60px 20px; }
+    
+    /* Header/Menu */
+    .main-header { padding: 15px 25px; }
+    .agency-logo { width: 220px; }
+    .menu-icon { width: 40px; height: 30px; }
+    .line { height: 4px; }
+    .off-canvas-menu { width: 90%; right: -90%; }
+    .menu-links li { margin: 20px 0; }
+    .menu-links a { font-size: 3.5rem; }
+    
+    /* Hero Section */
+    .top-text { font-size: 14vw; margin-bottom: -10px; }
+    .main-text { font-size: 24vw; }
+    .hero-cta-btn { bottom: 30px; font-size: 1.1rem; padding: 10px 20px; }
+    
+    /* Section Titles */
+    .section-title-wide { font-size: 2.2rem; margin-bottom: 30px; }
+
+    /* About Section (Text Alignment and Size) */
+    .about-body-main { 
+        font-size: 1.5rem; 
+        text-align: center; /* Center align for mobile readability */
+    }
+    .about-subheader-bold { 
+        font-size: 1.8rem; 
+        margin-top: 30px;
+    }
+    .read-more-link-button {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        margin: 40px auto 0 auto;
+    }
+
+    /* Services Section */
+    .services-grid {
+        grid-template-columns: 1fr; /* Single column for mobile */
+    }
+    .service-headline { font-size: 1.5rem; }
+    .view-work-btn { font-size: 1.2rem; }
+
+    /* Contact Section (Stacking the Headline) */
+    .contact-cta-headline {
+        font-size: 2rem;
+        display: block; /* Stack the elements */
+        white-space: normal; 
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .contact-cta-headline .red-text {
+        display: block;
+        line-height: 1.2;
+    }
+    .contact-form {
+        grid-template-columns: 1fr; /* Single column for form fields */
+        gap: 15px;
+    }
+    .contact-form button {
+        width: 100%;
+        max-width: 200px;
+        font-size: 1.2rem;
+    }
+}
+
+
+
+
+
+/*  */
+
+
+
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    background-color: transparent; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+.main-header.scroll-hide {
+    transform: translateY(-100%);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container a {
+    display: block;
+    line-height: 0;
+}
+
+.agency-logo {
+    width: 450px; 
+    height: auto;
+    display: block;
+}
+
+.menu-icon {
+    width: 50px; 
+    height: 40px; 
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    transition: transform 0.3s;
+    z-index: 1100;
+}
+
+.line {
+    width: 100%;
+    height: 6px; 
+    background-color: #ce2a0b; 
+    transition: all 0.3s ease;
+}
+.line:nth-child(2) {
+    width: 80%;
+}
+
+.menu-icon.open .line:nth-child(1) {
+    transform: none; 
+}
+.menu-icon.open .line:nth-child(2) {
+    opacity: 0; 
+}
+.menu-icon.open .line:nth-child(3) {
+    transform: none; 
+}
+
+
+
+
+
+
+
+
+
+/* --- RESPONSIVE DESIGN (TABLETS: 1024px and below) --- */
+@media (max-width: 1024px) {
+    /* Header/Menu */
+    .main-header { padding: 20px 40px; }
+    .logo-container a img { width: 320px; }
+    .off-canvas-menu {
+        width: 75%; 
+        right: -75%;
+        padding-right: 5%;
+    }
+    .menu-links a { font-size: 5.5rem; }
+    
+    /* About Section */
+    .about-section { padding: 80px 40px; }
+    .about-body-main { font-size: 1.8rem; }
+    .about-subheader-bold { font-size: 2.2rem; margin-top: 40px; }
+    .back-home-btn { font-size: 1.2rem; padding: 12px 25px; }
+}
+
+/* --- RESPONSIVE DESIGN (PHONES: 768px and below) --- */
+@media (max-width: 768px) {
+    /* Header/Menu */
+    .main-header { padding: 15px 25px; }
+    .logo-container a img { width: 220px; }
+    .menu-icon { width: 40px; height: 30px; }
+    .line { height: 4px; }
+    .off-canvas-menu { width: 90%; right: -90%; }
+    .menu-links li { margin: 20px 0; }
+    .menu-links a { font-size: 3.5rem; }
+    
+    /* About Section (Text Alignment and Size) */
+    .about-section { 
+        padding: 40px 20px; 
+    }
+    .about-content-full-width {
+        padding: 0 10px;
+    }
+    .about-subheader-bold { 
+        font-size: 1.8rem; 
+        margin-top: 30px;
+    }
+    .about-body-main { 
+        font-size: 1.5rem; 
+        line-height: 1.5;
+        text-align: left; /* Keep left-aligned if it looks better, or switch to center for mobile */
+    }
+    .back-home-btn {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        margin: 40px auto 0 auto;
+    }
+    
+    /* Footer/Contact Info */
+    .contact-info { padding: 20px; }
+    .contact-info p { font-size: 0.9rem; }
+}
+
+/* --- OFF-CANVAS MENU STYLING (Responsive Update) --- */
+.off-canvas-menu {
+    position: fixed;
+    top: 0;
+    right: -35%; 
+    width: 35%; 
+    height: 100vh;
+    background-color: #ce2a0b; 
+    z-index: 1050;
+    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
+    padding-right: 3%; /* Reduced padding right for better fit on desktop */
+}
+
+.off-canvas-menu.open {
+    right: 0; 
+}
+
+.menu-links {
+    list-style: none;
+    text-align: right; 
+    /* Ensures the list can shrink/grow as needed */
+    width: 100%; 
+    padding-right: 5%; /* Add some padding on the right for better visual balance */
+}
+
+.menu-links li {
+    /* Adjusted margin for slightly less space */
+    margin: 30px 0; 
+    overflow: hidden;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: #000; 
+    font-family: 'Impact', sans-serif;
+    font-weight: 400;
+    
+    /* NEW: Responsive Font Size using clamp() or a combination of units */
+    /* Clamp sets a minimum, a fluid preferred, and a maximum size: 3rem minimum, 3.5vw preferred, 4.5rem maximum */
+    font-size: clamp(3rem, 3.5vw, 4.5rem); 
+    
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    transition: color 0.3s;
+    line-height: 1; 
+}
+
+.menu-links a:hover {
+    color: #EDEDED; 
+}
+
+/* Specific adjustment for smaller mobile screens */
+@media (max-width: 768px) {
+    .off-canvas-menu {
+        /* On mobile, use a larger width for better touch target and visibility */
+        width: 75%; 
+        right: -75%;
+    }
+    
+    .menu-links li {
+        margin: 20px 0; /* Reduced margin */
+    }
+    
+    .menu-links a {
+        /* Smaller, more suitable font size for mobile view */
+        font-size: 2.8rem; 
+        /* Removing clamp for consistency on small screens, using a fixed-size */
+    }
+}
+
+
+
+@media (min-width: 2560px) {
+
+    
+
+    
+    .menu-links a {
+        /* Smaller, more suitable font size for mobile view */
+        font-size: 7rem; 
+        /* Removing clamp for consistency on small screens, using a fixed-size */
+    }
+}
+
+
+@media (max-width: 425px) {
+    .off-canvas-menu {
+        /* On mobile, use a larger width for better touch target and visibility */
+        width: 75%; 
+        right: -75%;
+    }
+    
+    .menu-links li {
+        margin: 20px 0; /* Reduced margin */
+    }
+    
+    .menu-links a {
+        /* Smaller, more suitable font size for mobile view */
+        font-size: 2.5rem; 
+        /* Removing clamp for consistency on small screens, using a fixed-size */
+    }
+}
+

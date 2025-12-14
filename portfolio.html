@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kinematics Agency - Portfolio</title>
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+    <title>Kinematics Agency</title>
     <link rel="stylesheet" href="portf.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.js" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="portoofo.js" defer></script>
 </head>
 <body>
+<div class="dimmer-overlay" id="dimmer-overlay"></div>
 
-    <!-- Dimmer overlay -->
-    <div class="dimmer-overlay" id="dimmer-overlay"></div>
-
-    <!-- Off-canvas menu -->
     <nav class="off-canvas-menu" id="off-canvas-menu">
         <ul class="menu-links">
-            <li><a href="mtavari.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="portfolio.html">Portfolio</a></li>
             <li><a href="aboutus.html">About Us</a></li>
             <li><a href="index.html#services">Services</a></li>
@@ -25,7 +27,6 @@
         </ul>
     </nav>
 
-    <!-- Header -->
     <header class="main-header">
         <div class="logo-container">
             <a href="index.html">
@@ -39,30 +40,52 @@
         </div>
     </header>
 
-    <!-- Portfolio Section -->
-    <section class="portfolio-section">
-        <div class="container">
-            <h3 class="section-title-wide" data-aos="fade-up">Our Work</h3>
+    <main class="portfolio-page-content">
+        
+        <section class="page-title-section">
+            <h1 class="page-title-impact" data-aos="fade-up">
+                <span class="red-bracket-text">[</span>OUR WORK<span class="red-bracket-text">]</span>
+            </h1>
+            <p class="page-tagline" data-aos="fade-up" data-aos-delay="100">
+                A curated selection of our highest impact projects.
+            </p>
+        </section>
+        
+        <section class="portfolio-grid-section">
+            <div class="portfolio-grid" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+                
+                <a href="https://vimeo.com/user251574296?fl=pp&fe=sh" target="_blank" class="project-item" data-aos="fade-up">
+                    <div class="project-image-wrapper">
+                        <img src="./photos/_MG_3535.png" alt="Project 1 Thumbnail" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">Brand Films, Cinematic Campaigns</span>
+                        <h2 class="project-name">In-House Production</h2>
+                    </div>
+                </a>
 
-            <!-- Vimeo Video -->
-            <div class="video-wrapper" data-aos="fade-up" data-aos-delay="100">
-                <iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID" 
-                        frameborder="0" allow="autoplay; fullscreen; picture-in-picture" 
-                        allowfullscreen></iframe>
-            </div>
+                <a href="https://www.behance.net/gallery/240401075/Kinematics" class="project-item" data-aos="fade-up" data-aos-delay="100">
+                    <!-- ako aq linki gvinda zemot ertit -->
+                    <div class="project-image-wrapper">
+                        <img src="./photos/გაიდლ-01.png" alt="Project 2 Thumbnail" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <span class="project-category">Branding & Visual identity</span>
+                        <h2 class="project-name">Graphic Design</h2>
+                    </div>
+                </a>
 
-            <!-- Branding / Graphic Design -->
-            <div class="branding-section" data-aos="fade-up" data-aos-delay="200">
-                <h4>Branding & Graphic Design</h4>
-                <p>Check out our portfolio on <a href="https://www.behance.net/" target="_blank">Behance</a> for our branding and graphic design work.</p>
-            </div>
+        
+                
+                </div>
+        </section>
+    </main>
 
-            <!-- Back to Homepage Button -->
-            <div class="back-home-wrapper" data-aos="fade-up" data-aos-delay="300">
-                <a href="index.html" class="read-more-link-button">BACK TO HOMEPAGE</a>
-            </div>
+    <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
+            <p>info@kinematics.ge</p>
+            <p>+995 551 22 03 44</p>
+            <p class="copyright-text">&copy; 2025 KINEMATICS AGENCY. ALL RIGHTS RESERVED.</p> 
         </div>
-    </section>
 
 </body>
 </html>
