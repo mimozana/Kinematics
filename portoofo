@@ -1,87 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // ==========================================================
-    // 1. Initialize Animate On Scroll (AOS)
-    // Runs on ALL pages (index.html, about.html, portfolio.html)
-    // ==========================================================
+    // 1. Initialize Animate On Scroll
     AOS.init({
         duration: 800,
-        once: true // Animations happen only once on scroll down
+        once: true
     });
 
-    
-    // ==========================================================
-    // 2. Hero Scroll Animation Logic (UNSKIPPABLE stretching)
-    // Runs ONLY on index.html (where .main-text exists)
-    // ==========================================================
-    const unskippableText = document.querySelector('.main-text');
-    
-    // Configuration for STRETCHING
-    const MAX_STRETCH_FACTOR = 2.5; // Stretches to 250% height
-    const STRETCH_RANGE = MAX_STRETCH_FACTOR - 1.0; 
-    const MAX_SCROLL_DISTANCE = 400; // Animation completes over 400px of scroll for faster speed
-    
-    let originalTextHeight = 0; // Cached height
-    
-    /**
-     * Calculates the unscaled height of the text element.
-     */
-    function calculateOriginalTextHeight() {
-        if (!unskippableText) return 0;
-        
-        // Temporarily reset transform to get the true unscaled height.
-        const currentTransform = unskippableText.style.transform;
-        unskippableText.style.transform = 'scaleY(1)';
-        const height = unskippableText.offsetHeight;
-        unskippableText.style.transform = currentTransform; // Restore transform
-        
-        originalTextHeight = height;
-    }
-    
-    /**
-     * Applies the kinetic stretching effect based on scroll position.
-     */
-    function handleScrollAnimations() {
-        // Exit safely if the text element is not found (i.e., on about.html or portfolio.html)
-        if (!unskippableText) return; 
-
-        // If original height hasn't been calculated yet, try calculating it now
-        if (originalTextHeight === 0) {
-            calculateOriginalTextHeight();
-            if (originalTextHeight === 0) return;
-        }
-
-        const scrollY = window.scrollY;
-
-        // Calculate progress, capped at 1.0
-        let scrollProgress = Math.min(scrollY / MAX_SCROLL_DISTANCE, 1);
-        
-        // Calculate the vertical scale: starts at 1.0 and increases to 2.5
-        let scaleY = 1.0 + (scrollProgress * STRETCH_RANGE); 
-        
-        // Apply text transformation (Stretching DOWNWARD)
-        unskippableText.style.transform = `scaleY(${scaleY})`;
-    }
-
-    // A. Recalculate and update on viewport resize
-    window.addEventListener('resize', () => {
-        calculateOriginalTextHeight(); 
-        handleScrollAnimations();
-    });
-    
-    // B. Main scroll listener
-    window.addEventListener('scroll', handleScrollAnimations);
-
-    // C. FIX for initial delay: Calculate height and apply initial state 
-    // immediately after the DOM is loaded, ensuring immediate response to scroll.
-    calculateOriginalTextHeight(); 
-    handleScrollAnimations(); 
-    
-
-    // ==========================================================
-    // 3. Off-Canvas Menu Logic
-    // Runs on ALL pages
-    // ==========================================================
+    // 2. Off-Canvas Menu Logic
     const menuToggle = document.getElementById('menu-toggle');
     const offCanvasMenu = document.getElementById('off-canvas-menu');
     const menuLinks = document.querySelectorAll('.menu-links a');
@@ -100,26 +24,51 @@ document.addEventListener('DOMContentLoaded', function() {
         body.classList.remove('menu-open');
     }
 
-    // A. Click Toggle (Primary for Mobile/Accessibility)
-    menuToggle.addEventListener('click', () => {
-        if (offCanvasMenu.classList.contains('open')) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    });
-
-    // B. Hover Toggle (Desktop Only)
-    if (window.matchMedia("(min-width: 769px)").matches) {
-        menuToggle.addEventListener('mouseenter', openMenu);
-        offCanvasMenu.addEventListener('mouseleave', closeMenu);
+    if (menuToggle) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (offCanvasMenu.classList.contains('open')) {
+                closeMenu();
+            } else {
+                openMenu();
+            }
+        });
     }
-    
-    // C. Close menu when a link is clicked
+
     menuLinks.forEach(link => {
         link.addEventListener('click', closeMenu);
     });
-    
-    // D. Close menu when the dimmed overlay is clicked
-    dimmer.addEventListener('click', closeMenu);
+
+    if (dimmer) {
+        dimmer.addEventListener('click', closeMenu);
+    }
+
+    if (window.matchMedia("(min-width: 769px)").matches && menuToggle && offCanvasMenu) {
+        menuToggle.addEventListener('mouseenter', openMenu);
+        offCanvasMenu.addEventListener('mouseleave', closeMenu);
+    }
+
+    // 3. Header Scroll Hiding Logic
+    let lastScrollTop = 0;
+    const header = document.querySelector('.main-header');
+
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll <= 0) {
+            header.classList.remove('scroll-hide');
+            lastScrollTop = 0;
+            return;
+        }
+
+        if (body.classList.contains('menu-open')) return;
+
+        if (currentScroll > lastScrollTop && currentScroll > 50) {
+            header.classList.add('scroll-hide');
+        } else {
+            header.classList.remove('scroll-hide');
+        }
+
+        lastScrollTop = currentScroll;
+    }, { passive: true });
 });

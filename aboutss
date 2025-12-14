@@ -1,55 +1,183 @@
-/* --- Styles for Multi-Page Application Layouts (about.html, portfolio.html) --- */
-
-/* Pushes content down below the fixed header (Essential for secondary pages) */
-.about-page-hero,
-.portfolio-page-hero {
-    /* Use padding-top equal to the header height + some margin (approx 80px + 70px) */
-    padding-top: 150px !important; 
-    min-height: 50vh; 
-    background-color: #1a1a1a; /* Background slightly darker than pure black */
-    display: flex; 
-    align-items: center;
+/* --- CUSTOM FONT IMPORTS --- */
+@font-face {
+    font-family: 'Anodina'; 
+    src: url('./fonts/Anodina-Regular.otf') format('opentype');
+    font-weight: 400; 
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Anodina'; 
+    src: url('./fonts/Anodina-Light.otf') format('opentype');
+    font-weight: 300; 
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Anodina'; 
+    src: url('./fonts/Anodina-Bold.otf') format('opentype');
+    font-weight: 700; 
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Anodina'; 
+    src: url('./fonts/Anodina-ExtraLight.otf') format('opentype');
+    font-weight: 200; 
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Impact'; 
+    src: url('./fonts/impact.ttf') format('truetype');
+    font-weight: 400; 
+    font-style: normal;
 }
 
-/* Ensure the main content sections below the hero also start lower */
-#about, 
-#portfolio {
-    padding-top: 50px; 
+/* --- GLOBAL RESET & BASE STYLES --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-
-/* --- ABOUT US SECTION STYLING (For about.html) --- */
-
-.about-section {
-    min-height: 50vh;
-    padding-bottom: 150px;
+body.menu-open {
+    overflow: hidden;
 }
 
-.about-content {
+body {
+    background-color: #000;
+    font-family: 'Anodina', sans-serif;
+    overflow-x: hidden;
+    color: #EDEDED;
+}
+
+/* --- HEADER --- */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 100px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    background-color: transparent;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
 }
 
-.about-image-container {
-    max-width: 35%; 
-    position: relative;
-    margin-right: 5%;
-}
-
-.about-photo {
-    width: 100%;
+.logo-container a img {
+    width: 450px;
     height: auto;
-    display: block;
-    filter: grayscale(100%); 
-    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.about-text {
-    max-width: 60%;
+.menu-icon {
+    width: 50px; 
+    height: 40px; 
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    transition: transform 0.3s;
+    z-index: 1100;
 }
 
-/* "Kinetic Shock..." */
+.line {
+    width: 100%;
+    height: 6px; 
+    background-color: #ce2a0b; 
+    transition: all 0.3s ease;
+}
+.line:nth-child(2) {
+    width: 80%;
+}
+
+/* --- DIMMER & OFF-CANVAS MENU --- */
+.dimmer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+    z-index: 1040;
+}
+
+body.menu-open .dimmer-overlay {
+    visibility: visible;
+    opacity: 1;
+}
+
+.off-canvas-menu {
+    position: fixed;
+    top: 0;
+    right: -35%; 
+    width: 35%; 
+    height: 100vh;
+    background-color: #ce2a0b; 
+    z-index: 1050;
+    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end; 
+    padding-right: 10%;
+}
+
+.off-canvas-menu.open {
+    right: 0; 
+}
+
+.menu-links {
+    list-style: none;
+    text-align: right; 
+}
+
+.menu-links li {
+    margin: 40px 0; 
+    overflow: hidden;
+}
+
+.menu-links a {
+    text-decoration: none;
+    color: #000; 
+    font-family: 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: 7.5rem; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.menu-links a:hover {
+    color: #EDEDED; 
+}
+
+/* --- ABOUT US SECTION --- */
+.about-section {
+    min-height: 50vh;
+    padding: 120px 0;
+}
+
+.about-content-full-width {
+    max-width: 900px;
+    margin: 0 auto; 
+}
+
+.about-subheader-bold {
+    color: #E8E8E8; 
+    font-family: 'Anodina', sans-serif;
+    font-size: 2.5rem; 
+    text-transform: uppercase;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 700; 
+    letter-spacing: 1px;
+}
+
 .about-body-main {
     color: #EDEDED;
     font-size: 2.25rem;
@@ -58,152 +186,60 @@
     font-weight: 300; 
     letter-spacing: 1px;
     margin-bottom: 30px; 
+    text-align: justify;
 }
 
-.about-body-secondary {
-    color: #999;
-    font-size: 1.5rem;
-    line-height: 1.6;
-    font-family: 'Anodina', sans-serif;
-    font-weight: 400; 
+.highlight-text {
+    color: #ce2a0b; 
+    font-weight: 700; 
 }
 
-.read-more-link {
-    color: #D12222;
-    font-family: 'Anodina', sans-serif;
-    text-decoration: none;
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    white-space: nowrap;
-    margin-top: 15px;
-    font-weight: 700;
+.red-bracket-text {
+    color: #ce2a0b; 
 }
 
-
-/* --- PORTFOLIO SECTION STYLING (For portfolio.html) --- */
-
-.portfolio-section {
-    padding-bottom: 150px;
-    padding-top: 50px; 
-}
-
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px; 
-    margin-bottom: 60px;
-}
-
-.portfolio-item {
-    display: block; 
-    text-decoration: none;
-    background-color: #111; 
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.portfolio-item:hover {
-    transform: translateY(-5px); 
-    box-shadow: 0 10px 20px rgba(209, 34, 34, 0.3);
-}
-
-.project-image {
-    width: 100%;
-    height: 250px; 
-    object-fit: cover;
-    display: block;
-    transition: filter 0.3s ease, transform 0.6s ease;
-}
-
-.portfolio-item:hover .project-image {
-    filter: brightness(0.7); 
-    transform: scale(1.05); 
-}
-
-.project-info {
-    padding: 20px;
-}
-
-.project-category {
-    font-family: 'Anodina', sans-serif;
-    font-weight: 300;
-    font-size: 0.9rem;
-    color: #999;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.project-title {
-    font-family: 'Anodina', sans-serif;
-    font-weight: 700;
-    font-size: 1.5rem;
-    color: #EDEDED;
-    line-height: 1.2;
-    transition: color 0.3s;
-}
-
-.portfolio-item:hover .project-title {
-    color: #D12222; 
-}
-
-.load-more-btn {
+.back-home-btn {
     display: block;
     width: fit-content;
-    margin: 0 auto;
+    margin: 50px auto 0 auto;
+    color: #ce2a0b;
+    font-family: 'Anodina', sans-serif;
+    text-decoration: none;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    padding: 15px 40px;
+    border: 2px solid #ce2a0b;
+    font-weight: 700;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+}
+.back-home-btn:hover {
+    background-color: #ce2a0b;
+    color: #000;
 }
 
-
-/* --- RESPONSIVE ADJUSTMENTS for secondary pages --- */
-
+/* --- RESPONSIVE DESIGN --- */
 @media (max-width: 1024px) {
-    /* About Section */
-    .about-content {
-        flex-direction: column;
-    }
-    
-    .about-image-container {
-        max-width: 100%; 
-        margin-right: 0;
-        margin-bottom: 30px;
-    }
-
-    .about-text {
-        max-width: 100%;
-        margin-bottom: 30px;
-    }
-
-    /* Portfolio Grid */
-    .portfolio-grid {
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 30px;
-    }
+    .main-header { padding: 20px 40px; }
+    .logo-container a img { width: 320px; }
+    .about-body-main { font-size: 1.8rem; }
+    .about-subheader-bold { font-size: 2.2rem; }
 }
 
 @media (max-width: 768px) {
-    /* About Text: Reduce oversized text for mobile readability */
-    .about-body-main {
-        font-size: 1.8rem;
-    }
-    .about-body-secondary {
-        font-size: 1.2rem;
-    }
-    .read-more-link {
-        font-size: 1.5rem;
-    }
-    
-    /* Portfolio Grid */
-    .portfolio-grid {
-        grid-template-columns: 1fr; /* 1 column on mobile */
-    }
-    
-    .project-image {
-        height: 200px; /* Reduced height on mobile */
-    }
-    
-    .project-title {
-        font-size: 1.2rem;
-    }
+    .main-header { padding: 15px 25px; }
+    .logo-container a img { width: 260px; }
+    .menu-icon { width: 45px; height: 35px; }
+    .line { height: 5px; }
+    .menu-links a { font-size: 4rem; }
+    .about-body-main { font-size: 1.5rem; text-align: center; }
+    .about-subheader-bold { font-size: 2rem; }
+    .back-home-btn { font-size: 1.2rem; padding: 12px 25px; }
+}
+
+@media (max-width: 480px) {
+    .logo-container a img { width: 200px; }
+    .menu-links a { font-size: 2.8rem; }
+    .about-body-main { font-size: 1.3rem; }
+    .about-subheader-bold { font-size: 1.8rem; }
 }

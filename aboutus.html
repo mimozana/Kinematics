@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kinematics Agency - About Us</title>
-    <link rel="stylesheet" href="style.css"> 
-    <link rel="stylesheet" href="portf.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.js" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -26,7 +25,9 @@
 
     <header class="main-header">
         <div class="logo-container">
-            <img src="./logo/website-02.png" alt="Kinematics Agency Logo" class="agency-logo">
+            <a href="index.html">
+                <img src="./logo/website-02.png" alt="Kinematics Agency Logo" class="agency-logo">
+            </a>
         </div>
         
         <div class="menu-icon" id="menu-toggle">
@@ -36,33 +37,41 @@
         </div>
     </header>
 
-
-    <section class="about-page-hero">
-        <div class="container">
-            <h1 class="section-title-wide" data-aos="fade-up" style="text-align: left;">Our Vision, Our Team</h1>
-        </div>
-    </section>
-
     <section class="about-section" id="about">
         <div class="container">
-            <h2 class="section-title-small" data-aos="fade-up">[WHO WE ARE]</h2>
-            <div class="about-content">
-                <div class="about-image-container" data-aos="fade-right">
-                    <img src="./photos/_MG_3535.JPG" alt="Creative team working" class="about-photo">
-                </div>
-                <div class="about-text" data-aos="fade-left">
-                    <h2 class="section-title-small" data-aos="fade-up" style="margin-top: 50px;">[OUR CORE VALUES]</h2>
-                    <ul style="color: #EDEDED; font-size: 1.2rem; line-height: 1.8; list-style-type: none; padding-left: 0;">
-                        <li><strong style="color: #D12222;">VELOCITY:</strong> Speed to market without sacrificing quality.</li>
-                        <li><strong style="color: #D12222;">INTEGRITY:</strong> Honest, transparent partnership.</li>
-                        <li><strong style="color: #D12222;">AUDACITY:</strong> Pushing creative boundaries every time.</li>
-                    </ul>
-                    
-                    <a href="index.html#contact" class="read-more-link" style="margin-top: 30px;">START A CONVERSATION</a>
-                </div>
+            <div class="about-content-full-width">
+
+                <!-- WHO WE ARE -->
+                <h3 class="about-subheader-bold" data-aos="fade-up">
+                    <span class="red-bracket-text">[</span>WHO WE ARE<span class="red-bracket-text">]</span>
+                </h3>
+                <p class="about-body-main" data-aos="fade-up" data-aos-delay="100">
+                    We are Kinematics Agency, a collective of designers, filmmakers, and marketers dedicated to helping brands discover and express themselves in a cinematic way. We believe that value is made by <span class="highlight-text">[humans, not products]</span>. Our mission is to move brands by moving people, rejecting loud, outdated advertising.
+                </p>
+
+                <!-- THE CORE PHILOSOPHY -->
+                <h3 class="about-subheader-bold" data-aos="fade-up" data-aos-delay="200">
+                    <span class="red-bracket-text">[</span>THE CORE PHILOSOPHY<span class="red-bracket-text">]</span>
+                </h3>
+                <p class="about-body-main" data-aos="fade-up" data-aos-delay="300">
+                    We don’t just show your product — <span class="highlight-text">[we show how your product feels]</span>. Cinema creates emotion. Emotion creates memory. Memory creates action.
+                </p>
+
+                <!-- OUR METHODOLOGY -->
+                <h3 class="about-subheader-bold" data-aos="fade-up" data-aos-delay="400">
+                    <span class="red-bracket-text">[</span>OUR METHODOLOGY<span class="red-bracket-text">]</span>
+                </h3>
+                <p class="about-body-main" data-aos="fade-up" data-aos-delay="500">
+                    The Kinetic Shock Process<br><br>
+                    We merge high-end artistry with narrative mechanics. Vulnerability. Conflict. Transformation. This creates a <span class="highlight-text">[deeper bond]</span> between brand and audience.
+                </p>
+
+                <!-- BACK TO HOMEPAGE BUTTON -->
+                <a href="index.html" class="read-more-link-button" data-aos="fade-up" data-aos-delay="600">BACK TO HOMEPAGE</a>
+                
             </div>
         </div>
     </section>
 
-    </body>
+</body>
 </html>

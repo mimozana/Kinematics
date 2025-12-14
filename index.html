@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <div class="dimmer-overlay" id="dimmer-overlay"></div>
+    <div class="dimmer-overlay" id="dimmer-overlay" ></div>
 
     <nav class="off-canvas-menu" id="off-canvas-menu">
         <ul class="menu-links">
@@ -25,7 +25,9 @@
 
     <header class="main-header">
         <div class="logo-container">
-            <img src="./logo/website-02.png" alt="Kinematics Agency Logo" class="agency-logo">
+            <a href="index.html">
+                <img src="./logo/website-02.png" alt="Kinematics Agency Logo" class="agency-logo">
+            </a>
         </div>
         
         <div class="menu-icon" id="menu-toggle">
@@ -35,8 +37,10 @@
         </div>
     </header>
 
-
     <section class="hero-container" id="home">
+        <video autoplay muted loop playsinline class="back-video">
+            <source src="videos/vfxtest66555fdfg.mp4" type="video/mp4">
+        </video>
         <div class="video-overlay"></div>
         
         <div class="content-wrapper">
@@ -103,25 +107,35 @@
     </section>
 
     <section class="contact-section" id="contact">
-        <div class="container">
-            <h3 class="contact-cta-headline" data-aos="fade-up">READY FOR <span class="red-text">[TRUE ORIGINALITY]</span>?</h3>
+    <div class="container">
+        <h3 class="contact-cta-headline" data-aos="fade-up">
+            READY FOR 
+            <span class="red-text dynamic-text-wrapper">
+                [
+                <span id="dynamic-term" class="dynamic-term">TRUE ORIGINALITY</span>
+                ]
+            </span>?
+        </h3>
+        
+        <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-aos="fade-up" data-aos-delay="100">
             
-            <form class="contact-form" name="contact" method="POST" data-netlify="true" data-aos="fade-up" data-aos-delay="100">
-                
-                <input type="hidden" name="form-name" value="contact" /> 
-                
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="text" name="phone" placeholder="Phone Number">
-                <textarea name="message" placeholder="Message" required></textarea>
-                <button type="submit">CONTACT US</button>
-            </form>
-            <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
-                <p>info@kinematics.ge</p>
-                <p>+995 555 123 45</p>
-            </div>
+            <input type="hidden" name="form-name" value="contact" /> 
+
+            <input type="hidden" name="bot-field" /> 
+            
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="phone" placeholder="Phone Number">
+            <textarea name="message" placeholder="Message" required></textarea>
+            <button type="submit">CONTACT US</button>
+        </form>
+        <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
+            <p>info@kinematics.ge</p>
+            <p>+995 551 22 03 44</p>
+            <p class="copyright-text">&copy; 2025 KINEMATICS AGENCY. ALL RIGHTS RESERVED.</p> 
         </div>
-    </section>
+    </div>
+</section>
 
 </body>
 </html>

@@ -1,76 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // ==========================================================
-    // 1. Initialize Animate On Scroll (AOS)
-    // ==========================================================
+    // Initialize AOS for fade-up animations
     AOS.init({
         duration: 800,
-        once: true 
+        once: true
     });
 
-    
-    // ==========================================================
-    // 2. Hero Scroll Animation Logic (UNSKIPPABLE stretching)
-    // Runs ONLY on index.html
-    // ==========================================================
-    const unskippableText = document.querySelector('.main-text');
-    
-    // Configuration for STRETCHING
-    const MAX_STRETCH_FACTOR = 2.5; 
-    const STRETCH_RANGE = MAX_STRETCH_FACTOR - 1.0; 
-    const MAX_SCROLL_DISTANCE = 400; 
-    
-    let originalTextHeight = 0; 
-    
-    /**
-     * Calculates the unscaled height of the text element.
-     */
-    function calculateOriginalTextHeight() {
-        if (!unskippableText) return 0;
-        
-        const currentTransform = unskippableText.style.transform;
-        unskippableText.style.transform = 'scaleY(1)';
-        const height = unskippableText.offsetHeight;
-        unskippableText.style.transform = currentTransform; 
-        
-        originalTextHeight = height;
-    }
-    
-    /**
-     * Applies the kinetic stretching effect based on scroll position.
-     */
-    function handleScrollAnimations() {
-        if (!unskippableText) return; 
-
-        if (originalTextHeight === 0) {
-            calculateOriginalTextHeight();
-            if (originalTextHeight === 0) return;
-        }
-
-        const scrollY = window.scrollY;
-
-        let scrollProgress = Math.min(scrollY / MAX_SCROLL_DISTANCE, 1);
-        let scaleY = 1.0 + (scrollProgress * STRETCH_RANGE); 
-        
-        unskippableText.style.transform = `scaleY(${scaleY})`;
-    }
-
-    window.addEventListener('resize', () => {
-        calculateOriginalTextHeight(); 
-        handleScrollAnimations();
-    });
-    
-    window.addEventListener('scroll', handleScrollAnimations);
-
-    // FIX for initial delay: 
-    calculateOriginalTextHeight(); 
-    handleScrollAnimations(); 
-    
-
-    // ==========================================================
-    // 3. Off-Canvas Menu Logic
-    // Runs on ALL pages
-    // ==========================================================
+    // Off-Canvas Menu Logic
     const menuToggle = document.getElementById('menu-toggle');
     const offCanvasMenu = document.getElementById('off-canvas-menu');
     const menuLinks = document.querySelectorAll('.menu-links a');
@@ -89,26 +24,36 @@ document.addEventListener('DOMContentLoaded', function() {
         body.classList.remove('menu-open');
     }
 
-    // A. Click Toggle 
-    menuToggle.addEventListener('click', () => {
-        if (offCanvasMenu.classList.contains('open')) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-    });
-
-    // B. Hover Toggle (Desktop Only)
-    if (window.matchMedia("(min-width: 769px)").matches) {
-        menuToggle.addEventListener('mouseenter', openMenu);
-        offCanvasMenu.addEventListener('mouseleave', closeMenu);
+    if (menuToggle) {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            offCanvasMenu.classList.contains('open') ? closeMenu() : openMenu();
+        });
     }
-    
-    // C. Close menu when a link is clicked
-    menuLinks.forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
-    
-    // D. Close menu when the dimmed overlay is clicked
-    dimmer.addEventListener('click', closeMenu);
+
+    menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+    if (dimmer) dimmer.addEventListener('click', closeMenu);
+
+    // Header scroll hide logic
+    let lastScrollTop = 0;
+    const header = document.querySelector('.main-header');
+
+    window.addEventListener('scroll', function() {
+        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        if (currentScroll <= 0) {
+            header.classList.remove('scroll-hide');
+            lastScrollTop = 0;
+            return;
+        }
+
+        if (body.classList.contains('menu-open')) return;
+
+        if (currentScroll > lastScrollTop && currentScroll > 50) {
+            header.classList.add('scroll-hide');
+        } else {
+            header.classList.remove('scroll-hide');
+        }
+
+        lastScrollTop = currentScroll;
+    }, { passive: true });
 });
