@@ -79,19 +79,10 @@ function toggleMenu(e) {
 /* CLICK — ALWAYS */
 menuToggle.addEventListener('click', toggleMenu);
 
-/* HOVER — DESKTOP ONLY */
-function handleHover() {
-    if (window.innerWidth >= 1024) {
-        menuToggle.addEventListener('mouseenter', openMenu);
-        offCanvasMenu.addEventListener('mouseleave', closeMenu);
-    } else {
-        menuToggle.removeEventListener('mouseenter', openMenu);
-        offCanvasMenu.removeEventListener('mouseleave', closeMenu);
-    }
-}
-
-handleHover();
-window.addEventListener('resize', handleHover);
+/* HOVER — any device that actually supports hover (ignores screen width) */
+const hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
+menuToggle.addEventListener('mouseenter', () => { if (hoverQuery.matches) openMenu(); });
+offCanvasMenu.addEventListener('mouseleave', () => { if (hoverQuery.matches) closeMenu(); });
 
 /* CLOSE CONDITIONS */
 menuLinks.forEach(link => link.addEventListener('click', closeMenu));

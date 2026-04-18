@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>Brand Health Quiz — Kinematics Agency</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quiz.css">
+    <script src="quiz.js" defer></script>
+</head>
+<body class="quiz-body">
+
+    <div class="dimmer-overlay" id="dimmer-overlay"></div>
+
+    <nav class="off-canvas-menu" id="off-canvas-menu">
+        <ul class="menu-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+            <li><a href="index.html#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <header class="quiz-header">
+        <div class="lang-toggle" id="lang-toggle" role="group" aria-label="Language">
+            <span class="lang-bracket lang-bracket-l" aria-hidden="true">[</span>
+            <button type="button" class="lang-btn active" data-lang="ge">GEO</button>
+            <button type="button" class="lang-btn" data-lang="en">ENG</button>
+            <span class="lang-bracket lang-bracket-r" aria-hidden="true">]</span>
+        </div>
+
+        <div class="menu-icon" id="menu-toggle">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </header>
+
+    <a class="quiz-corner-logo" href="index.html" aria-label="Kinematics Agency">
+        <img src="./photos/favicon1.png" alt="Kinematics" width="110" height="62">
+    </a>
+
+    <main class="quiz-stage" id="quiz-stage">
+
+        <!-- PERSISTENT WALLS — stretch between screens. Paths are redrawn in JS. -->
+        <div class="walls" aria-hidden="true">
+            <svg class="wall wall-left" viewBox="0 0 40 260" preserveAspectRatio="none">
+                <path d="M36.5 3.5 H3.5 V256.5 H36.5" fill="none" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <svg class="wall wall-right" viewBox="0 0 40 260" preserveAspectRatio="none">
+                <path d="M3.5 3.5 H36.5 V256.5 H3.5" fill="none" vector-effect="non-scaling-stroke"/>
+            </svg>
+        </div>
+
+        <!-- SCREEN: LANDING -->
+        <section class="quiz-screen active" id="screen-landing">
+            <div class="quiz-frame">
+                <span class="bracket tl"></span>
+                <span class="bracket tr"></span>
+                <span class="bracket bl"></span>
+                <span class="bracket br"></span>
+
+                <h1 class="quiz-title" data-ge="რამდენად ჯანსაღია თქვენი ბრენდი?" data-en="How healthy is your brand?">რამდენად ჯანსაღია თქვენი ბრენდი?</h1>
+                <p class="quiz-body-text" data-ge="ქვიზის მიზანია დაგეხმაროთ ობიექტური სურათის დანახვასა და იმ მთავარი საყრდენების პოვნაში, რაზეც თქვენი პოზიციონირება დგას." data-en="The goal of this quiz is to help you see an objective picture and find the core pillars your positioning stands on.">ქვიზის მიზანია დაგეხმაროთ ობიექტური სურათის დანახვასა და იმ მთავარი საყრდენების პოვნაში, რაზეც თქვენი პოზიციონირება დგას.</p>
+                <p class="quiz-body-text" data-ge="დაუთმეთ გულწრფელობის 3 წუთი თქვენი ბრენდის ავთენტურობის შეფასებას." data-en="Give 3 honest minutes to assessing your brand's authenticity.">დაუთმეთ გულწრფელობის 3 წუთი თქვენი ბრენდის ავთენტურობის შეფასებას.</p>
+                <p class="quiz-caption" data-ge="* კითხვარი ანონიმურია და შექმნილია ბრენდინგზე ცნობიერების ასამაღლებლად." data-en="The survey is anonymous and designed to raise brand awareness.">* კითხვარი ანონიმურია და შექმნილია ბრენდინგზე ცნობიერების ასამაღლებლად.</p>
+
+                <button type="button" class="start-btn" id="start-btn" data-ge="დაწყება" data-en="START">დაწყება</button>
+            </div>
+        </section>
+
+        <!-- SCREEN: QUOTE -->
+        <section class="quiz-screen" id="screen-quote">
+            <div class="quiz-frame quote-frame">
+                <span class="bracket tl"></span>
+                <span class="bracket tr"></span>
+                <span class="bracket bl"></span>
+                <span class="bracket br"></span>
+
+                <blockquote class="quote-text" id="quote-text"></blockquote>
+                <cite class="quote-author" id="quote-author"></cite>
+            </div>
+        </section>
+
+        <!-- SCREEN: QUESTION -->
+        <section class="quiz-screen" id="screen-question">
+            <div class="quiz-frame question-frame">
+                <span class="bracket tl"></span>
+                <span class="bracket tr"></span>
+                <span class="bracket bl"></span>
+                <span class="bracket br"></span>
+
+                <h2 class="question-title" id="question-title"></h2>
+                <ul class="answer-list" id="answer-list"></ul>
+            </div>
+        </section>
+
+        <!-- SCREEN: FEEDBACK (after each answer) -->
+        <section class="quiz-screen" id="screen-feedback">
+            <div class="quiz-frame feedback-frame">
+                <span class="bracket tl"></span>
+                <span class="bracket tr"></span>
+                <span class="bracket bl"></span>
+                <span class="bracket br"></span>
+
+                <p class="feedback-text" id="feedback-text"></p>
+                <button type="button" class="next-btn feedback-next" id="feedback-next-btn" aria-label="Continue">
+                    <svg viewBox="0 0 40 47" width="40" height="47" aria-hidden="true">
+                        <path d="M40 23.094L0 -1.71661e-05V46.188L40 23.094Z"/>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN: RESULTS -->
+        <section class="quiz-screen" id="screen-results">
+            <div class="quiz-frame result-frame">
+                <span class="bracket tl"></span>
+                <span class="bracket tr"></span>
+                <span class="bracket bl"></span>
+                <span class="bracket br"></span>
+
+                <div class="result-percent" id="result-percent">0%</div>
+                <h3 class="result-label" id="result-label"></h3>
+                <p class="result-verdict" id="result-verdict"></p>
+
+                <div class="result-nav">
+                    <button type="button" class="next-btn nav-arrow nav-prev nav-disabled" disabled aria-label="Previous">
+                        <svg viewBox="0 0 40 57" width="40" height="57" aria-hidden="true">
+                            <path d="M1.42062e-06 28.1458L39.75 56.2916L39.75 -7.61241e-05L1.42062e-06 28.1458Z"
+                                  fill="white" fill-opacity="0.2"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="next-btn nav-arrow nav-next" id="result-next-btn" aria-label="Continue">
+                        <svg viewBox="0 0 40 57" width="40" height="57" aria-hidden="true">
+                            <path d="M39.75 28.1458L0.25 56.2916L0.25 -7.61241e-05L39.75 28.1458Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SCREEN: FINAL CTA -->
+        <section class="quiz-screen" id="screen-final">
+            <div class="quiz-frame final-frame">
+                <span class="bracket tl"></span>
+                <span class="bracket tr"></span>
+                <span class="bracket bl"></span>
+                <span class="bracket br"></span>
+
+                <p class="final-text" id="final-text"></p>
+                <a href="https://calendly.com/ako-kinematics/meet-with-me" target="_blank" rel="noopener noreferrer" class="book-btn" id="book-btn" data-ge="დაჯავშნეთ უფასო სესია" data-en="Book a Strategic Audit">დაჯავშნეთ უფასო სესია</a>
+
+                <div class="result-nav">
+                    <button type="button" class="next-btn nav-arrow nav-prev" id="final-prev-btn" aria-label="Previous">
+                        <svg viewBox="0 0 40 57" width="40" height="57" aria-hidden="true">
+                            <path d="M1.42062e-06 28.1458L39.75 56.2916L39.75 -7.61241e-05L1.42062e-06 28.1458Z"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="next-btn nav-arrow nav-next nav-disabled" disabled aria-label="Next">
+                        <svg viewBox="0 0 40 57" width="40" height="57" aria-hidden="true">
+                            <path d="M39.75 28.1458L0.25 56.2916L0.25 -7.61241e-05L39.75 28.1458Z"
+                                  fill="white" fill-opacity="0.2"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PROGRESS DOTS -->
+    <div class="progress-dots" id="progress-dots" aria-hidden="true">
+        <span class="dot" data-step="1"></span>
+        <span class="dot" data-step="2"></span>
+        <span class="dot" data-step="3"></span>
+        <span class="dot" data-step="4"></span>
+        <span class="dot" data-step="5"></span>
+        <span class="dot" data-step="6"></span>
+        <span class="dot" data-step="7"></span>
+        <span class="dot-brackets">[ ]</span>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,918 @@
+@font-face {
+    font-family: 'BPGBannerSquare';
+    src: url('./fonts/BPGBannerSuperSquareCaps.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DachiLynx';
+    src: url('./fonts/DachiTheLynx.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anodina';
+    src: url('./fonts/Anodina-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anodina';
+    src: url('./fonts/Anodina-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Anodina';
+    src: url('./fonts/Anodina-Light.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --quiz-red: #ce2a0b;
+    --quiz-white: #ffffff;
+    --quiz-dim: rgba(255,255,255,0.55);
+    --quiz-bg: #000;
+    --bracket-color: #ffffff;
+}
+
+html, body.quiz-body {
+    background: var(--quiz-bg);
+    color: var(--quiz-white);
+    min-height: 100vh;
+    font-family: 'BPGBannerSquare', 'DachiLynx', 'Anodina', sans-serif;
+}
+
+.quiz-body { overflow-x: hidden; }
+
+/* All quiz text uses the dedicated fonts (Banner for display, Dachi for accent, Anodina fallback) */
+.quiz-body .quiz-title,
+.quiz-body .quiz-body-text,
+.quiz-body .quiz-caption,
+.quiz-body .quote-text,
+.quiz-body .quote-author,
+.quiz-body .question-title,
+.quiz-body .answer-option,
+.quiz-body .feedback-text,
+.quiz-body .result-verdict,
+.quiz-body .final-text,
+.quiz-body .result-percent,
+.quiz-body .progress-dots {
+    font-family: 'BPGBannerSquare', 'DachiLynx', 'Anodina', sans-serif;
+}
+
+.quiz-body .start-btn {
+    font-family: 'Anodina', 'DachiLynx', 'BPGBannerSquare', sans-serif;
+}
+
+.quiz-body .book-btn {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+}
+
+/* English gets a slightly softer stack where Banner's Latin glyphs may be thin */
+/* All English text uses Anodina for a cleaner Latin rendering */
+.quiz-body[data-lang="en"] .quiz-title,
+.quiz-body[data-lang="en"] .quiz-body-text,
+.quiz-body[data-lang="en"] .quiz-caption,
+.quiz-body[data-lang="en"] .quote-text,
+.quiz-body[data-lang="en"] .quote-author,
+.quiz-body[data-lang="en"] .question-title,
+.quiz-body[data-lang="en"] .answer-option,
+.quiz-body[data-lang="en"] .feedback-text,
+.quiz-body[data-lang="en"] .result-percent,
+.quiz-body[data-lang="en"] .result-label,
+.quiz-body[data-lang="en"] .result-verdict,
+.quiz-body[data-lang="en"] .final-text,
+.quiz-body[data-lang="en"] .start-btn,
+.quiz-body[data-lang="en"] .book-btn {
+    font-family: 'Anodina', sans-serif;
+}
+
+/* All Georgian text uses DachiLynx (Dachi The Lynx) as the primary display face */
+.quiz-body[data-lang="ge"] .quiz-title,
+.quiz-body[data-lang="ge"] .quiz-body-text,
+.quiz-body[data-lang="ge"] .quiz-caption,
+.quiz-body[data-lang="ge"] .quote-text,
+.quiz-body[data-lang="ge"] .quote-author,
+.quiz-body[data-lang="ge"] .question-title,
+.quiz-body[data-lang="ge"] .answer-option,
+.quiz-body[data-lang="ge"] .feedback-text,
+.quiz-body[data-lang="ge"] .result-percent,
+.quiz-body[data-lang="ge"] .result-label,
+.quiz-body[data-lang="ge"] .result-verdict,
+.quiz-body[data-lang="ge"] .final-text,
+.quiz-body[data-lang="ge"] .start-btn,
+.quiz-body[data-lang="ge"] .book-btn {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+}
+
+/* Question popup — question title in Dachi The Lynx Bold (both languages),
+   answers use BPG Banner SuperSquare Caps for GE and Anodina for EN */
+.quiz-body[data-lang="ge"] .question-title,
+.quiz-body[data-lang="en"] .question-title {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+    font-weight: 700;
+}
+
+.quiz-body[data-lang="ge"] .answer-option {
+    font-family: 'BPGBannerSquare', 'DachiLynx', 'Anodina', sans-serif;
+    font-weight: 400;
+}
+
+.quiz-body[data-lang="en"] .answer-option {
+    font-family: 'Anodina', sans-serif;
+    font-weight: 400;
+}
+
+/* HEADER */
+.quiz-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 40px;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.quiz-header > * { pointer-events: auto; }
+
+.lang-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    font-family: 'Anodina', sans-serif;
+    font-weight: 400;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    color: var(--quiz-dim);
+}
+
+.lang-bracket {
+    position: absolute;
+    top: 60%;
+    left: 0;
+    transform: translate(0, calc(-50% - 4px));
+    color: var(--quiz-white);
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 1.9rem;
+    line-height: 1;
+    letter-spacing: 0;
+    pointer-events: none;
+    z-index: 1;
+    transition: left 0.4s cubic-bezier(.2,.9,.25,1),
+                transform 0.4s cubic-bezier(.2,.9,.25,1);
+    will-change: left, transform;
+}
+
+.lang-btn {
+    background: transparent;
+    border: 0;
+    padding: 2px 10px;
+    color: var(--quiz-dim);
+    font: inherit;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.lang-btn.active {
+    color: var(--quiz-white);
+}
+
+.lang-btn:hover { color: var(--quiz-white); }
+
+/* Bottom-right corner logo */
+.quiz-corner-logo {
+    position: fixed;
+    right: 24px;
+    bottom: 20px;
+    z-index: 45;
+    display: block;
+    line-height: 0;
+}
+
+.quiz-corner-logo img {
+    display: block;
+    width: 110px;
+    height: 62px;
+}
+
+@media (max-width: 720px) {
+    .quiz-corner-logo { right: 16px; bottom: 14px; }
+    .quiz-corner-logo img { width: 86px; height: 48px; }
+}
+
+@media (max-width: 420px) {
+    .quiz-corner-logo { right: 12px; bottom: 10px; }
+    .quiz-corner-logo img { width: 68px; height: 38px; }
+}
+
+/* STAGE — screens stack in one grid cell so they can crossfade */
+.quiz-stage {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 120px 24px 120px;
+    position: relative;
+}
+
+.quiz-screen {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    max-width: 760px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition:
+        opacity 0.45s ease,
+        transform 0.45s ease,
+        visibility 0s linear 0.45s;
+}
+
+.quiz-screen.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition:
+        opacity 0.45s ease,
+        transform 0.45s ease,
+        visibility 0s linear 0s;
+}
+
+/* ADAPTIVE FRAME (per guide §1) */
+.quiz-frame {
+    position: relative;
+    min-width: 320px;
+    max-width: 760px;
+    padding: 36px 56px;
+    margin: 0 auto;
+    text-align: left;
+    min-height: 260px;
+}
+
+/* Old per-frame brackets hidden — walls are now global and stretch between screens */
+.bracket { display: none; }
+
+/* GLOBAL STRETCHING WALLS */
+.walls {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.wall {
+    --frame-w: 600px;
+    --frame-h: 260px;
+    --arm: 40px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--arm);
+    height: var(--frame-h);
+    overflow: visible;
+    color: var(--quiz-white);
+    transition:
+        height 0.55s cubic-bezier(.2,.9,.25,1),
+        transform 0.55s cubic-bezier(.2,.9,.25,1),
+        color 0.25s ease;
+    will-change: height, transform;
+}
+
+.wall > path {
+    stroke: currentColor;
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-linejoin: miter;
+    fill: none;
+}
+
+/* Walls turn red when any interactive element in the stage is hovered/focused */
+.quiz-stage:has(.answer-option:hover) .wall,
+.quiz-stage:has(.answer-option:focus-visible) .wall,
+.quiz-stage:has(.start-btn:hover) .wall,
+.quiz-stage:has(.start-btn:focus-visible) .wall,
+.quiz-stage:has(.book-btn:hover) .wall,
+.quiz-stage:has(.book-btn:focus-visible) .wall,
+.quiz-stage:has(.next-btn:hover) .wall,
+.quiz-stage:has(.next-btn:focus-visible) .wall {
+    color: var(--quiz-red);
+}
+
+.wall-left {
+    transform: translate(
+        calc(-1 * var(--frame-w) / 2),
+        calc(-1 * var(--frame-h) / 2)
+    );
+}
+
+.wall-right {
+    transform: translate(
+        calc(var(--frame-w) / 2 - var(--arm)),
+        calc(-1 * var(--frame-h) / 2)
+    );
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wall { transition: none; }
+}
+
+/* LANDING */
+.quiz-title {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--quiz-red);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    letter-spacing: 0.02em;
+    /* -webkit-text-stroke: 0.6px var(--quiz-red); */
+}
+
+/* Landing title + start button: Dachi The Lynx Bold — both languages */
+.quiz-body[data-lang="ge"] .quiz-title,
+.quiz-body[data-lang="en"] .quiz-title,
+.quiz-body[data-lang="ge"] .start-btn,
+.quiz-body[data-lang="en"] .start-btn {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+    font-weight: 700;
+}
+
+/* Landing body copy + caption: BPG Banner SuperSquare Caps — both languages */
+.quiz-body[data-lang="ge"] .quiz-body-text,
+.quiz-body[data-lang="en"] .quiz-body-text,
+.quiz-body[data-lang="ge"] .quiz-caption,
+.quiz-body[data-lang="en"] .quiz-caption {
+    font-family: 'BPGBannerSquare', 'DachiLynx', 'Anodina', sans-serif;
+}
+
+.quiz-body-text {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--quiz-white);
+    margin-bottom: 18px;
+}
+
+.quiz-caption {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--quiz-white);
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+}
+
+.start-btn {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    white-space: nowrap;
+    margin: 0;
+    padding: 0 12px;
+    background: var(--quiz-bg);
+    border: 0;
+    font-family: 'Anodina', 'DachiLynx', 'BPGBannerSquare', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    color: var(--quiz-red);
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(.2,.9,.25,1);
+}
+
+.start-btn:hover,
+.start-btn:focus-visible {
+    outline: none;
+    /* Lift the button up a few px — keep the 50% horizontal/vertical offset so
+       it still straddles the wall-bottom line */
+    transform: translate(-50%, calc(50% - 6px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .start-btn { transition: none; }
+    .start-btn:hover,
+    .start-btn:focus-visible { transform: translate(-50%, 50%); }
+}
+
+
+/* QUOTE + FEEDBACK — quote-style popups, wider than quiz popups.
+   Min-height cleared so walls hug the actual text height. */
+/* Landing + question + results + final popups — narrower than default .quiz-screen */
+#screen-landing,
+#screen-question,
+#screen-results,
+#screen-final { max-width: 560px; }
+#screen-landing .quiz-frame,
+#screen-question .quiz-frame,
+#screen-results .quiz-frame,
+#screen-final .quiz-frame { max-width: 560px; }
+
+#screen-quote,
+#screen-feedback { max-width: 960px; }
+.quote-frame,
+.feedback-frame {
+    text-align: center;
+    max-width: 960px;
+    min-height: 0;
+}
+
+.quote-text,
+.feedback-text {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+    font-size: 2.4rem;
+    line-height: 1.2;
+    color: var(--quiz-red);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    padding: 0;
+    margin: 0;
+    font-style: normal;
+    /* -webkit-text-stroke: 0.6px var(--quiz-red); */
+}
+
+/* Feedback popup: Dachi The Lynx Bold — both languages */
+.quiz-body[data-lang="ge"] .feedback-text,
+.quiz-body[data-lang="en"] .feedback-text {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+    font-weight: 700;
+}
+
+.quote-author {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    white-space: nowrap;
+    font-family: 'Anodina', 'DachiLynx', 'BPGBannerSquare', sans-serif;
+    font-size: 1.9rem;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--quiz-white);
+    line-height: 1.2;
+    text-align: center;
+    padding: 0 12px;
+    background: var(--quiz-bg);
+    pointer-events: none;
+}
+
+@media (max-width: 720px) {
+    .quote-author { font-size: 1.4rem; }
+}
+
+/* QUESTION */
+.question-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--quiz-red);
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    letter-spacing: 0.04em;
+    -webkit-text-stroke: 0.4px var(--quiz-red);
+}
+
+.answer-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.answer-option {
+    background: transparent;
+    border: 0;
+    padding: 4px 0;
+    text-align: left;
+    font-family: inherit;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--quiz-white);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.answer-option:hover,
+.answer-option:focus-visible {
+    color: var(--quiz-red);
+    outline: none;
+    transform: translateY(-4px);
+}
+
+/* Quote popup: quote text in Dachi The Lynx Bold, author in BPG Banner SuperSquare Caps — both languages */
+.quiz-body[data-lang="ge"] .quote-text,
+.quiz-body[data-lang="en"] .quote-text {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+    font-weight: 700;
+}
+
+.quiz-body[data-lang="ge"] .quote-author,
+.quiz-body[data-lang="en"] .quote-author {
+    font-family: 'BPGBannerSquare', 'DachiLynx', 'Anodina', sans-serif;
+}
+
+.next-btn {
+    position: absolute;
+    bottom: 24px;
+    left: 60%;
+    transform: translateX(-50%);
+    background: transparent;
+    border: 0;
+    padding: 8px;
+    cursor: pointer;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.next-btn:hover { opacity: 1; transform: translate(-50%, -2px); }
+.next-btn svg polygon,
+.next-btn svg path {
+    fill: var(--quiz-white);
+    transition: fill 0.2s ease;
+}
+.next-btn:hover svg polygon,
+.next-btn:hover svg path {
+    fill: var(--quiz-red);
+}
+
+/* Feedback arrow sits outside the right wall, vertically centered on the frame */
+.feedback-next {
+    top: 50%;
+    bottom: auto;
+    left: auto;
+    right: -64px;
+    transform: translateY(-50%);
+    pointer-events: auto;
+}
+.feedback-next:hover {
+    transform: translate(4px, -50%);
+}
+
+@media (max-width: 720px) {
+    .feedback-next svg { width: 28px; height: 33px; }
+}
+
+/* Two-arrow nav (results + final screens) — centered between wall bottoms,
+   same positioning treatment as .quote-author / .start-btn */
+.result-nav {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    display: flex;
+    align-items: center;
+    gap: 56px;
+    padding: 0 12px;
+    background: var(--quiz-bg);
+    z-index: 4;
+    pointer-events: auto;
+}
+
+.result-nav .next-btn {
+    position: static;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    transform: none;
+}
+
+.result-nav .next-btn:hover {
+    transform: translateY(-3px);
+}
+
+.nav-arrow.nav-disabled,
+.nav-arrow[disabled] {
+    cursor: default;
+    pointer-events: none;
+}
+
+.result-nav .next-btn.nav-disabled:hover svg path,
+.result-nav .next-btn[disabled]:hover svg path {
+    fill: var(--quiz-white);
+}
+
+/* RESULTS */
+.result-frame { text-align: left; padding-bottom: 120px; }
+
+.result-percent {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+    font-size: 5.5rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--quiz-red);
+    margin-bottom: 28px;
+    letter-spacing: 0.02em;
+    -webkit-text-stroke: 1px var(--quiz-red);
+}
+
+.result-label {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--quiz-red);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0 0 16px 0;
+}
+
+/* Results label (e.g. "ზრდის პოტენციალი"): Dachi The Lynx — both languages */
+.quiz-body[data-lang="ge"] .result-label,
+.quiz-body[data-lang="en"] .result-label {
+    font-family: 'DachiLynx', 'BPGBannerSquare', 'Anodina', sans-serif;
+}
+
+/* Results + Final sub-text: GE → BPG Banner SuperSquare Caps, EN → Anodina (regular) */
+.quiz-body[data-lang="ge"] .result-verdict,
+.quiz-body[data-lang="ge"] .final-text {
+    font-family: 'BPGBannerSquare', 'DachiLynx', 'Anodina', sans-serif;
+    font-weight: 400;
+}
+
+.quiz-body[data-lang="en"] .result-verdict,
+.quiz-body[data-lang="en"] .final-text {
+    font-family: 'Anodina', sans-serif;
+    font-weight: 400;
+}
+
+.result-verdict {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--quiz-white);
+}
+
+/* Highlights stay red but not bolder than the rest of the verdict body */
+.result-verdict .hl { color: var(--quiz-red); }
+
+/* FINAL */
+.final-frame { text-align: center; padding: 48px 48px 120px; }
+
+.final-text {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--quiz-white);
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.final-text .hl { color: var(--quiz-red); font-weight: 700; }
+
+.book-btn {
+    display: inline-block;
+    padding: 11px 32px 5px;
+    font-family: 'Impact', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.04em;
+    color: var(--quiz-white);
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid var(--quiz-white);
+    transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.book-btn:hover {
+    color: var(--quiz-bg);
+    background: var(--quiz-red);
+    border-color: var(--quiz-red);
+}
+
+/* PROGRESS DOTS */
+.progress-dots {
+    position: fixed;
+    bottom: 28px;
+    left: 32px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Impact', sans-serif;
+    font-size: 1.25rem;
+    color: var(--quiz-white);
+    z-index: 40;
+}
+
+.progress-dots .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #555;
+    transition: background 0.3s ease;
+}
+
+.progress-dots .dot.active { background: var(--quiz-white); }
+.progress-dots .dot.done { background: var(--quiz-white); }
+
+.progress-dots .dot-brackets {
+    margin-left: 6px;
+    letter-spacing: 0.08em;
+    color: var(--quiz-white);
+}
+
+/* Hide progress on landing and quote screens (not part of questions) */
+.quiz-body.phase-landing .progress-dots,
+.quiz-body.phase-quote .progress-dots {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* RESPONSIVE — quiz page only */
+
+/* ≤1080 — park the feedback arrow at the bottom-center between wall ends
+   (same treatment as .quote-author / .start-btn / .result-nav) */
+@media (max-width: 1080px) {
+    .feedback-next {
+        top: auto;
+        left: 50%;
+        right: auto;
+        bottom: 0;
+        transform: translate(-50%, 50%);
+        padding: 0 12px;
+        background: var(--quiz-bg);
+    }
+    .feedback-next:hover {
+        transform: translate(-50%, calc(50% - 3px));
+    }
+}
+
+/* Tablet / small laptop */
+@media (max-width: 1024px) {
+    .quiz-stage { padding: 110px 20px; }
+    .quiz-title { font-size: 1.95rem; }
+    .question-title { font-size: 1.25rem; margin-bottom: 40px; }
+    .quote-text,
+    .feedback-text { font-size: 2.4rem; }
+    .quote-author { font-size: 1.6rem; }
+    .result-percent { font-size: 4.8rem; }
+    .result-label { font-size: 1.05rem; }
+    #screen-quote,
+    #screen-feedback,
+    .quote-frame,
+    .feedback-frame { max-width: 100%; }
+}
+
+/* Tablet portrait / notepad */
+@media (max-width: 900px) {
+    .quiz-stage { padding: 104px 18px 96px; }
+    .quiz-frame { padding: 42px 40px; }
+
+    .quiz-title { font-size: 1.82rem; margin-bottom: 28px; }
+    .quiz-body-text { font-size: 0.98rem; margin-bottom: 16px; }
+    .quiz-caption { font-size: 0.82rem; margin-bottom: 34px; }
+    .question-title { font-size: 1.15rem; margin-bottom: 36px; }
+    .answer-option { font-size: 0.98rem; }
+    .answer-list { gap: 18px; }
+
+    .quote-text,
+    .feedback-text { font-size: 2.1rem; }
+    .quote-author { font-size: 1.45rem; }
+
+    .result-percent { font-size: 4.25rem; margin-bottom: 24px; }
+    .result-label { font-size: 0.98rem; margin-bottom: 14px; }
+    .result-verdict { font-size: 0.96rem; }
+    .final-frame { padding: 42px 40px 110px; }
+    .final-text { font-size: 0.96rem; margin-bottom: 32px; }
+    .book-btn { font-size: 1.05rem; padding: 10px 28px; }
+
+    .start-btn { font-size: 1.55rem; padding: 0 11px; }
+
+    .feedback-next svg { width: 34px; height: 40px; }
+
+    .wall { --arm: 34px; }
+    .wall > path { stroke-width: 6; }
+}
+
+/* Large mobile / small tablet */
+@media (max-width: 720px) {
+    .quiz-stage { padding: 96px 16px 96px; }
+    .quiz-frame {
+        padding: 44px 34px;
+        min-width: 0;
+    }
+    .quiz-frame .bracket { width: 32px; height: 32px; border-width: 3px; }
+
+    .quiz-title { font-size: 1.65rem; margin-bottom: 26px; }
+    .quiz-body-text { font-size: 0.95rem; margin-bottom: 14px; }
+    .quiz-caption { font-size: 0.8rem; margin-bottom: 30px; }
+    .question-title { font-size: 1.05rem; margin-bottom: 30px; }
+    .answer-option { font-size: 0.95rem; }
+    .answer-list { gap: 16px; }
+
+    .quote-text,
+    .feedback-text { font-size: 1.8rem; -webkit-text-stroke: 0.4px var(--quiz-red); }
+    .quote-author { font-size: 1.3rem; }
+
+    .result-percent { font-size: 3.8rem; }
+    .result-label { font-size: 0.9rem; margin-bottom: 12px; }
+    .result-verdict { font-size: 0.92rem; }
+    .final-frame { padding: 40px 34px; }
+    .final-text { font-size: 0.9rem; margin-bottom: 28px; }
+    .book-btn { font-size: 1rem; padding: 9px 26px; }
+
+    .start-btn { font-size: 1.4rem; padding: 0 10px; }
+
+    .progress-dots { left: 18px; bottom: 18px; gap: 7px; font-size: 1rem; }
+    .progress-dots .dot { width: 10px; height: 10px; }
+
+    .feedback-next svg { width: 28px; height: 33px; }
+
+    .wall { --arm: 30px; }
+    .wall > path { stroke-width: 5; }
+}
+
+/* Mobile */
+@media (max-width: 540px) {
+    .quiz-stage { padding: 84px 12px 80px; }
+    .quiz-frame { padding: 36px 26px; }
+
+    .quiz-title { font-size: 1.4rem; margin-bottom: 20px; }
+    .question-title { font-size: 0.95rem; margin-bottom: 24px; }
+    .answer-option { font-size: 0.9rem; }
+    .answer-list { gap: 14px; }
+
+    .quote-text,
+    .feedback-text { font-size: 1.5rem; }
+    .quote-author { font-size: 1.1rem; }
+
+    .result-percent { font-size: 3.1rem; }
+    .result-label { font-size: 0.82rem; }
+    .result-verdict { font-size: 0.88rem; }
+    .final-frame { padding: 32px 26px; }
+    .final-text { font-size: 0.85rem; margin-bottom: 24px; }
+    .book-btn { font-size: 0.9rem; padding: 8px 22px; }
+
+    .start-btn { font-size: 1.25rem; }
+
+    /* Bottom-center positioning already applied by the ≤1080 rule;
+       just shrink the svg here */
+    .feedback-next svg { width: 26px; height: 31px; }
+}
+
+/* Small phones */
+@media (max-width: 420px) {
+    .quiz-stage { padding: 76px 10px 72px; }
+    .quiz-frame { padding: 30px 20px; }
+
+    .quiz-title { font-size: 1.2rem; margin-bottom: 16px; }
+    .quiz-body-text { font-size: 0.88rem; margin-bottom: 12px; }
+    .quiz-caption { font-size: 0.72rem; margin-bottom: 24px; }
+    .question-title { font-size: 0.88rem; margin-bottom: 20px; letter-spacing: 0.03em; }
+    .answer-option { font-size: 0.85rem; }
+    .answer-list { gap: 12px; }
+
+    .quote-text,
+    .feedback-text { font-size: 1.2rem; }
+    .quote-author { font-size: 0.95rem; }
+
+    .result-percent { font-size: 2.6rem; margin-bottom: 16px; }
+    .result-label { font-size: 0.72rem; margin-bottom: 8px; }
+    .result-verdict { font-size: 0.82rem; }
+    .final-text { font-size: 0.8rem; }
+    .book-btn { font-size: 0.82rem; padding: 7px 18px; letter-spacing: 0.02em; }
+
+    .start-btn { font-size: 1.05rem; padding: 0 8px; }
+
+    .feedback-next svg { width: 22px; height: 26px; }
+
+    .wall { --arm: 22px; }
+    .wall > path { stroke-width: 4; }
+
+    .progress-dots { left: 12px; bottom: 12px; gap: 6px; font-size: 0.9rem; }
+    .progress-dots .dot { width: 8px; height: 8px; }
+}
+
+/* Tiny phones */
+@media (max-width: 360px) {
+    .quiz-stage { padding: 70px 8px 66px; }
+    .quiz-frame { padding: 24px 16px; }
+    .quiz-title { font-size: 1.05rem; }
+    .quote-text,
+    .feedback-text { font-size: 1.05rem; -webkit-text-stroke: 0.3px var(--quiz-red); }
+    .quote-author { font-size: 0.85rem; }
+    .start-btn { font-size: 0.95rem; }
+    .result-percent { font-size: 2.2rem; }
+    .book-btn { font-size: 0.75rem; padding: 6px 14px; }
+}

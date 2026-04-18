@@ -858,18 +858,97 @@ body.menu-open .dimmer-overlay {
 @media (max-width: 425px) {
     .off-canvas-menu {
         /* On mobile, use a larger width for better touch target and visibility */
-        width: 75%; 
+        width: 75%;
         right: -75%;
     }
-    
+
     .menu-links li {
         margin: 20px 0; /* Reduced margin */
     }
-    
+
     .menu-links a {
         /* Smaller, more suitable font size for mobile view */
-        font-size: 2.5rem; 
+        font-size: 2.5rem;
         /* Removing clamp for consistency on small screens, using a fixed-size */
+    }
+}
+
+
+/* ===============================================
+   MENU RESPONSIVE — unified across all pages
+   Targets desktop → laptop → tablet landscape →
+   tablet portrait (notepad) → phone → small phone.
+   Appended last so it wins on source order.
+   =============================================== */
+
+/* Small laptop / large tablet landscape (~1200) */
+@media (max-width: 1200px) {
+    .off-canvas-menu {
+        width: 45%;
+        right: -45%;
+    }
+    .menu-links a {
+        font-size: 2.6rem;
+    }
+    .menu-links li {
+        margin: 30px 0;
+    }
+}
+
+/* Tablet landscape / notepad */
+@media (max-width: 1024px) {
+    .off-canvas-menu {
+        width: 55%;
+        right: -55%;
+        padding-right: 5%;
+    }
+    .menu-links a {
+        font-size: 2.4rem;
+    }
+    .menu-links li {
+        margin: 26px 0;
+    }
+}
+
+/* Tablet portrait / small notepad */
+@media (max-width: 900px) {
+    .off-canvas-menu {
+        width: 65%;
+        right: -65%;
+    }
+    .menu-links a {
+        font-size: 2.1rem;
+    }
+    .menu-links li {
+        margin: 22px 0;
+    }
+}
+
+/* Large phone */
+@media (max-width: 640px) {
+    .off-canvas-menu {
+        width: 75%;
+        right: -75%;
+    }
+    .menu-links a {
+        font-size: 1.85rem;
+    }
+    .menu-links li {
+        margin: 18px 0;
+    }
+}
+
+/* Small phone */
+@media (max-width: 425px) {
+    .off-canvas-menu {
+        width: 82%;
+        right: -82%;
+    }
+    .menu-links a {
+        font-size: 1.55rem;
+    }
+    .menu-links li {
+        margin: 14px 0;
     }
 }
 
