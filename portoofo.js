@@ -178,10 +178,74 @@ document.addEventListener('DOMContentLoaded', function() {
     menuLinks.forEach(link => {
         link.addEventListener('click', closeMenu);
     });
-    
+
     if (dimmer) {
         dimmer.addEventListener('click', closeMenu);
     }
+
+    // ============================================================
+    // LANGUAGE TOGGLE — GEO default, ENG on click (mirrors index.html)
+    // ============================================================
+    (function () {
+        const toggle = document.getElementById('lang-toggle');
+        if (!toggle || toggle.dataset.wired) return;
+        toggle.dataset.wired = '1';
+
+        const bracketL = toggle.querySelector('.lang-bracket-l');
+        const bracketR = toggle.querySelector('.lang-bracket-r');
+        const btns = toggle.querySelectorAll('.lang-btn');
+
+        function moveBracket() {
+            const active = toggle.querySelector('.lang-btn.active');
+            if (!active || !bracketL || !bracketR) return;
+
+            const toggleRect = toggle.getBoundingClientRect();
+            const btnRect = active.getBoundingClientRect();
+
+            const lLeft = btnRect.left - toggleRect.left - 2;
+            bracketL.style.left = lLeft + 'px';
+            bracketL.style.transform = 'translate(0, -50%)';
+
+            const rLeft = btnRect.right - toggleRect.left - 10;
+            bracketR.style.left = rLeft + 'px';
+            bracketR.style.transform = 'translate(0, -50%)';
+        }
+
+        function applyLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.documentElement.lang = lang === 'ge' ? 'ka' : 'en';
+
+            document.querySelectorAll('[data-ge]').forEach(el => {
+                const val = el.getAttribute('data-' + lang);
+                if (val !== null) el.textContent = val;
+            });
+
+            try { localStorage.setItem('km-lang', lang); } catch (e) {}
+        }
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                if (lang === document.body.getAttribute('data-lang')) return;
+
+                btns.forEach(b => b.classList.toggle('active', b === btn));
+                applyLang(lang);
+                requestAnimationFrame(moveBracket);
+            });
+        });
+
+        let saved = 'ge';
+        try { saved = localStorage.getItem('km-lang') || 'ge'; } catch (e) {}
+
+        const initBtn = toggle.querySelector(`.lang-btn[data-lang="${saved}"]`);
+        if (initBtn) {
+            btns.forEach(b => b.classList.toggle('active', b === initBtn));
+            applyLang(saved);
+        }
+
+        window.addEventListener('load', moveBracket);
+        window.addEventListener('resize', moveBracket);
+    }());
 
 
     // ==========================================================
@@ -343,9 +407,73 @@ document.addEventListener('DOMContentLoaded', function() {
     menuLinks.forEach(link => {
         link.addEventListener('click', closeMenu);
     });
-    
+
     if (dimmer) {
         dimmer.addEventListener('click', closeMenu);
     }
+
+    // ============================================================
+    // LANGUAGE TOGGLE — GEO default, ENG on click (mirrors index.html)
+    // ============================================================
+    (function () {
+        const toggle = document.getElementById('lang-toggle');
+        if (!toggle || toggle.dataset.wired) return;
+        toggle.dataset.wired = '1';
+
+        const bracketL = toggle.querySelector('.lang-bracket-l');
+        const bracketR = toggle.querySelector('.lang-bracket-r');
+        const btns = toggle.querySelectorAll('.lang-btn');
+
+        function moveBracket() {
+            const active = toggle.querySelector('.lang-btn.active');
+            if (!active || !bracketL || !bracketR) return;
+
+            const toggleRect = toggle.getBoundingClientRect();
+            const btnRect = active.getBoundingClientRect();
+
+            const lLeft = btnRect.left - toggleRect.left - 2;
+            bracketL.style.left = lLeft + 'px';
+            bracketL.style.transform = 'translate(0, -50%)';
+
+            const rLeft = btnRect.right - toggleRect.left - 10;
+            bracketR.style.left = rLeft + 'px';
+            bracketR.style.transform = 'translate(0, -50%)';
+        }
+
+        function applyLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+            document.documentElement.lang = lang === 'ge' ? 'ka' : 'en';
+
+            document.querySelectorAll('[data-ge]').forEach(el => {
+                const val = el.getAttribute('data-' + lang);
+                if (val !== null) el.textContent = val;
+            });
+
+            try { localStorage.setItem('km-lang', lang); } catch (e) {}
+        }
+
+        btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                if (lang === document.body.getAttribute('data-lang')) return;
+
+                btns.forEach(b => b.classList.toggle('active', b === btn));
+                applyLang(lang);
+                requestAnimationFrame(moveBracket);
+            });
+        });
+
+        let saved = 'ge';
+        try { saved = localStorage.getItem('km-lang') || 'ge'; } catch (e) {}
+
+        const initBtn = toggle.querySelector(`.lang-btn[data-lang="${saved}"]`);
+        if (initBtn) {
+            btns.forEach(b => b.classList.toggle('active', b === initBtn));
+            applyLang(saved);
+        }
+
+        window.addEventListener('load', moveBracket);
+        window.addEventListener('resize', moveBracket);
+    }());
 
 

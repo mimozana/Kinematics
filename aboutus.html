@@ -9,23 +9,32 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/site.webmanifest" />
     <title>Kinematics Agency</title>
-    <link rel="stylesheet" href="./aboutss.css">
+    <link rel="stylesheet" href="./aboutss.css?v=17">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.js" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="aboutsss.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="aboutsss.js?v=7" defer></script>
 </head>
 <body>
 
     <div class="dimmer-overlay" id="dimmer-overlay"></div>
 
     <nav class="off-canvas-menu" id="off-canvas-menu">
+        <!-- Language toggle sits top-right of the orange panel -->
+        <div class="lang-toggle" id="lang-toggle" role="group" aria-label="Language">
+            <span class="lang-bracket lang-bracket-l" aria-hidden="true">[</span>
+            <button type="button" class="lang-btn active" data-lang="ge">GEO</button>
+            <button type="button" class="lang-btn" data-lang="en">ENG</button>
+            <span class="lang-bracket lang-bracket-r" aria-hidden="true">]</span>
+        </div>
+
         <ul class="menu-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="quiz.html">Quiz</a></li>
-            <li><a href="index.html#contact">Contact Us</a></li>
+            <li><a href="index.html" data-ge="მთავარი" data-en="Home">მთავარი</a></li>
+            <li><a href="portfolio.html" data-ge="პორტფოლიო" data-en="Portfolio">პორტფოლიო</a></li>
+            <li><a href="aboutus.html" data-ge="ჩვენ შესახებ" data-en="About Us">ჩვენ შესახებ</a></li>
+            <li><a href="index.html#services" data-ge="სერვისები" data-en="Services">სერვისები</a></li>
+            <li><a href="quiz.html" data-ge="ქვიზი" data-en="Quiz">ქვიზი</a></li>
+            <li><a href="index.html#contact" data-ge="კონტაქტი" data-en="Contact Us">კონტაქტი</a></li>
         </ul>
     </nav>
 
@@ -44,50 +53,78 @@
     </header>
 
 
-<div class="hero">
+<!-- ═══════════════════════════════════════════════════════════
+     ABOUT PAGE CONTENT — TEMPORARILY DISABLED, DO NOT DELETE.
+     To restore: delete this whole comment wrapper (and the
+     under-construction section below), and turn the [ 01 ]-style
+     labels back into proper HTML comments if you like.
 
+<div class="hero">
+    <img src="./photos/bobol.png" alt="" class="about-top-image">
 </div>
 
 
-    <section class="about-section" id="about" style="margin-top: -150px;">
-        <div class="container">
-            <div class="about-content-full-width">
+    <section class="about-section manifesto" id="about">
+        <div class="manifesto-inner">
 
-                <!-- WHO WE ARE -->
-                <h3 class="about-subheader-bold" data-aos="fade-up">
-                    <span class="red-bracket-text">[</span>WHO WE ARE<span class="red-bracket-text">]</span>
-                </h3>
-                <p class="about-body-main" data-aos="fade-up" data-aos-delay="100">
-                    We are Kinematics Agency, a collective of designers, filmmakers, and marketers dedicated to helping brands discover and express themselves in a cinematic way. We believe that value is made by <span class="highlight-text">[humans, not products]</span>. Our mission is to move brands by moving people, rejecting loud, outdated advertising.
-                </p>
-
-                <!-- THE CORE PHILOSOPHY -->
-                <h3 class="about-subheader-bold" data-aos="fade-up" data-aos-delay="200">
-                    <span class="red-bracket-text">[</span>THE CORE PHILOSOPHY<span class="red-bracket-text">]</span>
-                </h3>
-                <p class="about-body-main" data-aos="fade-up" data-aos-delay="300">
-                    We don’t just show your product — <span class="highlight-text">[we show how your product feels]</span>. Cinema creates emotion. Emotion creates memory. Memory creates action.
-                </p>
-
-                <!-- OUR METHODOLOGY -->
-                <h3 class="about-subheader-bold" data-aos="fade-up" data-aos-delay="400">
-                    <span class="red-bracket-text">[</span>OUR METHODOLOGY<span class="red-bracket-text">]</span>
-                </h3>
-                <p class="about-body-main" data-aos="fade-up" data-aos-delay="500">
-                    The Kinetic Shock Process<br><br>
-                    We merge high-end artistry with narrative mechanics. Vulnerability. Conflict. Transformation. This creates a <span class="highlight-text">[deeper bond]</span> between brand and audience.
-                </p>
-
-                <!-- BACK TO HOMEPAGE BUTTON -->
-                <a href="index.html" class="read-more-link-button" data-aos="fade-up" data-aos-delay="600">BACK TO HOMEPAGE</a>
-                
+            [ 01 — the killer statement, biggest ]
+            <div class="mf-block mf-left">
+                <span class="mf-index" aria-hidden="true">01</span>
+                <h3 class="mf-head">პრიალა რეკლამების აღარავის სჯერა.</h3>
+                <p class="mf-body">თანამედროვე ადამიანს ხელოვნურობისადმი უკვე მეექვსე გრძნობა გაუჩნდა</p>
             </div>
+
+            [ 02 ]
+            <div class="mf-block mf-right">
+                <span class="mf-index" aria-hidden="true">02</span>
+                <h3 class="mf-head">ვინ ვართ ჩვენ.</h3>
+                <p class="mf-body">ხალხი ვისაც მობეზრდა მოსაწყენი რეკლამები</p>
+            </div>
+
+            [ 03 ]
+            <div class="mf-block mf-left mf-indent">
+                <span class="mf-index" aria-hidden="true">03</span>
+                <h3 class="mf-head">ჩვენი მიზანი ნამდვილობაა.</h3>
+                <p class="mf-body">განსხვავებულობა ნამდვილობის ბუნებრივი შედეგია.</p>
+            </div>
+
+            [ closing beat — what we do ]
+            <div class="mf-services">
+                <h3 class="mf-head mf-services-head">რას ვაკეთებთ:</h3>
+                <p class="mf-services-list">
+                    <span>ბრენდინგი</span><span class="mf-slash">/</span><span>სტრატეგია</span><span class="mf-slash">/</span><span>ვიდეო და ფოტო პროდუქცია</span>
+                </p>
+            </div>
+
+            <a href="index.html" class="read-more-link-button" data-aos="fade-up">BACK TO HOMEPAGE</a>
+
         </div>
+    </section>
+═══════════════════════════════════════════════════════════ -->
+
+    <section class="under-construction">
+        <p class="uc-text">
+            <span class="uc-bracket">[</span>
+            <span data-ge="გვერდი მზადების პროცესშია" data-en="PAGE UNDER CONSTRUCTION">გვერდი მზადების პროცესშია</span>
+            <span class="uc-bracket">]</span>
+        </p>
     </section>
 <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
             <p>info@kinematics.ge</p>
             <p>+995 551 22 03 44</p>
-            <p class="copyright-text">&copy; 2025 KINEMATICS AGENCY. ALL RIGHTS RESERVED.</p> 
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/company/kinematics-agency/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/kinematics_agency/" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.058-1.69-.072-4.949-.072zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="copyright-text">&copy; 2026 KINEMATICS AGENCY. ALL RIGHTS RESERVED.</p>
         </div>
 </body>
 </html>

@@ -1,13 +1,24 @@
-
-
+@font-face {
+    font-family: 'BBHHegarty';
+    src: url('./fonts/BBHHegarty-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
 
 @font-face {
-    font-family: 'KreaseDisplay'; 
+    font-family: 'LGVBigNoodle';
+    src: url('./fonts/LGV_Big_Noodle-48848651178.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KreaseDisplay';
     src: url('./fonts/Krease-Display.otf') format('opentype');
     font-weight: 400; 
     font-style: normal;
 }
-
+ 
 /* SCHABO-XCondensed for "UNSKIPPABLE" */
 @font-face {
     font-family: 'SchaboXCondensed'; 
@@ -15,7 +26,7 @@
     font-weight: 400;
     font-style: normal;
 }
-
+ 
 /* Anodina Regular (Body, "Who We Are" - 400) */
 @font-face {
     font-family: 'Anodina'; 
@@ -23,7 +34,7 @@
     font-weight: 400; 
     font-style: normal;
 }
-
+ 
 /* Anodina Light ("Kinetic Shock..." - 300) */
 @font-face {
     font-family: 'Anodina'; 
@@ -31,7 +42,7 @@
     font-weight: 300; 
     font-style: normal;
 }
-
+ 
 /* Anodina Bold (Section Titles / CTA - 700) */
 @font-face {
     font-family: 'Anodina'; 
@@ -39,7 +50,7 @@
     font-weight: 700; 
     font-style: normal;
 }
-
+ 
 /* Anodina Extra Light (Menu links - 200) */
 @font-face {
     font-family: 'Anodina'; 
@@ -47,7 +58,7 @@
     font-weight: 200; 
     font-style: normal;
 }
-
+ 
 /* Impact for menu links and dynamic contact text */
 @font-face {
     font-family: 'Impact'; 
@@ -55,27 +66,30 @@
     font-weight: 400; 
     font-style: normal;
 }
-
-
+ 
+ 
 /* --- GLOBAL RESET & BASE STYLES --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
+ 
 body.menu-open {
     overflow: hidden;
+}
+ 
+html {
+    overflow-x: hidden;
 }
 
 body {
     background-color: #000;
-    font-family: 'Anodina', sans-serif; 
-    overflow-x: hidden;
+    font-family: 'Anodina', sans-serif;
     color: white;
 }
-
-
+ 
+ 
 /* --- GLOBAL CONTAINER & TYPOGRAPHY --- */
 .container {
     width: 90%;
@@ -83,7 +97,7 @@ body {
     margin: 0 auto;
     padding: 80px 0;
 }
-
+ 
 .section-title-wide {
     color: #ce2a0b; 
     font-family: 'Anodina', sans-serif;
@@ -93,45 +107,51 @@ body {
     text-align: center;
     font-weight: 700; 
 }
-
+ 
 /* --- 1. HEADER STYLING --- */
 .main-header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 100px; 
+    padding: 20px 100px;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
-    background-color: transparent; 
+    background-color: transparent;
     transition: background-color 0.3s ease, transform 0.3s ease;
     z-index: 1000;
+    /* forces its own GPU compositing layer so it reliably paints above
+       the autoplaying hero <video>, which some browsers otherwise
+       composite above fixed-position siblings regardless of z-index */
+    transform: translateZ(0);
+    will-change: transform;
 }
-
+ 
 .main-header.scroll-hide {
     transform: translateY(-100%);
 }
-
+ 
 .logo-container {
     display: flex;
     align-items: center;
+    min-width: 0; /* lets the logo shrink instead of forcing the menu icon off-screen */
 }
-
+ 
 .logo-container a {
     display: block;
     line-height: 0;
 }
-
+ 
 .agency-logo {
     width: 450px; 
     height: auto;
     display: block;
 }
-
+ 
 .menu-icon {
-    width: 50px; 
-    height: 40px; 
+    width: 50px;
+    height: 40px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -139,8 +159,9 @@ body {
     align-items: flex-end;
     transition: transform 0.3s;
     z-index: 1100;
+    flex-shrink: 0; /* never let the logo squeeze this off-screen */
 }
-
+ 
 .line {
     width: 100%;
     height: 6px; 
@@ -150,7 +171,7 @@ body {
 .line:nth-child(2) {
     width: 80%;
 }
-
+ 
 .menu-icon.open .line:nth-child(1) {
     transform: none; 
 }
@@ -160,8 +181,8 @@ body {
 .menu-icon.open .line:nth-child(3) {
     transform: none; 
 }
-
-
+ 
+ 
 /* --- DIMMER OVERLAY STYLING --- */
 .dimmer-overlay {
     position: fixed;
@@ -175,12 +196,12 @@ body {
     transition: opacity 0.5s, visibility 0.5s;
     z-index: 1040;
 }
-
+ 
 body.menu-open .dimmer-overlay {
     visibility: visible;
     opacity: 1;
 }
-
+ 
 /* --- OFF-CANVAS MENU STYLING --- */
 .off-canvas-menu {
     position: fixed;
@@ -197,21 +218,21 @@ body.menu-open .dimmer-overlay {
     align-items: flex-end; 
     padding-right: 10%;
 }
-
+ 
 .off-canvas-menu.open {
     right: 0; 
 }
-
+ 
 .menu-links {
     list-style: none;
     text-align: right; 
 }
-
+ 
 .menu-links li {
     margin: 40px 0; 
     overflow: hidden;
 }
-
+ 
 .menu-links a {
     text-decoration: none;
     color: #000; 
@@ -224,12 +245,12 @@ body.menu-open .dimmer-overlay {
     transition: color 0.3s;
     line-height: 1; 
 }
-
+ 
 .menu-links a:hover {
     color: #EDEDED; 
 }
-
-
+ 
+ 
 /* --- 2. HERO SECTION STYLING --- */
 .hero-container {
     height: 100vh;
@@ -244,7 +265,7 @@ body.menu-open .dimmer-overlay {
     background-color: #000; 
     overflow: hidden; 
 }
-
+ 
 .back-video {
     position: absolute;
     top: 0;
@@ -254,7 +275,7 @@ body.menu-open .dimmer-overlay {
     object-fit: cover;
     z-index: 1;
 }
-
+ 
 .video-overlay {
     position: absolute;
     top: 0;
@@ -264,13 +285,13 @@ body.menu-open .dimmer-overlay {
     background: rgba(0, 0, 0, 0.3);
     z-index: 2; 
 }
-
+ 
 .content-wrapper {
     text-align: center;
     line-height: 0.8;
     z-index: 50; 
 }
-
+ 
 .top-text {
     color: #EDEDED;
     font-size: 8vw; 
@@ -284,7 +305,7 @@ body.menu-open .dimmer-overlay {
     z-index: 51; 
     position: relative;
 }
-
+ 
 .main-text {
     color: #ce2a0b; 
     font-size: 16vw; 
@@ -301,7 +322,7 @@ body.menu-open .dimmer-overlay {
     position: relative;
     z-index: 50;
 }
-
+ 
 .hero-cta-btn {
     display: inline-block;
     color: #000;
@@ -324,153 +345,655 @@ body.menu-open .dimmer-overlay {
     background-color: #EDEDED;
     color: #ce2a0b; 
 }
+ 
 
-/* --- 3. ABOUT US SECTION STYLING --- */
+ 
+ /* ============================================================
+   DOSSIER SERVICES SECTION
+   ============================================================ */
 
-.about-section {
-    min-height: 50vh;
-    padding-bottom: 150px;
+.folder-bg {
+    position: absolute;
+    width: 580px;
+    height: 800px;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
-.about-content-full-width {
-    max-width: 900px;
-    margin: 0 auto; 
+.folder-bg svg {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
-.about-body-main {
-    color: #EDEDED;
-    font-size: 2.25rem;
-    line-height: 1.4;
-    font-family: 'Anodina', sans-serif;
-    font-weight: 300; 
-    letter-spacing: 1px;
-    margin-bottom: 30px; 
+
+.dossier-folder {
+    position: absolute;
+    left: 0;
+    top: 20px;
+    width: 450px;
+    height: 690px;
+    z-index: 10;
 }
 
-.about-body-secondary {
-    color: #999;
-    font-size: 1.5rem;
-    line-height: 1.6;
-    font-family: 'Anodina', sans-serif;
-    font-weight: 400; 
+
+.dossier-section {
+    background: #000;
+    width: 100%;
+    padding: 80px 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
 }
 
-.highlight-text {
-    color: #ce2a0b; 
-    font-weight: 700; 
+.dossier-scene {
+    position: relative;
+    width: 1000px;
+    max-width: 95vw;
+    height: 920px;
+    isolation: isolate;
 }
 
-.inline-dots {
-    color: #ce2a0b; 
-    text-decoration: none;
-    cursor: pointer;
-    font-weight: 700;
+.folder-cover {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    border: 1px solid #D2C8DC;
+    border-radius: 10px;
+    box-shadow: 10px 4px 15px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 60px;
+    gap: 24px;
+    z-index: 5;
 }
-
-.about-subheader-bold {
-    color: #E8E8E8; 
-    font-family: 'Anodina', sans-serif;
-    font-size: 2.5rem; 
-    text-transform: uppercase;
-    margin-top: 60px;
-    margin-bottom: 20px;
+.folder-logo-mark {
+    width: 185px;
+    height: auto;
+}
+.folder-title-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
     text-align: center;
-    font-weight: 700; 
-    letter-spacing: 1px;
 }
-
-.red-bracket-text {
-    color: #ce2a0b; 
-}
-
-.about-content-full-width .about-subheader-bold:first-child {
-    margin-top: 0;
-}
-
-.read-more-link-button {
-    display: block;
-    width: fit-content;
-    margin: 50px auto 0 auto; 
-    color: #ce2a0b; 
-    font-family: 'Anodina', sans-serif;
-    text-decoration: none;
-    font-size: 1.5rem;
-    letter-spacing: 3px;
-    padding: 15px 40px;
-    border: 2px solid #ce2a0b; 
-    font-weight: 700;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.read-more-link-button:hover {
-    background-color: #ce2a0b; 
-    color: #000;
-}
-
-
-/* --- 4. SERVICES SECTION STYLING --- */
-.services-section {
-    padding-bottom: 100px;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-    margin-bottom: 60px;
-}
-
-.service-block {
-    padding: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.service-number, .service-headline {
-    font-family: 'Anodina', sans-serif;
-    font-weight: 700;
-}
-
-.service-number {
-    color: #ce2a0b; 
-    font-size: 4rem;
-    margin-bottom: 10px;
-    display: block;
-    line-height: 1;
-}
-
-.service-headline {
-    color: #E8E8E8; 
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
+.folder-title-main {
+    font-family: 'Courier Prime', monospace;
+    font-size: 46px;
+    line-height: 50px;
+    color: #CE2A0B;
     text-transform: uppercase;
-}
-
-.service-body {
-    color: #999;
-    font-size: 1rem;
-    line-height: 1.5;
-    font-family: 'Anodina', sans-serif;
-    font-weight: 400; 
-}
-
-.view-work-btn {
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
-    color: #ce2a0b; 
-    font-family: 'Anodina', sans-serif;
-    text-decoration: none;
-    font-size: 1.5rem;
     letter-spacing: 3px;
-    padding: 10px 20px;
-    border: 2px solid #ce2a0b; 
-    font-weight: 700;
-    transition: background-color 0.3s;
+    text-align: center;
 }
-.view-work-btn:hover {
-    background-color: #ce2a0b; 
+.folder-title-sub {
+    font-family: 'Courier Prime', monospace;
+    font-size: 30px;
+    line-height: 34px;
+    color: #CE2A0B;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.folder-brand-name {
+    position: absolute;
+    bottom: 29px;
+    height: auto;
+    width: 155px;
+}
+
+/* ── SERVICE PAPERS ── */
+.svc-paper {
+    position: absolute;
+    overflow: visible;
+    transition: left 0.5s ease;
+}
+
+/* papers are inside dossier-folder — positioned relative to it */
+#svc-photo      { left: 0; top: 10px;  z-index: 4; }
+#svc-brand      { left: 0; top: 135px; z-index: 3; }
+#svc-marketing  { left: 0; top: 260px; z-index: 2; }
+
+.paper-card {
+    width: 450px;
+    background: #AFA2A2;
+    border-radius: 0;
+    box-shadow: -6px 4px 16px #4E1212;
+    overflow: hidden;
+    position: relative;
+}
+
+#svc-brand .paper-card     { height: 418px; }
+#svc-marketing .paper-card { height: 400px; }
+#svc-photo .paper-card     { height: 304px; }
+
+.paper-body {
+    padding: 80px 22px 20px;
+    font-family: 'BPGBannerSquare', sans-serif;
+    font-size: 11px;
+    line-height: 17px;
+    color: #1a0000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.paper-body p    { margin: 0; }
+.paper-intro     { font-style: italic; }
+.paper-heading   { color: #CE2A0B; font-weight: 700; }
+.paper-accent    { color: #CE2A0B; }
+
+/* SVG arrow flag */
+.paper-flag {
+    position: absolute;
+    top: 0;
+    left: 380px;
+    width: 326px;
+    height: 62px;
+    cursor: pointer;
+}
+
+#svc-photo .paper-flag     { left: 395px; }
+#svc-marketing .paper-flag { left: 365px; }
+
+.paper-flag svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.flag-label {
+    position: absolute;
+    right: 36px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Anodina', Impact, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.3;
+    color: #1a0000;
+    text-align: right;
+    z-index: 1;
+    pointer-events: none;
+}
+
+ 
+/* ══════════════════════════════════════════════════════════
+   PAPER DEMO — Brand Design card (isolated, then assembled)
+   ══════════════════════════════════════════════════════════ */
+
+.paper-demo-section {
+    background: #000;
+    width: 100%;
+    padding: 120px 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.papers-stack {
+    position: relative;
+    width: 760px;
+    height: 750px;
+}
+
+/* outer wrapper: overall rotation + composite drop shadow */
+.brand-paper {
+    position: absolute;
+    overflow: visible;
+    transform: rotate(2.19deg);
+    filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
+    /* z-index drops instantly on close so the paper slides back INTO the stack */
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.85s ease,
+                z-index 0s linear 0s;
+}
+
+/* --px/--py: landing offset; --fx: far-point offset of the pull gesture */
+#paper-photo     { top: 2px;   left: 25px; z-index: 1; --z: 1; --px: 476px; --py: 38px;   --fx: 715px; }
+#paper-marketing { top: 82px;  left: 40px; z-index: 2; --z: 2; --px: 500px; --py: -42px;  --fx: 695px; }
+#paper-brand     { top: 162px; left: 55px; z-index: 3; --z: 3; --px: 465px; --py: -122px; --fx: 675px; }
+
+/* ── pull-out choreography ──────────────────────────────────────────
+   Out: unstick → fast glide along the sheet's plane (trailing tilt) →
+   lay-down with rotation overshoot → friction settle. The paper keeps
+   its stack depth while travelling and only tops the pile once clear.
+   In: quick lift, slide home, settle back into the stack angle.      */
+#paper-photo.is-open,
+#paper-marketing.is-open,
+#paper-brand.is-open {
+    z-index: 20;
+    cursor: pointer;
+    transform: translate(var(--px), var(--py)) rotate(0deg);
+    filter: drop-shadow(8px 10px 18px rgba(0, 0, 0, 0.38));
+    animation: paper-pull-out 0.95s cubic-bezier(0.3, 0.6, 0.3, 1) both;
+    /* z flips mid-gesture, while the paper hesitates out in open space —
+       nothing overlaps at that moment, so the swap is never visible */
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.85s ease,
+                z-index 0s linear 0.32s;
+}
+#paper-photo.is-closing,
+#paper-marketing.is-closing,
+#paper-brand.is-closing {
+    animation: paper-push-in 0.95s cubic-bezier(0.3, 0.5, 0.3, 1) both;
+}
+.brand-paper.no-anim { animation: none !important; }
+
+/* out: mirrors the push-in gesture — committed pull clear of the stack,
+   micro-beat in open space (z flips here), then laid down onto the dossier */
+@keyframes paper-pull-out {
+    0% {
+        transform: translate(0, 0) rotate(2.19deg);
+        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
+        animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
+    }
+    30% { /* pulled fully clear of the stack */
+        transform: translate(var(--fx), calc(var(--py) * 0.75 + 12px)) rotate(1.4deg);
+        filter: drop-shadow(16px 20px 30px rgba(0, 0, 0, 0.45));
+        animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    38% { /* micro-beat in open space — comes to the top here */
+        transform: translate(calc(var(--fx) + 15px), calc(var(--py) * 0.78 + 11px)) rotate(1.2deg);
+        filter: drop-shadow(16px 20px 30px rgba(0, 0, 0, 0.45));
+        animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
+    }
+    82% { /* laid back over the dossier — skids a hair past the mark */
+        transform: translate(calc(var(--px) * 0.97), calc(var(--py) - 3px)) rotate(-0.6deg);
+        filter: drop-shadow(10px 13px 22px rgba(0, 0, 0, 0.4));
+        animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
+    }
+    100% {
+        transform: translate(var(--px), var(--py)) rotate(0deg);
+        filter: drop-shadow(8px 10px 18px rgba(0, 0, 0, 0.38));
+    }
+}
+
+/* in: lift back out to open space (z drops there, unseen) → slide home
+   into the stack → settle at the resting angle */
+@keyframes paper-push-in {
+    0% {
+        transform: translate(var(--px), var(--py)) rotate(0deg);
+        filter: drop-shadow(8px 10px 18px rgba(0, 0, 0, 0.38));
+        z-index: 20;
+        animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
+    }
+    30% { /* lifted back out, clear of everything */
+        transform: translate(var(--fx), calc(var(--py) * 0.8 + 10px)) rotate(1.3deg);
+        filter: drop-shadow(14px 18px 28px rgba(0, 0, 0, 0.42));
+        z-index: 20;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    38% { /* micro-hold in open space — drops into the pile here */
+        transform: translate(calc(var(--fx) + 15px), calc(var(--py) * 0.8 + 11px)) rotate(1.5deg);
+        filter: drop-shadow(14px 18px 28px rgba(0, 0, 0, 0.42));
+        z-index: var(--z);
+        animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
+    }
+    82% { /* slides home fast, tucking under the stack */
+        transform: translate(calc(var(--px) * 0.05), calc(var(--py) * 0.06)) rotate(2.5deg);
+        filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.28));
+        z-index: var(--z);
+        animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
+    }
+    100% {
+        transform: translate(0, 0) rotate(2.19deg);
+        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
+        z-index: var(--z);
+    }
+}
+
+/* the dossier eases left while a sheet is out, keeping the pair framed */
+.papers-stack {
+    flex-shrink: 0; /* keep the 760px coordinate box on narrow viewports */
+    transform: scale(1.2);
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+.papers-stack.has-open { transform: translateX(-240px) scale(1.2); }
+
+/* the rest of the stack loosens while a sheet is out */
+.papers-stack.has-open #paper-photo:not(.is-open)     { transform: translate(3px, -2px) rotate(1.75deg); }
+.papers-stack.has-open #paper-marketing:not(.is-open) { transform: translate(-2px, 2px) rotate(2.55deg); }
+.papers-stack.has-open #paper-brand:not(.is-open)     { transform: translate(2px, 2px)  rotate(2.45deg); }
+.papers-stack.has-open .folder-cover-demo  { transform: translate(-2px, 1px); filter: brightness(0.86); }
+.papers-stack.has-open .papers-folder-bg   { filter: brightness(0.86); }
+
+@media (prefers-reduced-motion: reduce) {
+    .paper-demo-section .papers-stack,
+    .paper-demo-section .brand-paper,
+    .paper-demo-section .folder-cover-demo,
+    .paper-demo-section .papers-folder-bg {
+        transition: none;
+        animation: none !important;
+    }
+}
+
+/* ══ responsive dossier — tablets & phones ══
+   Same slide-right gesture as desktop — the sheet briefly exits the
+   frame at the far beat (z flips there), then comes back and lays down
+   ON TOP of the dossier, slightly enlarged for reading. */
+@media (max-width: 1500px) {
+    .papers-stack.has-open { transform: none; } /* no sideways reframing */
+
+    #paper-photo     { --px: 55px; --py: 157px; --os: 1.35; }
+    #paper-marketing { --px: 40px; --py: 23px;  --os: 1.35; }
+    #paper-brand     { --px: 25px; --py: -67px; --os: 1.35; }
+
+    #paper-photo.is-open,
+    #paper-marketing.is-open,
+    #paper-brand.is-open {
+        transform: translate(var(--px), var(--py)) rotate(0deg) scale(var(--os));
+        animation-name: paper-pull-out-m;
+    }
+    #paper-photo.is-closing,
+    #paper-marketing.is-closing,
+    #paper-brand.is-closing {
+        animation-name: paper-push-in-m;
+    }
+}
+
+/* tablets (600-950px): 1.35x is too large here too (needs ~900px+ to fit
+   safely) — use a middle scale so the card still enlarges but stays clear
+   of the edges. --os drives both the static transform above and the
+   keyframes' scale ratios below. */
+@media (max-width: 950px) {
+    #paper-photo     { --px: 55px; --py: 157px; --os: 0.78; }
+    #paper-marketing { --px: 40px; --py: 23px;  --os: 0.78; }
+    #paper-brand     { --px: 25px; --py: -67px; --os: 0.78; }
+}
+
+/* the flag's tab overhangs the card's right edge by design (that's the
+   cascading-tabs look). On mobile/tablet, once open for reading, slide it
+   left so the label text stays clear of the screen edge — the arrow/tail
+   simply tucks further under the card instead of poking further out. */
+@media (max-width: 950px) {
+    #paper-photo.is-open .brand-flag     { left: 222px; }
+    #paper-marketing.is-open .brand-flag { left: 183px; }
+    #paper-brand.is-open .brand-flag     { left: 203px; }
+}
+
+/* out: same rightward pull as desktop — exits the frame at the far beat,
+   then comes back and lays down centered on top, enlarged for reading */
+@keyframes paper-pull-out-m {
+    0% {
+        transform: translate(0, 0) rotate(2.19deg) scale(1);
+        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
+        animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
+    }
+    30% { /* pulled fully clear of the stack, off the right of the frame */
+        transform: translate(var(--fx), 12px) rotate(1.4deg) scale(calc(var(--os) * 0.8296));
+        filter: drop-shadow(16px 20px 30px rgba(0, 0, 0, 0.45));
+        animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    38% { /* micro-beat out of frame — comes to the top here */
+        transform: translate(calc(var(--fx) + 15px), 11px) rotate(1.2deg) scale(calc(var(--os) * 0.8444));
+        filter: drop-shadow(16px 20px 30px rgba(0, 0, 0, 0.45));
+        animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
+    }
+    82% { /* laid back over the dossier — lands a hair past the mark */
+        transform: translate(calc(var(--px) - 4px), calc(var(--py) + 6px)) rotate(-0.6deg) scale(calc(var(--os) * 0.9852));
+        filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.4));
+        animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
+    }
+    100% {
+        transform: translate(var(--px), var(--py)) rotate(0deg) scale(var(--os));
+        filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.38));
+    }
+}
+
+/* in: slide back out of frame to the right (drops into the pile there),
+   then home into the slot */
+@keyframes paper-push-in-m {
+    0% {
+        transform: translate(var(--px), var(--py)) rotate(0deg) scale(var(--os));
+        filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.38));
+        z-index: 20;
+        animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
+    }
+    30% { /* back out past the frame edge */
+        transform: translate(var(--fx), 10px) rotate(1.3deg) scale(calc(var(--os) * 0.8296));
+        filter: drop-shadow(14px 18px 28px rgba(0, 0, 0, 0.42));
+        z-index: 20;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+    }
+    38% { /* micro-hold out of frame — drops into the pile here */
+        transform: translate(calc(var(--fx) + 15px), 11px) rotate(1.5deg) scale(calc(var(--os) * 0.8148));
+        filter: drop-shadow(14px 18px 28px rgba(0, 0, 0, 0.42));
+        z-index: var(--z);
+        animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
+    }
+    82% { /* slides home into its slot */
+        transform: translate(calc(var(--px) * 0.05), calc(var(--py) * 0.06)) rotate(2.5deg) scale(calc(var(--os) * 0.7481));
+        filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.28));
+        z-index: var(--z);
+        animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
+    }
+    100% {
+        transform: translate(0, 0) rotate(2.19deg) scale(1);
+        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
+        z-index: var(--z);
+    }
+}
+
+/* scale the whole dossier down with the viewport. The scale applies in
+   BOTH states — the dossier never changes size when a paper opens; only
+   the paper zooms, so --os compensates per tier (effective size on screen
+   = stack scale x --os). */
+@media (max-width: 800px) {
+    .paper-demo-section { overflow-x: clip; padding: 80px 0; }
+    .papers-stack,
+    .papers-stack.has-open {
+        transform: scale(0.8);
+        transform-origin: center top;
+        margin-bottom: -150px;
+    }
+    #paper-photo, #paper-marketing, #paper-brand { --os: 1; }
+}
+@media (max-width: 640px) {
+    .paper-demo-section { padding: 60px 0; }
+    .papers-stack,
+    .papers-stack.has-open { transform: scale(0.62); margin-bottom: -285px; }
+}
+@media (max-width: 480px) {
+    .papers-stack,
+    .papers-stack.has-open { transform: scale(0.48); margin-bottom: -390px; }
+    #paper-photo, #paper-marketing, #paper-brand { --os: 1.29; }
+}
+
+.papers-folder-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 640px;
+    height: 660px;
+    z-index: 0;
+    transition: filter 0.9s ease;
+}
+
+.papers-folder-bg svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* the grey paper card — rotation lives on .brand-paper (2.19deg) only */
+.brand-paper-card {
+    position: relative;
+    width: 514px;
+    background: #AFA2A2;
+    box-shadow: -7px 4px 18px #4E1212;
+    overflow: visible;
+}
+#paper-photo .brand-paper-card     { height: 342px; }
+#paper-marketing .brand-paper-card { width: 515px; height: 450px; }
+#paper-brand .brand-paper-card     { width: 511px; height: 470px; }
+
+/* clips text content within card bounds */
+.brand-paper-content {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.brand-paper-body {
+    padding: 80px 20px 20px;
+    font-family: 'BPGBannerSquare', sans-serif;
+    font-size: 17.5px;
+    line-height: 21.5px;
     color: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.brand-paper-body p { margin: 0; }
+.bp-intro   { font-style: italic; }
+.bp-heading { color: #CE2A0B; font-weight: 700; }
+.bp-accent  { color: #CE2A0B; }
+
+/* red arrow flag — child of card, flush with the paper's top edge */
+.brand-flag {
+    position: absolute;
+    top: 0;
+    width: 367px;
+    height: 70px;
+    overflow: visible;
+    z-index: 5;
+    cursor: pointer;
+}
+.brand-flag svg path { transition: filter 0.25s ease; }
+.brand-flag:hover svg path { filter: brightness(1.15); }
+#paper-photo .brand-flag     { left: 292px; }
+#paper-marketing .brand-flag { left: 253px; }
+#paper-brand .brand-flag     { left: 273px; }
+.folder-cover-demo {
+    position: absolute;
+    top: 8px;
+    left: -6px;
+    width: 506px;
+    height: 628px;
+    z-index: 10;
+    background: #000;
+    border: 1px solid #D2C8DC;
+    border-radius: 7px;
+    box-shadow: 7px 3px 3px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 95px;
+    gap: 28px;
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.9s ease;
+}
+
+.brand-flag svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.brand-flag-label {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'BBHHegarty', 'Anodina', Impact, sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    line-height: 1.2;
+    color: #000;
+    text-align: right;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ── dossier language switching (keyed off body[data-lang], same as
+   the philosophy section). GEO is the site default. ── */
+body[data-lang="en"] .paper-demo-section .lang-ge { display: none !important; }
+body:not([data-lang="en"]) .paper-demo-section .lang-en { display: none !important; }
+
+/* Georgian flag labels use LGV Big Noodle (BBH Hegarty has no Georgian) */
+.brand-flag-label.lang-ge {
+    font-family: 'LGVBigNoodle', 'BPGBannerSquare', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+/* Georgian cover title — Figma: LGV Big Noodle 78px/88px on the 749px
+   cover; scaled to our 506px cover */
+.folder-title-geo {
+    font-family: 'LGVBigNoodle', 'BPGBannerSquare', sans-serif;
+    font-size: 61px;
+    line-height: 68px;
+    color: #CE2A0B;
+    text-align: center;
+    text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+}
+
+/* Georgian body copy sits upright (no italic in the reference) */
+.brand-paper-body.lang-ge .bp-intro { font-style: normal; }
+.brand-paper-body.lang-ge {
+    font-size: 18px;
+    line-height: 21px;
+    gap: 8px;
+}
+.brand-paper-body.lang-ge .bp-heading { font-weight: 400; }
+
+/* ── LENS / OPTICS — diagram overlay fades in over the lens photo ── */
+.lens-section {
+    background: #000;
+    width: 100%;
+    padding: 80px 0 100px;
+    display: flex;
+    justify-content: center;
+}
+.lens-stack {
+    position: relative;
+    width: 100%;
+    max-width: 1500px;
+}
+.lens-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    user-select: none;
+}
+.lens-base { opacity: 0.7; }
+.lens-diagram {
+    position: absolute;
+    inset: 0;
+    opacity: 0.3;
+    transform: translateX(0px);
+    transition: opacity 0.7s ease;
+    pointer-events: none;
+}
+/* hover zone sized to the lens itself (measured against the photo's
+   actual bright/visible bounds, not the full transparent-edged frame) */
+.lens-hover-zone {
+    position: absolute;
+    left: 11.8%;
+    top: 20.4%;
+    right: 16.2%;
+    bottom: 20.9%;
+}
+.lens-hover-zone:hover ~ .lens-diagram { opacity: 1; }
+
+/* touch devices & phones: default dim, reveals to full opacity once
+   scrolled into view — a one-shot cinematic reveal, not hover-based */
+@media (hover: none), (max-width: 768px) {
+    .lens-diagram { opacity: 0.3; }
+    .lens-stack.in-view .lens-diagram { opacity: 1; }
+}
+@media (max-width: 768px) {
+    .lens-section { padding: 8px 0 12px; }
 }
 
 /* --- 5. CONTACT SECTION STYLING --- */
@@ -478,12 +1001,12 @@ body.menu-open .dimmer-overlay {
     padding-top: 0;
     padding-bottom: 150px;
 }
-
+ 
 .contact-cta-headline {
     color: #EDEDED;
     /* Main headline font (READY FOR) */
-    font-family: 'Anodina', sans-serif; 
-    font-size: 3rem;
+    font-family: 'Anodina', sans-serif;
+    font-size: 4.2rem;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: 60px;
@@ -495,11 +1018,21 @@ body.menu-open .dimmer-overlay {
     align-items: center;
     white-space: nowrap; 
 }
-
+ 
 .contact-cta-headline .red-text {
-    color: #ce2a0b; 
+    color: #ce2a0b;
     /* Consolidated Impact font for brackets and dynamic term */
-    font-family: 'Impact', sans-serif; 
+    font-family: 'Impact', sans-serif;
+}
+
+/* Georgian contact headline — no "READY FOR" prefix or "?" suffix,
+   just the centered bracketed word, in a bold Georgian display face */
+body[data-lang="en"] .contact-cta-headline.lang-ge { display: none !important; }
+body:not([data-lang="en"]) .contact-cta-headline.lang-en { display: none !important; }
+
+.contact-cta-headline.lang-ge .red-text {
+    font-family: 'LGVBigNoodle', 'BPGBannerSquare', sans-serif;
+    font-weight: 400;
 }
 
 .dynamic-text-wrapper {
@@ -509,13 +1042,17 @@ body.menu-open .dimmer-overlay {
     overflow: hidden; 
     padding: 0 5px; 
 }
-
+ 
 .dynamic-term {
     display: inline-block;
-    transition: opacity 0.3s ease-in-out; 
+    /* brackets are baked into the text itself (JS sets "[ word ]" as one
+       string) — keeps them glued to the first/last line if the word
+       breaks onto two lines, instead of them baseline-aligning oddly
+       as separate sibling elements next to a multi-line inline-block */
+    transition: opacity 0.3s ease-in-out;
 }
-
-
+ 
+ 
 .contact-form {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -523,7 +1060,7 @@ body.menu-open .dimmer-overlay {
     max-width: 900px;
     margin: 0 auto 40px auto;
 }
-
+ 
 .contact-form input,
 .contact-form textarea {
     background: none;
@@ -535,18 +1072,15 @@ body.menu-open .dimmer-overlay {
     font-family: 'Anodina', sans-serif;
     font-weight: 400; 
 }
-
+ 
 .contact-form textarea {
     grid-column: 1 / -1;
     height: 100px;
     resize: none;
 }
-
+ 
 .contact-form button {
-    grid-column: 1 / -1;
-    width: 250px;
-    margin: 30px auto 0 auto;
-    background-color: #ce2a0b; 
+    background-color: #ce2a0b;
     color: #000;
     border: none;
     padding: 15px 30px;
@@ -558,6 +1092,57 @@ body.menu-open .dimmer-overlay {
     transition: opacity 0.3s;
 }
 
+.submit-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    margin-top: 30px;
+}
+.submit-row button {
+    grid-column: 2;
+    justify-self: center;
+    width: 250px;
+    margin: 0;
+}
+.social-icons {
+    grid-column: 3;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.social-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #ce2a0b;
+    border-radius: 50%;
+    color: #ce2a0b;
+    transition: background-color 0.3s, color 0.3s;
+}
+.social-icon-link svg {
+    width: 20px;
+    height: 20px;
+}
+.social-icon-link:hover {
+    background-color: #ce2a0b;
+    color: #000;
+}
+@media (max-width: 480px) {
+    .submit-row {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .submit-row button,
+    .social-icons {
+        justify-self: auto;
+    }
+}
+ 
 .contact-info {
     text-align: center;
     font-family: 'Anodina', sans-serif;
@@ -566,15 +1151,15 @@ body.menu-open .dimmer-overlay {
 .contact-info p {
     font-size: 1rem;
 }
-
+ 
 /* Footer/Copyright Style */
 .contact-info .copyright-text {
     margin-top: 20px;
     font-size: 0.8rem;
     color: #555;
 }
-
-
+ 
+ 
 /* --- RESPONSIVE DESIGN (TABLETS) --- */
 @media (max-width: 1024px) {
     .main-header {
@@ -599,7 +1184,7 @@ body.menu-open .dimmer-overlay {
     .hero-cta-btn {
         bottom: 50px; 
     }
-
+ 
     .about-body-main {
         font-size: 1.8rem;
     }
@@ -620,21 +1205,21 @@ body.menu-open .dimmer-overlay {
         max-width: 700px;
     }
 }
-
+ 
 /* --- RESPONSIVE DESIGN (PHONES) --- */
 @media (max-width: 768px) {
     .main-header {
         padding: 15px 25px;
     }
     .agency-logo {
-        width: 260px;
+        width: 220px;
     }
     .menu-icon {
-        width: 45px; 
-        height: 35px;
+        width: 40px;
+        height: 30px;
     }
     .line {
-        height: 5px;
+        height: 4px;
     }
     
     .menu-links li {
@@ -663,24 +1248,34 @@ body.menu-open .dimmer-overlay {
         font-size: 2.5rem;
         margin-bottom: 40px;
     }
-
+ 
     /* Mobile Contact Headline Fix: Stack the text */
     .contact-cta-headline {
-        font-size: 2rem;
+        font-size: 4.2rem;
         margin-bottom: 40px;
         /* Change to block/stacked layout */
-        display: block; 
-        white-space: normal; 
+        display: block;
+        white-space: normal;
     }
-    
+    /* Impact (English) reads much heavier/bigger than LGVBigNoodle
+       (Georgian) at the same px size — give it its own smaller size */
+    .contact-cta-headline.lang-en {
+        font-size: 2.9rem;
+    }
+    .contact-cta-headline.lang-ge {
+        font-size: 3.6rem;
+    }
+
     .contact-cta-headline .red-text {
-        /* Force the entire red block onto its own centered line */
-        display: block; 
+        /* Centered inline-block so text-align:center on the parent
+           positions it; nowrap + width:auto keeps "[word]" as one
+           unbreakable unit (see .dynamic-text-wrapper below) */
+        display: inline-block;
         text-align: center;
-        width: 100%;
+        width: auto;
         line-height: 1.2;
-        /* Force wrapping for the content inside this block (brackets + dynamic word) */
-        white-space: normal; 
+        white-space: nowrap;
+        transform-origin: center;
     }
     
     .contact-cta-headline {
@@ -688,25 +1283,34 @@ body.menu-open .dimmer-overlay {
         width: 100%;
         line-height: 1.2;
     }
-
-
-    /* FIX: Dynamic wrapper adjusted to flow inline with the brackets, but allow its content to wrap */
+ 
+ 
+    /* "[" + word + "]" render as one unbreakable, scalable unit — a long
+       word can no longer split the brackets onto their own lines. If it's
+       still too wide for the screen, JS scales the whole unit down to fit
+       (see fitDynamicTerm in script.js) instead of letting it wrap/clip. */
     .dynamic-text-wrapper {
-        display: inline; /* Allows text elements to flow naturally with surrounding brackets */
-        width: auto !important; 
-        max-width: 100%; 
+        display: inline-block;
+        width: auto !important;
+        max-width: 100%;
         padding: 0;
         line-height: 1.2;
+        white-space: nowrap;
+        transform-origin: center;
     }
 
-    /* Ensure the dynamic term itself allows normal text flow */
     .dynamic-term {
-        display: inline; /* Changed to inline to allow continuous text flow and wrapping */
+        display: inline-block;
         text-align: center;
         padding: 0;
-        white-space: normal; 
+        /* pre-line: a literal \n in a word (e.g. "EMOTIONAL\nMARKETING")
+           breaks onto two lines instead of running too wide for the
+           screen; words without \n still render on a single line same
+           as before. Desktop is untouched — its default white-space
+           collapses \n to a space, same as always. */
+        white-space: pre-line;
     }
-    
+
     /* NEW: Centering text in the About section for screens <= 700px */
     @media (max-width: 700px) {
         .about-content-full-width,
@@ -718,23 +1322,23 @@ body.menu-open .dimmer-overlay {
             margin: 50px auto 0 auto;
         }
     }
-
-
+ 
+ 
     .read-more-link-button {
         padding: 12px 25px;
         font-size: 1.2rem;
     }
-
+ 
     .services-grid {
         grid-template-columns: 1fr; 
     }
-
+ 
     .contact-form {
         grid-template-columns: 1fr;
         max-width: 100%;
     }
 }
-
+ 
 /* --- RESPONSIVE DESIGN (SMALL PHONES) --- */
 @media (max-width: 480px) {
     .container {
@@ -770,15 +1374,21 @@ body.menu-open .dimmer-overlay {
     }
     
     .contact-cta-headline {
-        font-size: 1.8rem;
+        font-size: 3.8rem;
+    }
+    .contact-cta-headline.lang-en {
+        font-size: 2.6rem;
+    }
+    .contact-cta-headline.lang-ge {
+        font-size: 3.2rem;
     }
 }
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
 /* --- OFF-CANVAS MENU STYLING (Responsive Update) --- */
 .off-canvas-menu {
     position: fixed;
@@ -795,11 +1405,11 @@ body.menu-open .dimmer-overlay {
     align-items: flex-end; 
     padding-right: 3%; /* Reduced padding right for better fit on desktop */
 }
-
+ 
 .off-canvas-menu.open {
     right: 0; 
 }
-
+ 
 .menu-links {
     list-style: none;
     text-align: right; 
@@ -807,45 +1417,81 @@ body.menu-open .dimmer-overlay {
     width: 100%; 
     padding-right: 5%; /* Add some padding on the right for better visual balance */
 }
-
+ 
 .menu-links li {
     /* Adjusted margin for slightly less space */
     margin: 30px 0; 
     overflow: hidden;
 }
-
+ 
 .menu-links a {
     text-decoration: none;
-    color: #000; 
+    color: #000;
     font-family: 'Impact', sans-serif;
     font-weight: 400;
-    
+
     /* NEW: Responsive Font Size using clamp() or a combination of units */
     /* Clamp sets a minimum, a fluid preferred, and a maximum size: 3rem minimum, 3.5vw preferred, 4.5rem maximum */
-    font-size: clamp(3rem, 3.5vw, 4.5rem); 
-    
+    font-size: clamp(3rem, 3.5vw, 4.5rem);
+
     text-transform: uppercase;
     letter-spacing: 2px;
     display: inline-block;
     transition: color 0.3s;
-    line-height: 1; 
+
+    line-height: 1;
+}
+
+/* Impact has no Georgian glyphs — falls back to a generic system font.
+   Use the site's own Georgian display face instead. */
+body:not([data-lang="en"]) .menu-links a {
+    font-family: 'BPGBannerSquare', sans-serif;
+    font-weight: 700;
+}
+
+/* Georgian menu text: smaller + bold than the English version — matches
+   portfolio/about-us. Higher specificity than the responsive .menu-links a
+   tiers below, so it wins regardless of source order at every breakpoint. */
+body:not([data-lang="en"]) .off-canvas-menu .menu-links a {
+    font-weight: 700;
+    font-size: clamp(2.4rem, 2.8vw, 3.6rem);
+}
+@media (min-width: 2560px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: 5.6rem; }
+}
+@media (max-width: 1200px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: 2.35rem; }
+}
+@media (max-width: 1024px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: 2.3rem; }
+}
+@media (max-width: 900px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: clamp(2.4rem, 5vw, 2.9rem); }
+}
+@media (max-width: 640px) {
+    /* min() guard: near the tier's narrow end (~425-460px) a flat 2.3rem
+       makes the widest item (პორტფოლიო) overflow the panel's left edge */
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: min(2.3rem, 8vw); }
+}
+@media (max-width: 425px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: min(2.05rem, 8.5vw); }
 }
 
 .menu-links a:hover {
-    color: #EDEDED; 
+    color: #EDEDED;
 }
-
+ 
 /* Specific adjustment for smaller mobile screens */
-
-
-
-
+ 
+ 
+ 
+ 
 /* my code */
-
+ 
 @media (min-width: 2560px) {
-
+ 
     
-
+ 
     
     .menu-links a {
         /* Smaller, more suitable font size for mobile view */
@@ -853,34 +1499,34 @@ body.menu-open .dimmer-overlay {
         /* Removing clamp for consistency on small screens, using a fixed-size */
     }
 }
-
-
+ 
+ 
 @media (max-width: 425px) {
     .off-canvas-menu {
         /* On mobile, use a larger width for better touch target and visibility */
         width: 75%;
         right: -75%;
     }
-
+ 
     .menu-links li {
         margin: 20px 0; /* Reduced margin */
     }
-
+ 
     .menu-links a {
         /* Smaller, more suitable font size for mobile view */
         font-size: 2.5rem;
         /* Removing clamp for consistency on small screens, using a fixed-size */
     }
 }
-
-
+ 
+ 
 /* ===============================================
    MENU RESPONSIVE — unified across all pages
    Targets desktop → laptop → tablet landscape →
    tablet portrait (notepad) → phone → small phone.
    Appended last so it wins on source order.
    =============================================== */
-
+ 
 /* Small laptop / large tablet landscape (~1200) */
 @media (max-width: 1200px) {
     .off-canvas-menu {
@@ -888,13 +1534,13 @@ body.menu-open .dimmer-overlay {
         right: -45%;
     }
     .menu-links a {
-        font-size: 2.6rem;
+        font-size: 2.9rem;
     }
     .menu-links li {
         margin: 30px 0;
     }
 }
-
+ 
 /* Tablet landscape / notepad */
 @media (max-width: 1024px) {
     .off-canvas-menu {
@@ -903,13 +1549,13 @@ body.menu-open .dimmer-overlay {
         padding-right: 5%;
     }
     .menu-links a {
-        font-size: 2.4rem;
+        font-size: 2.8rem;
     }
     .menu-links li {
         margin: 26px 0;
     }
 }
-
+ 
 /* Tablet portrait / small notepad */
 @media (max-width: 900px) {
     .off-canvas-menu {
@@ -917,10 +1563,15 @@ body.menu-open .dimmer-overlay {
         right: -65%;
     }
     .menu-links a {
-        font-size: 2.1rem;
+        font-size: clamp(2.9rem, 6vw, 3.4rem);
     }
     .menu-links li {
         margin: 22px 0;
+    }
+    /* list is flex-centered in the panel, but optically reads low —
+       lift it a bit toward true visual center on phones */
+    .off-canvas-menu .menu-links {
+        transform: translateY(-5vh);
     }
 }
 
@@ -931,7 +1582,7 @@ body.menu-open .dimmer-overlay {
         right: -75%;
     }
     .menu-links a {
-        font-size: 1.85rem;
+        font-size: 2.8rem;
     }
     .menu-links li {
         margin: 18px 0;
@@ -945,10 +1596,349 @@ body.menu-open .dimmer-overlay {
         right: -82%;
     }
     .menu-links a {
-        font-size: 1.55rem;
+        font-size: 2.5rem;
     }
     .menu-links li {
         margin: 14px 0;
     }
 }
+ 
+ 
+/* ============================================================
+   LANGUAGE TOGGLE — index.html off-canvas panel
+   ============================================================ */
+ 
+/* Toggle sits at the top of the orange panel */
+.off-canvas-menu .lang-toggle {
+    position: absolute;
+    top: 28px;
+    left: 40px;          /* left side of the panel — matches Figma */
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    font-family: 'Anodina', sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: rgba(0,0,0,0.45);  /* dim = inactive colour */
+    z-index: 2;
+    pointer-events: auto;
+}
+ 
+/* The animated bracket */
+.off-canvas-menu .lang-bracket {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    color: #000;          /* bracket is always full black */
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1;
+    letter-spacing: 0;
+    pointer-events: none;
+    z-index: 1;
+    transition: left 0.35s cubic-bezier(.2,.9,.25,1),
+                transform 0.35s cubic-bezier(.2,.9,.25,1);
+    will-change: left, transform;
+}
+ 
+/* Each language button */
+.off-canvas-menu .lang-btn {
+    background: transparent;
+    border: 0;
+    padding: 2px 10px;
+    color: rgba(0,0,0,0.42);
+    font: inherit;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+    letter-spacing: inherit;
+}
+ 
+.off-canvas-menu .lang-btn.active {
+    color: #000;          /* active = full black */
+}
+ 
+.off-canvas-menu .lang-btn:hover {
+    color: #000;
+}
+ 
+/* Push menu-links down so they don't overlap the toggle — desktop only.
+   On mobile this unmatched top margin was dragging the whole centered
+   list downward (justify-content:center centers the box INCLUDING its
+   margin), so it's scoped out below instead of being a flat 60px always. */
+.off-canvas-menu .menu-links {
+    margin-top: 60px;
+}
+@media (max-width: 900px) {
+    .off-canvas-menu .menu-links {
+        margin-top: 0;
+    }
+}
+ 
+/* ============================================================
+   FONT: BPG Banner SuperSquare Caps + Courier Prime (Google)
+   ============================================================ */
+@font-face {
+    font-family: 'BPGBannerSquare';
+    src: url('./fonts/BPGBannerSuperSquareCaps.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+/* Courier Prime via Google Fonts — loaded inline below via <link> */
+ 
+/* ============================================================
+   AGAINST POLISHED ADS SECTION
+   ============================================================ */
+/* ============================================================
+   AGAINST POLISHED ADS SECTION
+   ============================================================ */
+/* ============================================================
+   AGAINST POLISHED ADS SECTION
+   ============================================================ */
 
+.apa-section {
+    background: #000;
+    width: 100%;
+    position: relative;
+    overflow: visible;
+    padding: 0;
+    transition: padding-bottom 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.apa-inner {
+    position: relative;
+    width: 100%;
+}
+
+/* The PNG — everything anchors to this box */
+.apa-illustration {
+    position: relative;
+    margin-left: -9vw;
+    width: 85vw;
+    min-width: 300px;
+    z-index: 1;
+}
+
+.apa-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+    user-select: none;
+}
+
+.apa-img-en { display: none; }
+body[data-lang="en"] .apa-img-en { display: block; }
+body[data-lang="en"] .apa-img-geo { display: none; }
+
+/* Anchored INSIDE the image box → can never drift apart.
+   left = % from image's left edge. bottom = % up from image's bottom. */
+.apa-rect-wrap {
+    position: absolute;
+    left: 55%;
+    bottom: 8%;
+    width: 60%;
+    z-index: 20;
+    overflow: visible;
+}
+
+.apa-bar {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1005 / 114;   /* Figma proportions, scales with image */
+    min-height: 48px;
+    background: #CE2A0B;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transform: rotate(-4.43deg);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    outline: none;
+    z-index: 20;
+}
+
+.apa-bar:hover,
+.apa-bar:focus-visible,
+.apa-bar[aria-expanded="true"] {
+    transform: rotate(0deg);
+}
+
+.apa-read-more {
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-size: clamp(16px, 2.6vw, 48px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1;
+    position: absolute;
+    right: 2.5%;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.apa-rm-geo { display: none; font-family: 'BPGBannerSquare', monospace; }
+body[data-lang="ge"] .apa-rm-geo { display: inline; }
+body[data-lang="ge"] .apa-rm-eng { display: none; }
+
+/* Panel drops directly under the straightened bar */
+.apa-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #D0C3C1;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        opacity 0.4s ease;
+    pointer-events: none;
+    z-index: 19;
+}
+
+.apa-panel[aria-hidden="false"] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.apa-panel-body {
+    padding: clamp(20px, 2.5vw, 48px) clamp(20px, 3vw, 56px);
+}
+
+.apa-text {
+    font-family: 'BPGBannerSquare', 'Courier New', monospace;
+    font-size: clamp(13px, 1.15vw, 22px);
+    font-weight: 400;
+    line-height: 1.55;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.apa-text p:first-child {
+    font-size: clamp(18px, 2vw, 36px);
+}
+.apa-text-en { display: none; }
+.apa-red { color: #CE2A0B; font-weight: 700; }
+
+body[data-lang="en"] .apa-text:not(.apa-text-en) { display: none; }
+body[data-lang="en"] .apa-text-en { display: flex; }
+
+/* ── Tablets & phones: bar sits BELOW the image, full width ── */
+@media (max-width: 768px) {
+    /* the oversized illustration below overhangs the viewport on the
+       right; without this clip that overhang EXPANDS the mobile layout
+       viewport (390 -> ~460px), pushing the fixed header's right edge —
+       and the menu icon with it — off the visible screen */
+    .apa-section {
+        overflow-x: clip;
+    }
+    /* the PNG canvas has ~26% transparent padding on each side; these
+       values put the VISIBLE art's left edge ~31px from the border and
+       scale it up to fill the width */
+    .apa-illustration {
+        margin-left: -30vw;
+        margin-right: 0;
+        width: 148vw;
+        max-width: none;
+    }
+    /* bar + panel: slightly narrower than the screen, fully on-screen
+       (the wrap lives inside the shifted illustration, so compensate);
+       negative top margin eats the art's transparent bottom padding */
+    .apa-rect-wrap {
+        position: static;
+        margin-left: calc(30vw + 24px);
+        width: calc(100vw - 48px);
+        margin-top: calc(12px - 18vw);
+    }
+    .apa-bar {
+        transform: rotate(-3deg);
+        min-height: 52px;
+    }
+    .apa-panel {
+        position: static;
+    }
+    .apa-read-more {
+        font-size: 20px;
+        right: 16px;
+    }
+    .apa-text {
+        font-size: 14px;
+    }
+}
+/* ═══════════════════════════════════════════════════════════
+   DOSSIER ENLARGED — desktop only (mobile tiers ≤800 untouched).
+   The stack is a fixed 760x750 coordinate box, so size comes from
+   transform: scale(). Scale overflows the layout box visually, and
+   .paper-demo-section clips (overflow: hidden) — so each tier's
+   padding covers the scaled overhang: (750 x (S - 1)) / 2 per side.
+   Above 1500px the pull-out gesture needs sideways room, so the
+   open-state translateX is retuned per tier to keep both the
+   dossier and the pulled sheet fully in frame.
+   ═══════════════════════════════════════════════════════════ */
+
+/* small desktop / laptop */
+@media (min-width: 1024px) {
+    .paper-demo-section { padding: 150px 0; }
+    .papers-stack,
+    .papers-stack.has-open { transform: scale(1.3); }
+    /* keep the opened sheet at its former on-screen reading size
+       (~1.35 effective): the stack itself is already scaled */
+    #paper-photo, #paper-marketing, #paper-brand { --os: 1.04; }
+}
+
+/* standard desktop */
+@media (min-width: 1240px) {
+    .paper-demo-section { padding: 180px 0; }
+    .papers-stack,
+    .papers-stack.has-open { transform: scale(1.4); }
+    #paper-photo, #paper-marketing, #paper-brand { --os: 0.96; }
+}
+
+/* wide desktop — the >1500px pull-out shifts the dossier left while a
+   sheet is out; translateX is sized so neither edge leaves the frame */
+@media (min-width: 1501px) {
+    .paper-demo-section { padding: 180px 0; }
+    .papers-stack { transform: scale(1.4); }
+    .papers-stack.has-open { transform: translateX(-190px) scale(1.4); }
+}
+
+@media (min-width: 1700px) {
+    .paper-demo-section { padding: 210px 0; }
+    .papers-stack { transform: scale(1.5); }
+    .papers-stack.has-open { transform: translateX(-200px) scale(1.5); }
+}
+
+@media (min-width: 1920px) {
+    .paper-demo-section { padding: 250px 0; }
+    .papers-stack { transform: scale(1.6); }
+    .papers-stack.has-open { transform: translateX(-220px) scale(1.6); }
+}
+
+/* ═══ dossier flag labels — phone readability ═══
+   Georgian (LGV Big Noodle) reads correctly at these sizes/position —
+   untouched below. English (BBH Hegarty, black weight) is visually
+   much heavier/wider at the same px value: it needs a smaller size
+   AND a small rightward nudge (closer to the arrow tip) so even the
+   longest label (Photo and Video Production) fully clears the folder
+   cover's edge, with every letter visible. */
+@media (max-width: 800px) {
+    .brand-flag-label { line-height: 1.05; }
+    .brand-flag-label.lang-en { font-size: 14px; right: 34px; }
+    .brand-flag-label.lang-ge { font-size: 20px; }
+}
+@media (max-width: 640px) {
+    .brand-flag-label.lang-en { font-size: 17px; right: 30px; }
+    .brand-flag-label.lang-ge { font-size: 25px; }
+}
+@media (max-width: 480px) {
+    .brand-flag-label.lang-en { font-size: 20px; right: 26px; }
+    .brand-flag-label.lang-ge { font-size: 29px; }
+}

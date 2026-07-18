@@ -155,7 +155,7 @@ html, body.quiz-body {
     gap: 0;
     font-family: 'Anodina', sans-serif;
     font-weight: 400;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     letter-spacing: 0.05em;
     color: var(--quiz-dim);
 }
@@ -168,7 +168,7 @@ html, body.quiz-body {
     color: var(--quiz-white);
     font-family: inherit;
     font-weight: 400;
-    font-size: 1.9rem;
+    font-size: 1.6rem;
     line-height: 1;
     letter-spacing: 0;
     pointer-events: none;

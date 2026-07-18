@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ka">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,23 +11,36 @@
 <link rel="manifest" href="/site.webmanifest" />
     <title>Kinematics Agency</title>
     <link rel="shortcut icon"  type="image/png"  sizes="64x64" href="/photos/favicon1.png" >
-    <link rel="stylesheet" href="style.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.js" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=25">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="lenis-init.js?v=1" defer></script>
+    <script src="script.js?v=14" defer></script>
 </head>
-<body>
+<body data-lang="ge">
 
     <div class="dimmer-overlay" id="dimmer-overlay"></div>
 
     <nav class="off-canvas-menu" id="off-canvas-menu">
+        <!-- Language toggle sits top-right of the orange panel -->
+        <div class="lang-toggle" id="lang-toggle" role="group" aria-label="Language">
+            <span class="lang-bracket lang-bracket-l" aria-hidden="true">[</span>
+            <button type="button" class="lang-btn active" data-lang="ge">GEO</button>
+            <button type="button" class="lang-btn" data-lang="en">ENG</button>
+            <span class="lang-bracket lang-bracket-r" aria-hidden="true">]</span>
+        </div>
+
         <ul class="menu-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="index.html#services">Services</a></li>
-            <li><a href="quiz.html">Quiz</a></li>
-            <li><a href="index.html#contact">Contact Us</a></li>
+            <li><a href="index.html" data-ge="მთავარი" data-en="Home">მთავარი</a></li>
+            <li><a href="portfolio.html" data-ge="პორტფოლიო" data-en="Portfolio">პორტფოლიო</a></li>
+            <li><a href="aboutus.html" data-ge="ჩვენ შესახებ" data-en="About Us">ჩვენ შესახებ</a></li>
+            <li><a href="index.html#services" data-ge="სერვისები" data-en="Services">სერვისები</a></li>
+            <li><a href="quiz.html" data-ge="ქვიზი" data-en="Quiz">ქვიზი</a></li>
+            <li><a href="index.html#contact" data-ge="კონტაქტი" data-en="Contact Us">კონტაქტი</a></li>
         </ul>
     </nav>
 
@@ -58,72 +71,268 @@
         </div>
     </section>
 
-    <section class="services-section" id="services">
-        <div class="container">
-            <h3 class="section-title-wide" data-aos="fade-up">What We Do</h3>
-            <div class="services-grid">
-                <div class="service-block" data-aos="fade-up" data-aos-delay="100">
-                    <h4 class="service-headline"><span style="color: #ce2a0b;">Brand Films</span> & Long-Form Narratives</h4>
-                    <p class="service-body">Part of In-House production.</p>
-                </div>
-               <!-- <span style="color: #ce2a0b;"></span> -->
-                <div class="service-block" data-aos="fade-up" data-aos-delay="200">
-                    <h4 class="service-headline"> Cinematic Ad <span style="color: #ce2a0b;">Campaigns</span></h4>
-                    <p class="service-body">Part of In-House production.</p>
-                </div>
-                <div class="service-block" data-aos="fade-up" data-aos-delay="300">
-                    <h4 class="service-headline"><span style="color: #ce2a0b;">End-to-End Production</span> & Post</h4>
-                    <p class="service-body">Includes VFX and Color Correction.</p>
-                </div>
-                <div class="service-block" data-aos="fade-up" data-aos-delay="400">
-                    <h4 class="service-headline"><span style="color: #ce2a0b;">Visual Branding</span> & Identity</h4>
-                    <p class="service-body">Includes Graphic Design.</p>
-                </div>
-                <div class="service-block" data-aos="fade-up" data-aos-delay="500">
-                    <h4 class="service-headline">Performance-Driven <span style="color: #ce2a0b;">Marketing</span></h4>
-                    <p class="service-body">Includes PPC/SEM and Social Media.</p>
-                </div>
-                <div class="service-block" data-aos="fade-up" data-aos-delay="600">
-                    <h4 class="service-headline">Business Intelligence <span style="color: #ce2a0b;">Reporting</span></h4>
-                    <p class="service-body">Includes Data Visualization.</p>
+    <!-- ═══ AGAINST POLISHED ADS SECTION ═══ -->
+    <section class="apa-section" id="philosophy">
+        <div class="apa-inner">
+
+            <!-- Illustration + read-more bar share one coordinate space -->
+            <div class="apa-illustration">
+                <img src="./photos/falcon 1-02.png" alt="Against Polished Ads" class="apa-img apa-img-geo">
+<img src="./photos/falcon 1-03.png" alt="Against Polished Ads" class="apa-img apa-img-en">
+
+                <div class="apa-rect-wrap" id="apa-rect-wrap">
+                    <button class="apa-bar" id="apa-bar" aria-expanded="false" aria-controls="apa-panel">
+    <span class="apa-read-more">
+        <span class="apa-rm-eng">read more</span>
+        <span class="apa-rm-geo">წაიკითხე მეტი</span>
+    </span>
+</button>
+
+
+                    <div class="apa-panel" id="apa-panel" aria-hidden="true">
+                       
+                        <div class="apa-panel-body">
+                            <div class="apa-text">
+                                <p>ბრენდის ნამდვილობას <span class="apa-red">გულწრფელობა განსაზღვრავს</span> — ჩვენთვის კი მას ყოველთვის აქვს <span class="apa-red">ფირის მარცვალი :)</span></p>
+                                <p>ამიტომაც, ფოტო და ვიდეო წარმოების პროცესში, ვიყენებთ <span class="apa-red">ვინტაჟურ ოპტიკას,</span> რომელიც ციფრულ გამოსახულებას აცლის სტერილურ სიზუსტეს და ანაცვლებს <span class="apa-red">ორგანული ტექსტურით,</span> თბილი ფერებითა და კინემატოგრაფიული სიღრმით, რაც თითოეულ კადრს განსაკუთრებულ ხასიათს სძენს.</p>
+                                <p>დღეს, 50 წლის წინანდელი ვინტაჟური ოპტიკა და <span class="apa-red">ფირის ციფრული ემულაცია</span> ბრენდის კომუნიკაციისთვის ყველაზე აქტუალური ტექნიკური არჩევანი გახდა. ჩვენ ვმუშაობთ ხელოვნური ინტელექტის მიერ მასშტაბურად აუთვისებელ სივრცეში, რაზეც მოთხოვნა <span class="apa-red">AI-ს ერთფეროვნების ეპოქაში</span> მუდმივად გაიზრდება.</p>
+                            </div>
+                            <div class="apa-text apa-text-en" data-en data-lang-content="en">
+                                <p>A brand's authenticity is defined by <span class="apa-red">sincerity</span> — and for us, it always carries <span class="apa-red">the grain of film :)</span></p>
+                                <p>That's why, in photo and video production, we use <span class="apa-red">vintage cinema optics</span> — stripping digital imagery of its sterile precision and replacing it with <span class="apa-red">organic texture,</span> warm tones, and cinematic depth that gives each frame a distinct character.</p>
+                                <p>Today, 50-year-old vintage optics and <span class="apa-red">film grain digital emulation</span> have become the most relevant technical choice for brand communication. We work in a space that AI has yet to colonise at scale — and demand for it will only grow <span class="apa-red">in the era of AI uniformity.</span></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <a href="./portfolio.html" class="view-work-btn" data-aos="fade-up" data-aos-delay="700">SEE OUR WORK</a>
         </div>
     </section>
 
-    <section class="about-section" id="about">
-        <div class="container">
-            <div class="about-content-full-width" data-aos="fade-up"> 
-                
-                <h3 class="about-subheader-bold" data-aos="fade-up">
-                    <span class="red-bracket-text">[</span>PREMIUM VIDEO. OPTIMIZED BUDGETS.<span class="red-bracket-text">]</span>
-                </h3>
-                <p class="about-body-main" data-aos="fade-up" data-aos-delay="100">
-                    Our unique in-house production model means cinematic quality is <span class="highlight-text">[accessible]</span> to mid-sized businesses. We remove the complexity and high cost, focusing on <span class="highlight-text">[maximizing your value.]</span>
-                </p>
-                
-                <h3 class="about-subheader-bold" data-aos="fade-up" data-aos-delay="200">
-                    <span class="red-bracket-text">[</span>END-TO-END CONTROL. ZERO RISK.<span class="red-bracket-text">]</span>
-                </h3>
-                <p class="about-body-main" data-aos="fade-up" data-aos-delay="300">
-                    We manage the full production cycle—from the initial idea to the final delivery. This unified process guarantees <span class="highlight-text">[minimal communication gaps]</span> and ensures the highest aesthetic standards for your final product<a href="aboutus.html" class="inline-dots">...</a>
-                </p>
-                
-                <a href="aboutus.html" class="read-more-link-button" data-aos="fade-up" data-aos-delay="400">READ MORE</a>
+
+
+
+
+
+
+
+<!-- ═══ DOSSIER SERVICES SECTION — HIDDEN WHILE REBUILDING ═══ -->
+<section class="dossier-section" style="display:none">
+    <div class="dossier-scene">
+        <div class="dossier-folder">
+
+            <!-- 1 ── dark red background -->
+            <div class="folder-bg">
+                <svg viewBox="0 0 946 953" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                    <path d="M 10 0.5 L 839 0.5 A 9.5 9.5 0 0 1 848.5 10 L 848.5 450 Q 848.5 460 858 469.5 L 935 546.5 Q 945.5 557 945.5 567 L 945.5 943 A 9.5 9.5 0 0 1 936 952.5 L 10 952.5 A 9.5 9.5 0 0 1 0.5 943 L 0.5 10 A 9.5 9.5 0 0 1 10 0.5 Z" fill="#420808" stroke="#A61E1E" stroke-width="1"/>
+                </svg>
+            </div>
+
+            <!-- 2 ── service papers (inside the dossier, behind the black cover) -->
+            <div class="svc-paper" id="svc-brand">
+                <div class="paper-card">
+                    <div class="paper-body">
+                        <p class="paper-intro">Design is the brand's first subconscious touchpoint. A visual language that must radiate the brand's philosophy alongside its aesthetics.</p>
+                        <p><span class="paper-heading">VISUAL IDENTITY</span> — Logo, color palette, typography, and visual tone strategy.</p>
+                        <p><span class="paper-heading">BRAND BOOK &amp; GUIDELINES</span> — A unified brand standard: defining identity and the practical rules for its execution.</p>
+                        <p><span class="paper-heading">CAMPAIGN CONCEPTS</span> — A cohesive visual direction and concept for advertising campaigns.</p>
+                        <p><span class="paper-heading">DIGITAL DESIGN</span> — Social media visuals, digital banners, and advertising graphics.</p>
+                    </div>
+                </div>
+                <div class="paper-flag" data-paper="svc-brand">
+                    <svg viewBox="0 0 326 62" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M 0 0 L 296 0 L 326 31 L 296 62 L 0 62 Z" fill="#CE2A0B"/>
+                    </svg>
+                    <span class="flag-label">Brand<br>Design</span>
+                </div>
+            </div>
+
+            <div class="svc-paper" id="svc-marketing">
+                <div class="paper-card">
+                    <div class="paper-body">
+                        <p class="paper-intro">For us, marketing is the logical extension of strategy — the path connecting your true story to the right audience.</p>
+                        <p><span class="paper-heading">SMM STRATEGY</span> — Developing a communication framework to protect and preserve the brand's character within the digital noise.</p>
+                        <p><span class="paper-heading">PERFORMANCE MARKETING</span> — Result-oriented targeted advertising across Meta and Google.</p>
+                        <p><span class="paper-heading">CONTENT MANAGEMENT</span> — Consistent content designed to build and maintain a deep emotional connection with your audience.</p>
+                        <p><span class="paper-heading">ANALYTICS &amp; REPORTING</span> — Continuous data monitoring and real-time campaign optimization.</p>
+                    </div>
+                </div>
+                <div class="paper-flag" data-paper="svc-marketing">
+                    <svg viewBox="0 0 326 62" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M 0 0 L 296 0 L 326 31 L 296 62 L 0 62 Z" fill="#CE2A0B"/>
+                    </svg>
+                    <span class="flag-label">Digital<br>Marketing</span>
+                </div>
+            </div>
+
+            <div class="svc-paper" id="svc-photo">
+                <div class="paper-card">
+                    <div class="paper-body">
+                        <p class="paper-intro">Raw visuals shaped by <span class="paper-accent">vintage cinema optics</span> — something AI struggles to replicate.</p>
+                        <p><span class="paper-heading">IN-HOUSE VIDEO PRODUCTION</span> — Cinematic brand films crafted to build emotional and sentimental value.</p>
+                        <p><span class="paper-heading">PHOTOGRAPHY</span> — Authentic photography driven by a diverse arsenal of vintage lenses.</p>
+                    </div>
+                </div>
+                <div class="paper-flag" data-paper="svc-photo">
+                    <svg viewBox="0 0 326 62" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M 0 0 L 296 0 L 326 31 L 296 62 L 0 62 Z" fill="#CE2A0B"/>
+                    </svg>
+                    <span class="flag-label">Photo and Video<br>Production</span>
+                </div>
+            </div>
+
+            <!-- 3 ── black front cover (on top of papers) -->
+            <div class="folder-cover">
+                <img src="./photos/favicon.png" alt="" class="folder-logo-mark">
+                <div class="folder-title-block">
+                    <span class="folder-title-main">OUR SERVICES</span>
+                    <span class="folder-title-sub">not secret at all</span>
+                </div>
+                <img src="./photos/ლოგოოოო-44.png" alt="kinematics" class="folder-brand-name">
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+<!-- ═══ SERVICES — PAPER DEMO ═══ -->
+<section class="paper-demo-section" id="services">
+    <div class="papers-stack">
+
+        <!-- dark red folder background -->
+        <div class="papers-folder-bg">
+            <svg viewBox="0 0 947 954" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M850.625 0.500305L10.4651 3.4306C4.95592 3.44977 0.5 7.92133 0.5 13.4305V940.992C0.5 946.504 4.9611 950.977 10.4736 950.992L936.474 953.439C942.007 953.453 946.5 948.972 946.5 943.439V616.987C946.5 614.492 945.567 612.087 943.884 610.244L863.276 521.969C861.593 520.126 860.66 517.721 860.66 515.226V10.5002C860.66 4.96381 856.162 0.481018 850.625 0.500305Z" fill="#420808" stroke="#A61E1E"/>
+            </svg>
+        </div>
+
+        <!-- back: Photo and Video Production -->
+        <div class="brand-paper" id="paper-photo">
+            <div class="brand-paper-card">
+                <div class="brand-paper-content">
+                    <div class="brand-paper-body lang-en">
+                        <p class="bp-intro">Raw visuals shaped by <span class="bp-accent">vintage cinema optics</span> — something AI struggles to replicate.</p>
+                        <p><span class="bp-heading">IN-HOUSE VIDEO PRODUCTION</span> — Cinematic brand films crafted to build emotional and sentimental value.</p>
+                        <p><span class="bp-heading">PHOTOGRAPHY</span> — Authentic photography driven by a diverse arsenal of vintage lenses.</p>
+                    </div>
+                    <div class="brand-paper-body lang-ge">
+                        <p class="bp-intro">ცოცხალი ვიზუალი <span class="bp-accent">ვინტაჟური კინოოპტიკით</span>, რომლის დაკოპირებაც AI_ს უჭირს.</p>
+                        <p><span class="bp-heading">IN-HOUSE VIDEO PRODUCTION</span> — კინემატოგრაფიული ბრენდ-ფილმები ემოციური ღირებულების შესაქმნელად.</p>
+                        <p><span class="bp-heading">PHOTOGRAPHY</span> — ფოტოგრაფია ვინტაჟური ლინზების უფრო მრავალდეფეროვანი არსენალით</p>
+                    </div>
+                </div>
+                <div class="brand-flag">
+                    <svg viewBox="0 0 543 103" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M 0 0 L 502 0 L 543 51.5 L 502 103 L 0 103 Z" fill="#CE2A0B"/>
+                    </svg>
+                    <span class="brand-flag-label lang-en">Photo &amp; Video<br>Production</span>
+                    <span class="brand-flag-label lang-ge">ფოტო & ვიდეო<br>წარმოება</span>
+                </div>
             </div>
         </div>
-    </section>
+
+        <!-- middle: Digital Marketing -->
+        <div class="brand-paper" id="paper-marketing">
+            <div class="brand-paper-card">
+                <div class="brand-paper-content">
+                    <div class="brand-paper-body lang-en">
+                        <p class="bp-intro">For us, marketing is the logical extension of strategy — the path connecting your true story to the right audience.</p>
+                        <p><span class="bp-heading">SMM STRATEGY</span> — Developing a communication framework to protect and preserve the brand's character within the digital noise.</p>
+                        <p><span class="bp-heading">PERFORMANCE MARKETING</span> — Result-oriented targeted advertising across Meta and Google.</p>
+                        <p><span class="bp-heading">CONTENT MANAGEMENT</span> — Consistent content designed to build and maintain a deep emotional connection with your audience.</p>
+                        <p><span class="bp-heading">ANALYTICS &amp; REPORTING</span> — Continuous data monitoring and real-time campaign optimization.</p>
+                    </div>
+                    <div class="brand-paper-body lang-ge">
+                        <p class="bp-intro">მარკეტინგი ჩვენთვის სტრატეგიის ლოგიკური გაგრძელებაა — თქვენი ნამდვილი ამბის <span class="bp-accent">გზა ზუსტ აუდიტორიამდე.</span></p>
+                        <p><span class="bp-heading">SMM სტრატეგია</span> — კომუნიკაციის ჩარჩოს შემუშავება ციფრულ ხმაურში ბრენდის ხასიათის შესანარჩუნებლად.</p>
+                        <p><span class="bp-heading">PERFORMANCE MARKETING</span> — შედეგზე ორიენტირებული მიზნობრივი რეკლამა (Meta, Google).</p>
+                        <p><span class="bp-heading">CONTENT MANAGEMENT</span> — რეგულარული კონტენტი აუდიტორიასთან მყარი ემოციური კავშირისთვის.</p>
+                        <p><span class="bp-heading">ANALYTICS &amp; REPORTING</span> — მონაცემების მუდმივი მონიტორინგი და კამპანიების ოპტიმიზაცია.</p>
+                    </div>
+                </div>
+                <div class="brand-flag">
+                    <svg viewBox="0 0 543 103" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M 0 0 L 502 0 L 543 51.5 L 502 103 L 0 103 Z" fill="#CE2A0B"/>
+                    </svg>
+                    <span class="brand-flag-label lang-en">Digital<br>Marketing</span>
+                    <span class="brand-flag-label lang-ge">ციფრული<br>მარკეტინგი</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- front: Brand Design -->
+        <div class="brand-paper" id="paper-brand">
+            <div class="brand-paper-card">
+                <div class="brand-paper-content">
+                    <div class="brand-paper-body lang-en">
+                        <p class="bp-intro">Design is the brand's first <span class="bp-accent">subconscious touchpoint.</span> A visual language that must radiate the brand's philosophy alongside its aesthetics.</p>
+                        <p><span class="bp-heading">VISUAL IDENTITY</span> — Logo, color palette, typography, and visual tone strategy.</p>
+                        <p><span class="bp-heading">BRAND BOOK &amp; GUIDELINES</span> — A unified brand standard: defining identity and the practical rules for its execution.</p>
+                        <p><span class="bp-heading">CAMPAIGN CONCEPTS</span> — A cohesive visual direction and concept for advertising campaigns.</p>
+                        <p><span class="bp-heading">DIGITAL DESIGN</span> — Social media visuals, digital banners, and advertising graphics.</p>
+                    </div>
+                    <div class="brand-paper-body lang-ge">
+                        <p class="bp-intro">დიზაინი არის ბრენდთან პირველი, <span class="bp-accent">არაცნობიერი შეხების წერტილი.</span> კარგი ვიზუალური ენა, ესთეტიკასთან ერთად ბრენდის ფილოსოფიასაც ასხივებს.</p>
+                        <p><span class="bp-heading">VISUAL IDENTITY</span> — ლოგო, ფერები, ტიპოგრაფია და ვიზუალური ტონის სტრატეგია.</p>
+                        <p><span class="bp-heading">BRAND BOOK &amp; GUIDELINES</span> — ბრენდის ერთიანი სტანდარტი, იდენტობა და მისი გამოყენების წესები.</p>
+                        <p><span class="bp-heading">CAMPAIGN CONCEPTS</span> — სარეკლამო კამპანიების ერთიანი ვიზუალური კონცეფცია.</p>
+                        <p><span class="bp-heading">DIGITAL DESIGN</span> — სოციალური მედიის ვიზუალები, ციფრული ბანერები და გრაფიკა.</p>
+                    </div>
+                </div>
+                <div class="brand-flag">
+                    <svg viewBox="0 0 543 103" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="M 0 0 L 502 0 L 543 51.5 L 502 103 L 0 103 Z" fill="#CE2A0B"/>
+                    </svg>
+                    <span class="brand-flag-label lang-en">Brand<br>Design</span>
+                    <span class="brand-flag-label lang-ge">ბრენდის<br>დიზაინი</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- black folder cover on top of everything -->
+        <div class="folder-cover-demo">
+            <img src="./photos/favicon.png" alt="" class="folder-logo-mark">
+            <div class="folder-title-block lang-en">
+                <span class="folder-title-main">OUR SERVICES</span>
+                
+            </div>
+            <span class="folder-title-geo lang-ge">ჩვენი სერვისები</span>
+            <img src="./photos/ლოგოოოო-44.png" alt="kinematics" class="folder-brand-name">
+        </div>
+
+    </div>
+</section>
+
+<!-- ═══ LENS / OPTICS ═══ -->
+<section class="lens-section" id="optics">
+    <div class="lens-stack">
+        <img src="./photos/shav.png" alt="vintage cinema lens" class="lens-img lens-base">
+        <!-- hover target sized to the lens itself, not the full frame -->
+        <div class="lens-hover-zone"></div>
+        <img src="./photos/diagrama.png" alt="" class="lens-img lens-diagram">
+    </div>
+</section>
 
     <section class="contact-section" id="contact">
     <div class="container">
-        <h3 class="contact-cta-headline" data-aos="fade-up">
-            READY FOR 
-            <span class="red-text dynamic-text-wrapper">
-                [
-                <span id="dynamic-term" class="dynamic-term">TRUE ORIGINALITY</span>
-                ]
-            </span>?
+        <h3 class="contact-cta-headline lang-en" data-aos="fade-up">
+            <span class="red-text dynamic-text-wrapper"><span id="dynamic-term" class="dynamic-term">[ TRUE ORIGINALITY ]</span></span>
+        </h3>
+        <h3 class="contact-cta-headline lang-ge" data-aos="fade-up">
+            <span class="red-text dynamic-text-wrapper geo-dynamic-wrapper"><span id="dynamic-term-geo" class="dynamic-term">[ ერთადერთობა ]</span></span>
         </h3>
         
         <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-aos="fade-up" data-aos-delay="100">
@@ -136,12 +345,26 @@
             <input type="email" name="email" placeholder="Email" required>
             <input type="text" name="phone" placeholder="Phone Number">
             <textarea name="message" placeholder="Message" required></textarea>
-            <button type="submit">CONTACT US</button>
+            <div class="submit-row">
+                <button type="submit">CONTACT US</button>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/company/kinematics-agency/" target="_blank" rel="noopener" aria-label="LinkedIn" class="social-icon-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/kinematics_agency/" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.058-1.69-.072-4.949-.072zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </form>
         <div class="contact-info" data-aos="fade-up" data-aos-delay="200">
             <p>info@kinematics.ge</p>
             <p>+995 551 22 03 44</p>
-            <p class="copyright-text">&copy; 2025 KINEMATICS AGENCY. ALL RIGHTS RESERVED.</p> 
+            <p class="copyright-text">&copy; 2026 KINEMATICS AGENCY. ALL RIGHTS RESERVED.</p> 
         </div>
     </div>
 </section>

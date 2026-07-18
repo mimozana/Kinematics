@@ -14,11 +14,52 @@
 }
 
 @font-face {
-    font-family: 'Impact'; 
+    font-family: 'Impact';
     src: url('./fonts/impact.ttf') format('truetype');
-    font-weight: 400; 
+    font-weight: 400;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'BPGBannerSquare';
+    src: url('./fonts/BPGBannerSuperSquareCaps.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Impact has no Georgian glyphs — use the site's Georgian display face */
+body:not([data-lang="en"]) .menu-links a {
+    font-family: 'BPGBannerSquare', sans-serif;
+}
+
+/* Georgian menu text: smaller + bold than the English version.
+   Higher specificity than the responsive .menu-links a tiers below,
+   so it wins regardless of source order at every breakpoint. */
+body:not([data-lang="en"]) .off-canvas-menu .menu-links a {
+    font-weight: 700;
+    font-size: clamp(2.4rem, 2.8vw, 3.6rem);
+}
+@media (min-width: 2560px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: 5.6rem; }
+}
+@media (max-width: 1200px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: 2.35rem; }
+}
+@media (max-width: 1024px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: 2.3rem; }
+}
+@media (max-width: 900px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: clamp(2.4rem, 5vw, 2.9rem); }
+}
+@media (max-width: 640px) {
+    /* min() guard: near the tier's narrow end (~425-460px) a flat 2.3rem
+       makes the widest item (პორტფოლიო) overflow the panel's left edge */
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: min(2.3rem, 8vw); }
+}
+@media (max-width: 425px) {
+    body:not([data-lang="en"]) .off-canvas-menu .menu-links a { font-size: min(2.05rem, 8.5vw); }
+}
+
 /* --- PORTFOLIO PAGE BASE STYLES --- */
 .portfolio-page-content {
     /* Push content down to avoid collision with the fixed header */
@@ -180,8 +221,7 @@ body {
 }
 
 .logo-container a img {
-    /* REDUCE SIZE for fixed header */
-    width: 250px; 
+    width: 450px;
     height: auto;
 }
 
@@ -625,6 +665,32 @@ body.menu-open .dimmer-overlay {
 .contact-info p {
     font-size: 1rem;
 }
+.social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 16px 0;
+}
+.social-icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid #ce2a0b;
+    border-radius: 50%;
+    color: #ce2a0b;
+    transition: background-color 0.3s, color 0.3s;
+}
+.social-icon-link svg {
+    width: 20px;
+    height: 20px;
+}
+.social-icon-link:hover {
+    background-color: #ce2a0b;
+    color: #000;
+}
 
 /* --- RESPONSIVE DESIGN (TABLETS: 1024px and below) --- */
 @media (max-width: 1024px) {
@@ -895,80 +961,204 @@ body.menu-open .dimmer-overlay {
 
 .menu-links li {
     /* Adjusted margin for slightly less space */
-    margin: 30px 0; 
+    margin: 30px 0;
     overflow: hidden;
 }
 
 .menu-links a {
     text-decoration: none;
-    color: #000; 
+    color: #000;
     font-family: 'Impact', sans-serif;
     font-weight: 400;
     
     /* NEW: Responsive Font Size using clamp() or a combination of units */
     /* Clamp sets a minimum, a fluid preferred, and a maximum size: 3rem minimum, 3.5vw preferred, 4.5rem maximum */
-    font-size: clamp(3rem, 3.5vw, 4.5rem); 
-    
+    font-size: clamp(3rem, 3.5vw, 4.5rem);
+
     text-transform: uppercase;
     letter-spacing: 2px;
     display: inline-block;
     transition: color 0.3s;
-    line-height: 1; 
+    line-height: 1;
 }
 
 .menu-links a:hover {
     color: #EDEDED; 
 }
 
-/* Specific adjustment for smaller mobile screens */
-@media (max-width: 768px) {
+@media (min-width: 2560px) {
+    .menu-links a {
+        font-size: 7rem;
+    }
+}
+
+/* ===============================================
+   MENU RESPONSIVE — unified across all pages
+   Targets desktop → laptop → tablet landscape →
+   tablet portrait (notepad) → phone → small phone.
+   Appended last so it wins on source order.
+   =============================================== */
+
+/* Small laptop / large tablet landscape (~1200) */
+@media (max-width: 1200px) {
     .off-canvas-menu {
-        /* On mobile, use a larger width for better touch target and visibility */
-        width: 75%; 
+        width: 45%;
+        right: -45%;
+    }
+    .menu-links a {
+        font-size: 2.9rem;
+    }
+    .menu-links li {
+        margin: 30px 0;
+    }
+}
+
+/* Tablet landscape / notepad */
+@media (max-width: 1024px) {
+    .off-canvas-menu {
+        width: 55%;
+        right: -55%;
+        padding-right: 5%;
+    }
+    .menu-links a {
+        font-size: 2.8rem;
+    }
+    .menu-links li {
+        margin: 26px 0;
+    }
+}
+
+/* Tablet portrait / small notepad */
+@media (max-width: 900px) {
+    .off-canvas-menu {
+        width: 65%;
+        right: -65%;
+    }
+    .menu-links a {
+        font-size: clamp(2.9rem, 6vw, 3.4rem);
+    }
+    .menu-links li {
+        margin: 22px 0;
+    }
+    /* list is flex-centered in the panel, but optically reads low —
+       lift it a bit toward true visual center on phones */
+    .off-canvas-menu .menu-links {
+        transform: translateY(-5vh);
+    }
+}
+
+/* Large phone */
+@media (max-width: 640px) {
+    .off-canvas-menu {
+        width: 75%;
         right: -75%;
     }
-    
+    .menu-links a {
+        font-size: 2.8rem;
+    }
     .menu-links li {
-        margin: 20px 0; /* Reduced margin */
-    }
-    
-    .menu-links a {
-        /* Smaller, more suitable font size for mobile view */
-        font-size: 2.8rem; 
-        /* Removing clamp for consistency on small screens, using a fixed-size */
+        margin: 18px 0;
     }
 }
 
-
-
-@media (min-width: 2560px) {
-
-    
-
-    
-    .menu-links a {
-        /* Smaller, more suitable font size for mobile view */
-        font-size: 7rem; 
-        /* Removing clamp for consistency on small screens, using a fixed-size */
-    }
-}
-
-
+/* Small phone */
 @media (max-width: 425px) {
     .off-canvas-menu {
-        /* On mobile, use a larger width for better touch target and visibility */
-        width: 75%; 
-        right: -75%;
+        width: 82%;
+        right: -82%;
     }
-    
-    .menu-links li {
-        margin: 20px 0; /* Reduced margin */
-    }
-    
     .menu-links a {
-        /* Smaller, more suitable font size for mobile view */
-        font-size: 2.5rem; 
-        /* Removing clamp for consistency on small screens, using a fixed-size */
+        font-size: 2.5rem;
+    }
+    .menu-links li {
+        margin: 14px 0;
     }
 }
 
+/* ============================================================
+   LANGUAGE TOGGLE — off-canvas panel
+   ============================================================ */
+.off-canvas-menu .lang-toggle {
+    position: absolute;
+    top: 28px;
+    left: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    font-family: 'Anodina', sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: rgba(0,0,0,0.45);
+    z-index: 2;
+    pointer-events: auto;
+}
+.off-canvas-menu .lang-bracket {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(0, -50%);
+    color: #000;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1;
+    letter-spacing: 0;
+    pointer-events: none;
+    z-index: 1;
+    transition: left 0.35s cubic-bezier(.2,.9,.25,1),
+                transform 0.35s cubic-bezier(.2,.9,.25,1);
+    will-change: left, transform;
+}
+.off-canvas-menu .lang-btn {
+    background: transparent;
+    border: 0;
+    padding: 2px 10px;
+    color: rgba(0,0,0,0.42);
+    font: inherit;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+    letter-spacing: inherit;
+}
+.off-canvas-menu .lang-btn.active {
+    color: #000;
+}
+.off-canvas-menu .lang-btn:hover {
+    color: #000;
+}
+.off-canvas-menu .menu-links {
+    margin-top: 60px;
+}
+@media (max-width: 900px) {
+    .off-canvas-menu .menu-links {
+        margin-top: 0;
+    }
+}
+
+
+/* Impact has no Georgian glyphs — page title falls back to a huge
+   generic serif and overflows. Give Georgian its own display face,
+   appended last so it wins regardless of the file's earlier duplicate
+   .page-title-impact rules. */
+body:not([data-lang="en"]) .page-title-impact {
+    font-family: 'LGVBigNoodle', 'BPGBannerSquare', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* .page-title-impact mobile tiers were defined BEFORE a later,
+   unconditional duplicate 5rem base rule, so they never actually won —
+   the title rendered oversized and overflowed on every phone width.
+   Appended last so these genuinely apply. */
+@media (max-width: 768px) {
+    .page-title-impact { font-size: 3rem; }
+}
+@media (max-width: 480px) {
+    .page-title-impact { font-size: 2.2rem; }
+}
+
+/* Georgian project titles/categories use BPG Banner SuperSquare Caps */
+body:not([data-lang="en"]) .project-name,
+body:not([data-lang="en"]) .project-category {
+    font-family: 'BPGBannerSquare', sans-serif;
+}
