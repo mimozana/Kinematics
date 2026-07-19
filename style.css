@@ -206,21 +206,23 @@ body.menu-open .dimmer-overlay {
 .off-canvas-menu {
     position: fixed;
     top: 0;
-    right: -35%; 
-    width: 35%; 
+    right: 0;
+    width: 35%;
     height: 100vh;
-    background-color: #ce2a0b; 
+    background-color: #ce2a0b;
     z-index: 1050;
-    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    will-change: transform;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end; 
+    align-items: flex-end;
     padding-right: 10%;
 }
- 
+
 .off-canvas-menu.open {
-    right: 0; 
+    transform: translateX(0);
 }
  
 .menu-links {
@@ -591,27 +593,22 @@ body.menu-open .dimmer-overlay {
 @keyframes paper-pull-out {
     0% {
         transform: translate(0, 0) rotate(2.19deg);
-        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
         animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
     }
     30% { /* pulled fully clear of the stack */
         transform: translate(var(--fx), calc(var(--py) * 0.75 + 12px)) rotate(1.4deg);
-        filter: drop-shadow(16px 20px 30px rgba(0, 0, 0, 0.45));
         animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
     }
     38% { /* micro-beat in open space — comes to the top here */
         transform: translate(calc(var(--fx) + 15px), calc(var(--py) * 0.78 + 11px)) rotate(1.2deg);
-        filter: drop-shadow(16px 20px 30px rgba(0, 0, 0, 0.45));
         animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
     }
     82% { /* laid back over the dossier — skids a hair past the mark */
         transform: translate(calc(var(--px) * 0.97), calc(var(--py) - 3px)) rotate(-0.6deg);
-        filter: drop-shadow(10px 13px 22px rgba(0, 0, 0, 0.4));
         animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
     }
     100% {
         transform: translate(var(--px), var(--py)) rotate(0deg);
-        filter: drop-shadow(8px 10px 18px rgba(0, 0, 0, 0.38));
     }
 }
 
@@ -620,31 +617,26 @@ body.menu-open .dimmer-overlay {
 @keyframes paper-push-in {
     0% {
         transform: translate(var(--px), var(--py)) rotate(0deg);
-        filter: drop-shadow(8px 10px 18px rgba(0, 0, 0, 0.38));
         z-index: 20;
         animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
     }
     30% { /* lifted back out, clear of everything */
         transform: translate(var(--fx), calc(var(--py) * 0.8 + 10px)) rotate(1.3deg);
-        filter: drop-shadow(14px 18px 28px rgba(0, 0, 0, 0.42));
         z-index: 20;
         animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
     }
     38% { /* micro-hold in open space — drops into the pile here */
         transform: translate(calc(var(--fx) + 15px), calc(var(--py) * 0.8 + 11px)) rotate(1.5deg);
-        filter: drop-shadow(14px 18px 28px rgba(0, 0, 0, 0.42));
         z-index: var(--z);
         animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
     }
     82% { /* slides home fast, tucking under the stack */
         transform: translate(calc(var(--px) * 0.05), calc(var(--py) * 0.06)) rotate(2.5deg);
-        filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.28));
         z-index: var(--z);
         animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
     }
     100% {
         transform: translate(0, 0) rotate(2.19deg);
-        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
         z-index: var(--z);
     }
 }
@@ -723,27 +715,22 @@ body.menu-open .dimmer-overlay {
 @keyframes paper-pull-out-m {
     0% {
         transform: translate(0, 0) rotate(2.19deg) scale(1);
-        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
         animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
     }
     30% { /* pulled fully clear of the stack, off the right of the frame */
         transform: translate(var(--fx), 12px) rotate(1.4deg) scale(calc(var(--os) * 0.8296));
-        filter: drop-shadow(16px 20px 30px rgba(0, 0, 0, 0.45));
         animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
     }
     38% { /* micro-beat out of frame — comes to the top here */
         transform: translate(calc(var(--fx) + 15px), 11px) rotate(1.2deg) scale(calc(var(--os) * 0.8444));
-        filter: drop-shadow(16px 20px 30px rgba(0, 0, 0, 0.45));
         animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
     }
     82% { /* laid back over the dossier — lands a hair past the mark */
         transform: translate(calc(var(--px) - 4px), calc(var(--py) + 6px)) rotate(-0.6deg) scale(calc(var(--os) * 0.9852));
-        filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.4));
         animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
     }
     100% {
         transform: translate(var(--px), var(--py)) rotate(0deg) scale(var(--os));
-        filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.38));
     }
 }
 
@@ -752,31 +739,26 @@ body.menu-open .dimmer-overlay {
 @keyframes paper-push-in-m {
     0% {
         transform: translate(var(--px), var(--py)) rotate(0deg) scale(var(--os));
-        filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.38));
         z-index: 20;
         animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
     }
     30% { /* back out past the frame edge */
         transform: translate(var(--fx), 10px) rotate(1.3deg) scale(calc(var(--os) * 0.8296));
-        filter: drop-shadow(14px 18px 28px rgba(0, 0, 0, 0.42));
         z-index: 20;
         animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
     }
     38% { /* micro-hold out of frame — drops into the pile here */
         transform: translate(calc(var(--fx) + 15px), 11px) rotate(1.5deg) scale(calc(var(--os) * 0.8148));
-        filter: drop-shadow(14px 18px 28px rgba(0, 0, 0, 0.42));
         z-index: var(--z);
         animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
     }
     82% { /* slides home into its slot */
         transform: translate(calc(var(--px) * 0.05), calc(var(--py) * 0.06)) rotate(2.5deg) scale(calc(var(--os) * 0.7481));
-        filter: drop-shadow(4px 4px 8px rgba(0, 0, 0, 0.28));
         z-index: var(--z);
         animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
     }
     100% {
         transform: translate(0, 0) rotate(2.19deg) scale(1);
-        filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
         z-index: var(--z);
     }
 }
@@ -1393,21 +1375,23 @@ body:not([data-lang="en"]) .contact-cta-headline.lang-en { display: none !import
 .off-canvas-menu {
     position: fixed;
     top: 0;
-    right: -35%; 
-    width: 35%; 
+    right: 0;
+    width: 35%;
     height: 100vh;
-    background-color: #ce2a0b; 
+    background-color: #ce2a0b;
     z-index: 1050;
-    transition: right 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+    will-change: transform;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end; 
+    align-items: flex-end;
     padding-right: 3%; /* Reduced padding right for better fit on desktop */
 }
- 
+
 .off-canvas-menu.open {
-    right: 0; 
+    transform: translateX(0);
 }
  
 .menu-links {
@@ -1505,9 +1489,8 @@ body:not([data-lang="en"]) .off-canvas-menu .menu-links a {
     .off-canvas-menu {
         /* On mobile, use a larger width for better touch target and visibility */
         width: 75%;
-        right: -75%;
     }
- 
+
     .menu-links li {
         margin: 20px 0; /* Reduced margin */
     }
@@ -1531,7 +1514,6 @@ body:not([data-lang="en"]) .off-canvas-menu .menu-links a {
 @media (max-width: 1200px) {
     .off-canvas-menu {
         width: 45%;
-        right: -45%;
     }
     .menu-links a {
         font-size: 2.9rem;
@@ -1545,7 +1527,6 @@ body:not([data-lang="en"]) .off-canvas-menu .menu-links a {
 @media (max-width: 1024px) {
     .off-canvas-menu {
         width: 55%;
-        right: -55%;
         padding-right: 5%;
     }
     .menu-links a {
@@ -1560,7 +1541,6 @@ body:not([data-lang="en"]) .off-canvas-menu .menu-links a {
 @media (max-width: 900px) {
     .off-canvas-menu {
         width: 65%;
-        right: -65%;
     }
     .menu-links a {
         font-size: clamp(2.9rem, 6vw, 3.4rem);
@@ -1579,7 +1559,6 @@ body:not([data-lang="en"]) .off-canvas-menu .menu-links a {
 @media (max-width: 640px) {
     .off-canvas-menu {
         width: 75%;
-        right: -75%;
     }
     .menu-links a {
         font-size: 2.8rem;
@@ -1593,7 +1572,6 @@ body:not([data-lang="en"]) .off-canvas-menu .menu-links a {
 @media (max-width: 425px) {
     .off-canvas-menu {
         width: 82%;
-        right: -82%;
     }
     .menu-links a {
         font-size: 2.5rem;
@@ -1795,6 +1773,7 @@ body[data-lang="ge"] .apa-rm-eng { display: none; }
     max-height: 0;
     overflow: hidden;
     opacity: 0;
+    contain: layout paint;
     transition:
         max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
         opacity 0.4s ease;
