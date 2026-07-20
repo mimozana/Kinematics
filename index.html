@@ -14,12 +14,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=28">
+    <link rel="stylesheet" href="style.css?v=30">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="lenis-init.js?v=1" defer></script>
-    <script src="script.js?v=14" defer></script>
+    <script src="script.js?v=15" defer></script>
 </head>
 <body data-lang="ge">
 
@@ -214,9 +214,9 @@
 
         <!-- dark red folder background -->
         <div class="papers-folder-bg">
-            <svg viewBox="0 0 947 954" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <path d="M850.625 0.500305L10.4651 3.4306C4.95592 3.44977 0.5 7.92133 0.5 13.4305V940.992C0.5 946.504 4.9611 950.977 10.4736 950.992L936.474 953.439C942.007 953.453 946.5 948.972 946.5 943.439V616.987C946.5 614.492 945.567 612.087 943.884 610.244L863.276 521.969C861.593 520.126 860.66 517.721 860.66 515.226V10.5002C860.66 4.96381 856.162 0.481018 850.625 0.500305Z" fill="#420808" stroke="#A61E1E"/>
-            </svg>
+            <!-- pre-rasterized PNG of the folder shape — Safari re-rasterizes
+                 stretched inline SVG on scroll/scale, which caused jank -->
+            <img src="./photos/dossier-folder-bg.png" alt="" draggable="false">
         </div>
 
         <!-- back: Photo and Video Production -->
@@ -235,9 +235,7 @@
                     </div>
                 </div>
                 <div class="brand-flag">
-                    <svg viewBox="0 0 543 103" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                        <path d="M 0 0 L 502 0 L 543 51.5 L 502 103 L 0 103 Z" fill="#CE2A0B"/>
-                    </svg>
+                    <img src="./photos/dossier-flag.png" alt="" draggable="false">
                     <span class="brand-flag-label lang-en">Photo &amp; Video<br>Production</span>
                     <span class="brand-flag-label lang-ge">ფოტო & ვიდეო<br>წარმოება</span>
                 </div>
@@ -264,9 +262,7 @@
                     </div>
                 </div>
                 <div class="brand-flag">
-                    <svg viewBox="0 0 543 103" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                        <path d="M 0 0 L 502 0 L 543 51.5 L 502 103 L 0 103 Z" fill="#CE2A0B"/>
-                    </svg>
+                    <img src="./photos/dossier-flag.png" alt="" draggable="false">
                     <span class="brand-flag-label lang-en">Digital<br>Marketing</span>
                     <span class="brand-flag-label lang-ge">ციფრული<br>მარკეტინგი</span>
                 </div>
@@ -293,9 +289,7 @@
                     </div>
                 </div>
                 <div class="brand-flag">
-                    <svg viewBox="0 0 543 103" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                        <path d="M 0 0 L 502 0 L 543 51.5 L 502 103 L 0 103 Z" fill="#CE2A0B"/>
-                    </svg>
+                    <img src="./photos/dossier-flag.png" alt="" draggable="false">
                     <span class="brand-flag-label lang-en">Brand<br>Design</span>
                     <span class="brand-flag-label lang-ge">ბრენდის<br>დიზაინი</span>
                 </div>

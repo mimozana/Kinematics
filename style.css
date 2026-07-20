@@ -545,15 +545,18 @@ body.menu-open .dimmer-overlay {
     height: 750px;
 }
 
-/* outer wrapper: overall rotation + composite drop shadow */
+/* outer wrapper: overall rotation. NO filter here — a filter (even a
+   static drop-shadow) forces WebKit to re-render the whole paper+SVG
+   subtree offscreen on every repaint, which made scrolling this section
+   continuously laggy on Safari/iPhone. The paper-card's box-shadow
+   carries the depth instead. */
 .brand-paper {
     position: absolute;
     overflow: visible;
     transform: rotate(2.19deg);
-    filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.25));
+    will-change: transform;
     /* z-index drops instantly on close so the paper slides back INTO the stack */
     transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-                filter 0.85s ease,
                 z-index 0s linear 0s;
 }
 
@@ -573,12 +576,10 @@ body.menu-open .dimmer-overlay {
     z-index: 20;
     cursor: pointer;
     transform: translate(var(--px), var(--py)) rotate(0deg);
-    filter: drop-shadow(8px 10px 18px rgba(0, 0, 0, 0.38));
     animation: paper-pull-out 0.95s cubic-bezier(0.3, 0.6, 0.3, 1) both;
     /* z flips mid-gesture, while the paper hesitates out in open space —
        nothing overlaps at that moment, so the swap is never visible */
     transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-                filter 0.85s ease,
                 z-index 0s linear 0.32s;
 }
 #paper-photo.is-closing,
@@ -592,23 +593,23 @@ body.menu-open .dimmer-overlay {
    micro-beat in open space (z flips here), then laid down onto the dossier */
 @keyframes paper-pull-out {
     0% {
-        transform: translate(0, 0) rotate(2.19deg);
+        transform: translate(0, 0) rotate(2.19deg) scale(1);
         animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
     }
-    30% { /* pulled fully clear of the stack */
-        transform: translate(var(--fx), calc(var(--py) * 0.75 + 12px)) rotate(1.4deg);
+    30% { /* pulled fully clear of the stack — lifted toward the viewer */
+        transform: translate(var(--fx), calc(var(--py) * 0.75 + 12px)) rotate(1.4deg) scale(1.05);
         animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
     }
     38% { /* micro-beat in open space — comes to the top here */
-        transform: translate(calc(var(--fx) + 15px), calc(var(--py) * 0.78 + 11px)) rotate(1.2deg);
+        transform: translate(calc(var(--fx) + 15px), calc(var(--py) * 0.78 + 11px)) rotate(1.2deg) scale(1.055);
         animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
     }
     82% { /* laid back over the dossier — skids a hair past the mark */
-        transform: translate(calc(var(--px) * 0.97), calc(var(--py) - 3px)) rotate(-0.6deg);
+        transform: translate(calc(var(--px) * 0.97), calc(var(--py) - 3px)) rotate(-0.6deg) scale(1.008);
         animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
     }
     100% {
-        transform: translate(var(--px), var(--py)) rotate(0deg);
+        transform: translate(var(--px), var(--py)) rotate(0deg) scale(1);
     }
 }
 
@@ -616,27 +617,27 @@ body.menu-open .dimmer-overlay {
    into the stack → settle at the resting angle */
 @keyframes paper-push-in {
     0% {
-        transform: translate(var(--px), var(--py)) rotate(0deg);
+        transform: translate(var(--px), var(--py)) rotate(0deg) scale(1);
         z-index: 20;
         animation-timing-function: cubic-bezier(0.5, 0.05, 0.5, 0.9);
     }
-    30% { /* lifted back out, clear of everything */
-        transform: translate(var(--fx), calc(var(--py) * 0.8 + 10px)) rotate(1.3deg);
+    30% { /* lifted back out, clear of everything — raised off the pile */
+        transform: translate(var(--fx), calc(var(--py) * 0.8 + 10px)) rotate(1.3deg) scale(1.05);
         z-index: 20;
         animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
     }
     38% { /* micro-hold in open space — drops into the pile here */
-        transform: translate(calc(var(--fx) + 15px), calc(var(--py) * 0.8 + 11px)) rotate(1.5deg);
+        transform: translate(calc(var(--fx) + 15px), calc(var(--py) * 0.8 + 11px)) rotate(1.5deg) scale(1.045);
         z-index: var(--z);
         animation-timing-function: cubic-bezier(0.45, 0.08, 0.3, 1);
     }
     82% { /* slides home fast, tucking under the stack */
-        transform: translate(calc(var(--px) * 0.05), calc(var(--py) * 0.06)) rotate(2.5deg);
+        transform: translate(calc(var(--px) * 0.05), calc(var(--py) * 0.06)) rotate(2.5deg) scale(1.005);
         z-index: var(--z);
         animation-timing-function: cubic-bezier(0.3, 0.7, 0.4, 1);
     }
     100% {
-        transform: translate(0, 0) rotate(2.19deg);
+        transform: translate(0, 0) rotate(2.19deg) scale(1);
         z-index: var(--z);
     }
 }
@@ -660,7 +661,8 @@ body.menu-open .dimmer-overlay {
     .paper-demo-section .papers-stack,
     .paper-demo-section .brand-paper,
     .paper-demo-section .folder-cover-demo,
-    .paper-demo-section .papers-folder-bg {
+    .paper-demo-section .papers-folder-bg,
+    .paper-demo-section .brand-paper-card::after {
         transition: none;
         animation: none !important;
     }
@@ -798,7 +800,8 @@ body.menu-open .dimmer-overlay {
     transition: filter 0.9s ease;
 }
 
-.papers-folder-bg svg {
+.papers-folder-bg svg,
+.papers-folder-bg img {
     width: 100%;
     height: 100%;
     display: block;
@@ -815,6 +818,49 @@ body.menu-open .dimmer-overlay {
 #paper-photo .brand-paper-card     { height: 342px; }
 #paper-marketing .brand-paper-card { width: 515px; height: 450px; }
 #paper-brand .brand-paper-card     { width: 511px; height: 470px; }
+
+/* ── lift shadow ──────────────────────────────────────────────
+   The old animated drop-shadow filters were the #1 Safari lag
+   source, but losing them flattened the gesture. This brings the
+   depth back the cheap way: a pre-painted shadow layer under the
+   card whose OPACITY is animated (GPU-composited) instead of the
+   shadow blur itself. Swells while the sheet travels, relaxes as
+   it lays down — same read as a real lift, none of the cost.   */
+.brand-paper-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    box-shadow: 12px 16px 34px 2px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+.brand-paper.is-open .brand-paper-card::after {
+    opacity: 0.85;
+    animation: shadow-lift 0.95s cubic-bezier(0.3, 0.6, 0.3, 1) both;
+}
+.brand-paper.is-closing .brand-paper-card::after {
+    animation: shadow-drop 0.95s cubic-bezier(0.3, 0.5, 0.3, 1) both;
+}
+.brand-paper.no-anim .brand-paper-card::after { animation: none !important; }
+
+/* shadow beats mirror the paper keyframes: deepest at the airborne
+   micro-beat (30-38%), eases off on the lay-down, settles resting */
+@keyframes shadow-lift {
+    0%   { opacity: 0; }
+    30%  { opacity: 1; }
+    38%  { opacity: 1; }
+    82%  { opacity: 0.75; }
+    100% { opacity: 0.85; }
+}
+@keyframes shadow-drop {
+    0%   { opacity: 0.85; }
+    30%  { opacity: 1; }
+    38%  { opacity: 1; }
+    82%  { opacity: 0.2; }
+    100% { opacity: 0; }
+}
 
 /* clips text content within card bounds */
 .brand-paper-content {
@@ -850,8 +896,10 @@ body.menu-open .dimmer-overlay {
     z-index: 5;
     cursor: pointer;
 }
-.brand-flag svg path { transition: filter 0.25s ease; }
-.brand-flag:hover svg path { filter: brightness(1.15); }
+.brand-flag svg path,
+.brand-flag img { transition: filter 0.25s ease; }
+.brand-flag:hover svg path,
+.brand-flag:hover img { filter: brightness(1.15); }
 #paper-photo .brand-flag     { left: 292px; }
 #paper-marketing .brand-flag { left: 253px; }
 #paper-brand .brand-flag     { left: 273px; }
@@ -875,7 +923,8 @@ body.menu-open .dimmer-overlay {
     transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), filter 0.9s ease;
 }
 
-.brand-flag svg {
+.brand-flag svg,
+.brand-flag img {
     position: absolute;
     inset: 0;
     width: 100%;

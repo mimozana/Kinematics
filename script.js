@@ -191,9 +191,6 @@ dimmer.addEventListener('click', closeMenu);
         "EMOTIONAL\nMARKETING",
         "STRATEGY",
         "ALIGNMENT",
-        "PROMISE",
-        "TRUST",
-        "CHARACTER",
         "AUTHENTICITY",
         "PURPOSE",
         "REPUTATION"
@@ -243,9 +240,6 @@ dimmer.addEventListener('click', closeMenu);
         "ემოციური\nმარკეტინგი",
         "სტრატეგია",
         "თანხვედრა",
-        "პირობა",
-        "ნდობა",
-        "ხასიათი",
         "გულწრფელობა",
         "მიზანი",
         "რეპუტაცია"
@@ -293,9 +287,6 @@ dimmer.addEventListener('click', closeMenu);
         "EMOTIONAL\nMARKETING",
         "STRATEGY",
         "ALIGNMENT",
-        "PROMISE",
-        "TRUST",
-        "CHARACTER",
         "AUTHENTICITY",
         "PURPOSE",
         "REPUTATION"
